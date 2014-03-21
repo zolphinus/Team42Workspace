@@ -1,0 +1,1 @@
+Create text files in this folder to document changes you make, or to discuss designs going forward.

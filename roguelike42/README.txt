@@ -1,0 +1,2 @@
+This folder is reserved for building the project.
+Ideally, we should all be working on different aspects of the game. As we advance our development, we will need to create milestones as working copies in case we need to revert to earlier changes, to avoid losing the whole project, etc.
