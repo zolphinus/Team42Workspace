@@ -1,0 +1,27 @@
+*****************************************************************
+Date:	3/22/14
+
+Update on progress:
+I have made a list of 3 jobs we could use.
+
+1.Warrior - High attack but cannot heal. 
+   Stats: High attack/ High Defense/ High HP 
+
+2.Healer - Very low attack, but can heal himself.  
+Each heal would take some of points of his magic gauge away.  
+If he has 0 magic points, he can't heal.
+   Stats: Low Attack/ Low Defense/ Low HP
+
+3.Paladin - A mix of warrior and healer.
+Does less damage than warrior but more than mage.  Heals less than 
+mage and has less MP.  I picked this, because it would let us 
+reuse stuff from the other two very easily.
+   Stats: Decent Attack/ Decent Defense/ Decent HP
+
+
+Suggestion for your next task:
+Think of ways to implement these jobs into the project, using 
+inheritance, polymorphism, etc.  Make outlines of functions for
+each job.
+
+*****************************************************************
