@@ -1,0 +1,9 @@
+When designing the class for characters and loading the map, design these in such a way where the controller object can access methods.
+
+For example, generateCharacter() and generateMap(), updateMap(), attack(character&), map.moveCharacter(character&).
+
+Also, due to the way c++ creates objects, it may be better to have characterJobs be it's own class instead of an inherited class, for technical reasons. Certain methods such a class may include may be special abilities. For example, heal(character&) and healSelf() for a healer class. Or whirlwind() for a barbarian {hits all enemies around you}.
+
+Please design your classes by Tuesday, and try to keep them as loosely coupled as possible. There is a section in Code Complete that covers this, if you're unsure what it means.
+
+
