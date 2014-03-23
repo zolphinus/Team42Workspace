@@ -25,3 +25,5 @@ inheritance, polymorphism, etc.  Make outlines of functions for
 each job.
 
 *****************************************************************
+
+Great job, work closely with Adam on this since you guys will overlap in design. Our first milestone for the project as a whole is to get a character generated, get a map loaded, and be able to move the character. Keep that in mind when initial design takes place.
