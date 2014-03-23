@@ -6,7 +6,7 @@ using std::endl;
 
 int main()
 {
-
+    cout << "Hello world!" << endl;
 
 
 
