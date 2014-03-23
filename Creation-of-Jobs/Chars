@@ -1,0 +1,64 @@
+1
+			Creation of Jobs/Enemies, etc.
+
+Basic “Being” class
+
+(Abstract Base)
+Public:
+
+Setters/Getters for stats
+
+Attack();  //self explanatory, physical attack, maybe linked to movement, maybe not.
+	  //Rewritten by job, to differentiate them. Could be dealt with at creation, hence why the class is abstract.
+
+Move();
+Private:
+		HP	HP Max
+		MP	MP Max
+		STR	DEF
+		MAG    	RES
+		EVA 	AGI
+		Inventory: Stores items, Equips or otherwise, fixed or  dynamic/weight-dependant, depending on how we want it implemented.
+		Location: simply the location on the map of the character, on its own, in case of flexibility/expansion. Setters/Getters of location are found here.
+
+	
+
+
+
+2
+ “Being” could/may branch to both Enemies and Players,
+		 Making drops easier to find and obtain, through Enemy inventories, 
+			And making “half-way point” stat increases/behavior changes
+			For enemies in later advancements.
+
+
+Player: Public Being
+  
+	(Also Abstract if possible)
+	Public:
+		SetName(string<?>  Name)
+		Set_Job(string<?>  Job)
+		Get_Job();
+Private:
+Equips:  stores currently equipped items (anywhere from 2-4+ slots, depending on how detailed), fixed storage, same for every character. 
+		Job class: Stores the job class, depends on player choice: not used until job selection at title screen.
+		Name: Just decorative, the name of the character, for status messages or death messages, etc.(“<name> obtained <item>!” etc. etc.)
+
+
+(insert Job): Public Player
+
+	Public:
+		//insert functions of class here
+		// i.e. ‘Heal All(int Radius), Heal_Self(),  Flame_Summon(), etc.
+		Move();
+		Attack(); //rewritten to account for range(archers? Mages?) or stats of character.
+	Private:
+		// insert class-dependant stats/items, etc.
+
+
+Clarification of use in beginning creation:
+For the sake of coupling and abstraction, the reason for both character and being’s use as abstract would be to create the characters at job level, but break up what’s needed in such a way that it can be used elsewhere(enemies, etc.), or otherwise taken care of easily.
+
+At creation, it’d be something like Assign_Start()
+Within the game, that would take your choice of jobs from a given list, create a “new (insert class)” off of a Being/Player pointer(probably Player pointer, to keep enemies to themselves), and then assign values at random(or fixed values) dependant on the class: Mages having less HP and defense, maybe more EVA, etc. 
+This is just a start, so feel free to point out any discrepancies, redundancies, etc. 
