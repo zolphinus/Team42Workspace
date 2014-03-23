@@ -1,0 +1,396 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0055)http://nvie.com/posts/a-successful-git-branching-model/ -->
+<html lang="en" class="wf-arimo-i4-active wf-arimo-n4-active wf-arimo-n7-active wf-ffenzoweb-n6-active wf-ffenzoweb-n7-active wf-proximanova-i4-active wf-proximanova-n1-active wf-proximanova-n3-active wf-proximanova-n4-active wf-proximanova-n7-active wf-proximanova-n8-active wf-proximanova-n9-active wf-active"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>A successful Git branching model » nvie.com</title>
+		<link href="./A successful Git branching model » nvie.com_files/css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" type="text/css" href="./A successful Git branching model » nvie.com_files/style.css">
+		<link rel="stylesheet" type="text/css" href="./A successful Git branching model » nvie.com_files/syntax.css">
+		<link rel="stylesheet" type="text/css" href="http://nvie.com/css/fontface.css">
+		<meta name="viewport" content="width=700, user-scalable=yes, maximum-scale=1.5">
+		<link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="./A successful Git branching model » nvie.com_files/mobile.css" type="text/css"> 
+		<link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="./A successful Git branching model » nvie.com_files/mobile.css" type="text/css"> 
+		<link rel="stylesheet" media="print" type="text/css" href="./A successful Git branching model » nvie.com_files/print.css">
+		<script type="text/javascript" async="" src="./A successful Git branching model » nvie.com_files/load.js"></script><script type="text/javascript" async="" id="gauges-tracker" data-site-id="50693215613f5d378200002c" src="./A successful Git branching model » nvie.com_files/track.js"></script><script src="./A successful Git branching model » nvie.com_files/acc_535d576_pub" type="text/javascript" async="" defer=""></script><script type="text/javascript" src="./A successful Git branching model » nvie.com_files/jquery.min.js"></script>
+		<script type="text/javascript" src="./A successful Git branching model » nvie.com_files/relatize_date.js"></script>
+		
+		<script type="text/javascript" src="./A successful Git branching model » nvie.com_files/site.js"></script>
+		<script type="text/javascript" src="./A successful Git branching model » nvie.com_files/defeatthefout.js"></script>
+		<meta name="generator" content="nanoc">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+		<link href="http://nvie.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon"> 
+		<link href="http://nvie.com/img/icon.png" rel="apple-touch-icon"> 
+		<link rel="alternate" type="application/atom+xml" href="http://feeds.feedburner.com/nvie">
+
+        <script type="text/javascript" src="./A successful Git branching model » nvie.com_files/nge1fhs.js"></script>
+        <style type="text/css">.tk-ff-enzo-web{font-family:"ff-enzo-web",sans-serif;}.tk-arimo{font-family:"arimo",sans-serif;}.tk-proxima-nova{font-family:"proxima-nova",sans-serif;}</style><link rel="stylesheet" href="http://use.typekit.net/c/909bb9/arimo:i4:n4:n7,ff-enzo-web:n6:n7,proxima-nova:i4:n1:n3:n4:n7:n8:n9.WX8:F:2,WX6:F:2,WX7:F:2,Trx:F:2,Vcp:F:2,W0W:F:2,Vmv:F:2,Vmx:F:2,W0V:F:2,W0Y:F:2,Vn5:F:2,Vn7:F:2/d?3bb2a6e53c9684ffdc9a9bfe135b2a62619e5c28019a937bcbf0d7fbb9dcc3898c71cb4dcd537459146aef18bd5d46b146b3e659e64f4690021b94aee7e506e6b92ebc3f892a3dfb27c7bc26b94e260c03ed313df93526dc2f2e0bc50fbb174ec194fbc9e72d951bdd6f02d4576f54f985671bf28e326f5cb68e39be74e5e3f7c87105396d24e50e9dba0984b33803c4fbfebfb9d159004d587adb537637e2c7fda1470ad165b624e9c0ebdbd548d2d3eb4e9994081328899f4669abe3"><script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	</head>
+	<body>
+		<div id="header">
+			<h1><a href="http://nvie.com/"><span id="nvie">nvie</span><span id="dot">.</span><span id="ext">com</span></a></h1>
+			<ul>
+                <li id="home"><a href="http://nvie.com/">Home</a></li>
+                <li id="posts" class="current"><a href="http://nvie.com/posts/">Posts</a></li>
+                
+                <li id="about"><a href="http://nvie.com/about/">About me</a></li>
+			</ul>
+        </div>
+		<img width="62" height="25" src="./A successful Git branching model » nvie.com_files/default.gif" class="typekit-badge" alt="Fonts by Typekit" title="Information about the fonts used on this site" style="position: fixed; z-index: 2000000000; right: 0px; bottom: 0px; cursor: pointer; border: 0px; content: none; display: inline; float: none; height: 25px; left: auto; margin: 0px; max-height: 25px; max-width: 62px; min-height: 25px; min-width: 62px; orphans: 2; outline: none; overflow: visible; padding: 0px; page-break-after: auto; page-break-before: auto; page-break-inside: auto; table-layout: auto; text-indent: 0px; top: auto; unicode-bidi: normal; vertical-align: baseline; visibility: visible; widows: 2; width: 65px;"><div id="actionbox" style="top: 120px; left: 1003.5px; display: block;">
+            <div id="rss"><a href="http://feeds.feedburner.com/nvie" target="_blank"><img src="./A successful Git branching model » nvie.com_files/rss.png" alt="Subscribe" title="Subscribe" width="16" height="16"></a></div>
+            <div id="tweet"><a href="http://twitter.com/share?url=http://nvie.com/posts/a-successful-git-branching-model/&via=nvie&text=A%20successful%20Git%20branching%20model" target="_blank"><img src="./A successful Git branching model » nvie.com_files/twitter.png" width="16" height="16" alt="Tweet this!" title="Tweet this!"></a></div>
+
+            <!-- Ad -->
+            <div id="influads_block" class="influads_block"> </div>
+            <script type="text/javascript">(function(){ var acc =   "acc_535d576_pub";var st ="css";var or= "130";var e=document.getElementsByTagName("script")[0];var d=document.createElement("script");d.src=('https:' == document.location.protocol ?'https://' : 'http://') +"engine.influads.com/show/"+or+"/"+st+"/"+acc;d.type="text/javascript"; d.async=true; d.defer=true; e.parentNode.insertBefore(d,e);})();</script>
+		</div>
+		<div id="main">
+			<div id="post">
+    
+<div class="flattr-quick no-print"><iframe src="./A successful Git branching model » nvie.com_files/saved_resource.htm" class="FlattrButton" width="55" height="62" frameborder="0" scrolling="no" title="Flattr" border="0" marginheight="0" marginwidth="0" allowtransparency="true"></iframe></div>
+<h1 style="clear: left">A successful Git branching model</h1>
+
+<p id="permalink" class="print-only">http://nvie.com/posts/a-successful-git-branching-model/</p>
+<p class="no-print created_at dateline">Published: <span class="reldate">January 05, 2010</span></p><p class="print-only created_at dateline">Published: <span>January 05, 2010</span></p>
+<p>In this post I present the development model that I’ve introduced for all of my
+projects (both at work and private) about a year ago, and which has turned out
+to be very successful. I’ve been meaning to write about it for a while now, but
+I’ve never really found the time to do so&nbsp;thoroughly, until now. I won’t talk
+about any of the projects’ details, merely about the branching strategy and
+release management.</p>
+<p><img src="./A successful Git branching model » nvie.com_files/Screen-shot-2009-12-24-at-11.32.03.png" class="center" alt=""></p>
+<p>It focuses around <a href="http://git-scm.com/" target="_blank">Git</a> as the tool for the versioning of
+all of our source code.</p>
+<h2>Why git?</h2>
+<p>For a thorough discussion on the pros and cons of Git compared to centralized
+source code control systems, <a href="http://whygitisbetterthanx.com/" target="_blank">see</a> the
+<a href="http://git.or.cz/gitwiki/GitSvnComparsion" target="_blank">web</a>. There are plenty of flame
+wars going on there. As a developer, I prefer Git above all other tools around
+today. Git really changed the way developers think of merging and branching.
+From the classic <span class="caps">CVS</span>/Subversion world I came from, merging/branching has
+always been considered a bit scary (“beware of merge conflicts, they bite
+you!”) and something you only do every once in a while.</p>
+<p>But with Git, these actions are extremely cheap and simple, and they are
+considered one of the core parts of your <em>daily</em> workflow, really. For example,
+in <span class="caps">CVS</span>/Subversion <a href="http://svnbook.red-bean.com/" target="_blank">books</a>, branching and merging is
+first discussed in the later chapters (for advanced users), while in
+<a href="http://book.git-scm.com/" target="_blank">every</a>
+<a href="http://pragprog.com/titles/tsgit/pragmatic-version-control-using-git" target="_blank">Git</a>
+<a href="http://github.com/progit/progit" target="_blank">book</a>, it’s already covered in chapter 3
+(basics).</p>
+<p>As a consequence of its simplicity and repetitive nature, branching and merging
+are no longer something to be afraid of. Version control tools are supposed to
+assist in branching/merging more than anything else.</p>
+<p>Enough about the tools, let’s head onto the development model.  The model that
+I’m going to present here is essentially no more than a set of procedures that
+every team member has to follow in order to come to a managed software
+development process.</p>
+<h2>Decentralized but centralized</h2>
+<p>The repository setup that we use and that works well with this branching model,
+is that with a central “truth” repo. Note that this repo&nbsp;is only&nbsp;<em>considered</em>
+to be the central one (since Git is a <span class="caps">DVCS</span>, there is no such thing as a central
+repo at a technical level).&nbsp;We will refer to this repo as <code>origin</code>, since this
+name is familiar to all Git users.</p>
+<p><img src="./A successful Git branching model » nvie.com_files/centr-decentr.png" class="center" alt=""></p>
+<p>Each developer pulls and pushes to origin. But besides the centralized
+push-pull relationships, each developer may also pull changes from other peers
+to form sub teams. For example, this might be useful to work together with two
+or more developers on a big new feature, before pushing the work in progress to
+<code>origin</code> prematurely. In the figure above, there are subteams of Alice and Bob,
+Alice and David, and Clair and David.</p>
+<p>Technically, this means nothing more than that Alice has defined a Git remote,
+named <code>bob</code>, pointing to Bob’s repository, and vice versa.</p>
+<h2>The main branches</h2>
+<p><img src="./A successful Git branching model » nvie.com_files/bm002.png" class="right" alt=""></p>
+<p>At the core, the development model is greatly inspired by existing models out
+there.&nbsp;The central repo holds two main branches with an infinite lifetime:</p>
+<ul>
+<li><code>master</code></li>
+	<li><code>develop</code></li>
+</ul><p>The <code>master</code> branch at <code>origin</code> should be familiar to every Git user.&nbsp;Parallel
+to the <code>master</code> branch, another branch exists called <code>develop</code>.</p>
+<p>We consider <code>origin/master</code> to be the main branch where the source code of
+<code>HEAD</code> always reflects a <em>production-ready</em> state.</p>
+<p>We consider <code>origin/develop</code> to be the main branch where the source code of
+<code>HEAD</code> always reflects a state with the latest delivered development changes
+for the next release. Some would call this the “integration branch”. This is
+where any automatic nightly builds are built from.</p>
+<p>When the source code in the <code>develop</code> branch reaches a stable point and is
+ready to be released, all of the changes should be merged back into <code>master</code>
+somehow and then tagged with a release number. How this is done in detail will
+be discussed further on.</p>
+<p>Therefore, each time when changes are merged back into <code>master</code>, this is a new
+production release <em>by definition</em>.&nbsp;We tend to be very strict at this, so that
+theoretically, we could use a Git hook script to automatically build and
+roll-out our software to our production servers everytime there was a commit on
+<code>master</code>.</p>
+<h2>Supporting branches</h2>
+<p>Next to the main branches <code>master</code> and <code>develop</code>, our development model uses a
+variety of supporting branches to aid parallel development between team
+members, ease tracking of features, prepare for production releases and to
+assist in quickly fixing live production problems. Unlike the main branches,
+these branches always have a limited life time, since they will be removed
+eventually.</p>
+<p>The different types of branches we may use are:</p>
+<ul>
+<li>Feature branches</li>
+	<li>Release branches</li>
+	<li>Hotfix branches</li>
+</ul><p>Each of these branches have a specific purpose and are bound to strict rules as
+to which branches may be their originating branch and which branches must be
+their merge targets. We will walk through them in a minute.</p>
+<p>By no means are these branches “special” from a technical perspective. The
+branch types are categorized by how we <em>use</em> them. They are of course plain old
+Git branches.</p>
+<h3>Feature branches</h3>
+<p><img src="./A successful Git branching model » nvie.com_files/fb.png" class="right" alt=""></p>
+<p>May branch off from:&nbsp;<code>develop</code><br>
+Must merge back into:&nbsp;<code>develop</code><br>
+Branch naming convention: anything except&nbsp;<code>master</code>, <code>develop</code>, <code>release-*</code>,
+or <code>hotfix-*</code></p>
+<p>Feature branches (or sometimes called topic branches) are used to develop new
+features for the upcoming or a distant future release. When starting
+development of a feature, the target release in which this feature will be
+incorporated may well be unknown at that point. The essence of a feature branch
+is that it exists as long as the feature is in development, but will eventually
+be merged back into <code>develop</code> (to definitely add the new feature to the
+upcoming release) or discarded (in case of a disappointing experiment).</p>
+<p>Feature branches typically exist in developer repos only, not in <code>origin</code>.</p>
+<h4>Creating a feature branch</h4>
+<p>When starting work on a new feature, branch off from the <code>develop</code> branch.</p>
+<pre><code class="language-console"><span class="gp">$</span> git checkout -b myfeature develop
+<span class="go">Switched to a new branch "myfeature"</span></code></pre>
+<h4>Incorporating a finished feature on develop</h4>
+<p>Finished features may be merged into the <code>develop</code> branch definitely add them
+to the upcoming release:</p>
+<pre><code class="language-console"><span class="gp">$</span> git checkout develop
+<span class="go">Switched to branch 'develop'</span>
+<span class="gp">$</span> git merge --no-ff myfeature
+<span class="go">Updating ea1b82a..05e9557</span>
+<span class="go">(Summary of changes)</span>
+<span class="gp">$</span> git branch -d myfeature
+<span class="go">Deleted branch myfeature (was 05e9557).</span>
+<span class="gp">$</span> git push origin develop</code></pre>
+<p>The <code>--no-ff</code> flag causes the merge to always create a new commit object, even
+if the merge could be performed with a fast-forward. This avoids losing
+information about the historical existence of a feature branch and groups
+together all commits that together added the feature. Compare:</p>
+<p><img src="./A successful Git branching model » nvie.com_files/merge-without-ff.png" class="center" alt=""></p>
+<p>In the latter case, it is impossible to see from the Git history which of the
+commit objects together have implemented a feature—you would have to manually
+read all the log messages. Reverting a whole feature (i.e. a group of commits),
+is a true headache in the latter situation, whereas it is easily done if the
+<code>--no-ff</code> flag was used.</p>
+<p>Yes, it will create a few more (empty) commit objects, but the gain is much
+bigger that that cost.</p>
+<p>Unfortunately, I have not found a way to make <code>--no-ff</code> the default behaviour
+of <code>git merge</code> yet, but it really should be.</p>
+<h3>Release branches</h3>
+<p>May branch off from:&nbsp;<code>develop</code><br>
+Must merge back into:&nbsp;<code>develop</code> and <code>master</code><br>
+Branch naming convention: <code>release-*</code></p>
+<p>Release branches support preparation of a new production release.&nbsp;They allow
+for last-minute dotting of i’s and crossing t’s. Furthermore, they allow for
+minor bug fixes and preparing meta-data for a release (version number, build
+dates, etc.). By doing all of this work on a release branch, the <code>develop</code>
+branch is cleared to receive features for the next big release.</p>
+<p>The key moment to branch off a new release branch from <code>develop</code> is when
+develop (almost) reflects the desired state of the new release.&nbsp;At least all
+features that are targeted for the release-to-be-built must be merged in to
+<code>develop</code> at this point in time. All features targeted at future releases may
+not—they must wait until after the release branch is branched off.</p>
+<p>It is exactly at the start of a release branch that the upcoming release gets
+assigned a version number—not any earlier. Up until that moment, the <code>develop</code>
+branch reflected changes for the “next release”, but it is unclear whether that
+“next release” will eventually become 0.3 or 1.0, until the release branch is
+started. That decision is made on the start of the release branch and is
+carried out by the project’s rules on version number bumping.</p>
+<h4>Creating a release branch</h4>
+<p>Release branches are created from the <code>develop</code> branch. For example, say
+version 1.1.5 is the current production release and we have a big release
+coming up. The state of <code>develop</code> is ready for the “next release” and we have
+decided that this will become version 1.2 (rather than 1.1.6 or 2.0). So we
+branch off and give the release branch a name reflecting the new version
+number:</p>
+<pre><code class="language-console"><span class="gp">$</span> git checkout -b release-1.2 develop
+<span class="go">Switched to a new branch "release-1.2"</span>
+<span class="gp">$</span> ./bump-version.sh 1.2
+<span class="go">Files modified successfully, version bumped to 1.2.</span>
+<span class="gp">$</span> git commit -a -m <span class="s2">"Bumped version number to 1.2"</span>
+<span class="go">[release-1.2 74d9424] Bumped version number to 1.2</span>
+<span class="go">1 files changed, 1 insertions(+), 1 deletions(-)</span></code></pre>
+<p>After creating a new branch and switching to it, we bump the version number.
+Here,&nbsp;<code>bump-version.sh</code> is a&nbsp;fictional&nbsp;shell script that changes some files
+in the working copy to reflect the new version. (This can of course be a manual
+change—the point being that <em>some</em> files change.) Then, the bumped version
+number is committed.</p>
+<p>This new branch may exist there for a while, until the release may be rolled
+out definitely. During that time, bug fixes may be applied in this branch
+(rather than on the <code>develop</code> branch). Adding large new features here is
+strictly prohibited. They must be merged into <code>develop</code>, and therefore, wait
+for the next big release.</p>
+<h4>Finishing a release branch</h4>
+<p>When the state of the release branch is ready to become a real release, some
+actions need to be carried out. First, the release branch is merged into
+<code>master</code> (since every commit on <code>master</code> is a new release <em>by definition</em>,
+remember). Next, that commit on <code>master</code> must be tagged for easy future
+reference to this historical version. Finally, the changes made on the release
+branch need to be merged back into <code>develop</code>, so that future releases also
+contain these bug fixes.</p>
+<p>The first two steps in Git:</p>
+<pre><code class="language-console"><span class="gp">$</span> git checkout master
+<span class="go">Switched to branch 'master'</span>
+<span class="gp">$</span> git merge --no-ff release-1.2
+<span class="go">Merge made by recursive.</span>
+<span class="go">(Summary of changes)</span>
+<span class="gp">$</span> git tag -a 1.2</code></pre>
+<p>The release is now done, and tagged for future reference.<br><ins><strong>Edit:</strong> You might as well want to use the <code>-s</code> or <code>-u &lt;key&gt;</code> flags to sign
+your tag cryptographically.</ins></p>
+<p>To keep the changes made in the release branch, we need to merge those back
+into <code>develop</code>, though. In Git:</p>
+<pre><code class="language-console"><span class="gp">$</span> git checkout develop
+<span class="go">Switched to branch 'develop'</span>
+<span class="gp">$</span> git merge --no-ff release-1.2
+<span class="go">Merge made by recursive.</span>
+<span class="go">(Summary of changes)</span></code></pre>
+<p>This step may well lead to a merge conflict (probably even, since we have
+changed the version number). If so, fix it and commit.</p>
+<p>Now we are really done and the release branch may be removed, since we don’t
+need it anymore:</p>
+<pre><code class="language-console"><span class="gp">$</span> git branch -d release-1.2
+<span class="go">Deleted branch release-1.2 (was ff452fe).</span></code></pre>
+<h3>Hotfix branches</h3>
+<p><img src="./A successful Git branching model » nvie.com_files/hotfix-branches1.png" class="right" alt=""></p>
+<p>May branch off from:&nbsp;<code>master</code><br>
+Must merge back into:&nbsp;<code>develop</code> and <code>master</code><br>
+Branch naming convention: <code>hotfix-*</code></p>
+<p>Hotfix branches are very much like release branches in that they are also meant
+to prepare for a new production release, albeit unplanned. They arise from the
+necessity to act immediately upon an undesired state of a live production
+version. When a critical bug in a production version must be resolved
+immediately, a hotfix branch may be branched off from the corresponding tag on
+the master branch that marks the production version.</p>
+<p>The essence is that work of team members (on the <code>develop</code> branch) can
+continue, while another person is preparing a quick production fix.</p>
+<h4>Creating the hotfix branch</h4>
+<p>Hotfix branches are created from the&nbsp;<code>master</code> branch. For example, say
+version 1.2 is the current production release running live and causing troubles
+due to a severe bug. But changes on <code>develop</code> are yet unstable.&nbsp;We may then
+branch off a hotfix branch and start fixing the problem:</p>
+<pre><code class="language-console" style="max-width: 520px;"><span class="gp">$</span> git checkout -b hotfix-1.2.1 master
+<span class="go">Switched to a new branch "hotfix-1.2.1"</span>
+<span class="gp">$</span> ./bump-version.sh 1.2.1
+<span class="go">Files modified successfully, version bumped to 1.2.1.</span>
+<span class="gp">$</span> git commit -a -m <span class="s2">"Bumped version number to 1.2.1"</span>
+<span class="go">[hotfix-1.2.1 41e61bb] Bumped version number to 1.2.1</span>
+<span class="go">1 files changed, 1 insertions(+), 1 deletions(-)</span></code></pre>
+<p>Don’t forget to bump the version number after branching off!</p>
+<p>Then, fix the bug and commit the fix in one or more separate commits.</p>
+<pre><code class="language-console" style="max-width: 520px;"><span class="gp">$</span> git commit -m <span class="s2">"Fixed severe production problem"</span>
+<span class="go">[hotfix-1.2.1 abbe5d6] Fixed severe production problem</span>
+<span class="go">5 files changed, 32 insertions(+), 17 deletions(-)</span></code></pre>
+<p><strong>Finishing a hotfix branch</strong></p>
+<p>When finished, the bugfix needs to be merged back into <code>master</code>, but also needs
+to be merged back into <code>develop</code>, in order to&nbsp;safeguard&nbsp;that the bugfix is
+included in the next release as well. This is completely similar to how release
+branches are finished.</p>
+<p>First, update <code>master</code> and tag the release.</p>
+<pre><code class="language-console"><span class="gp">$</span> git checkout master
+<span class="go">Switched to branch 'master'</span>
+<span class="gp">$</span> git merge --no-ff hotfix-1.2.1
+<span class="go">Merge made by recursive.</span>
+<span class="go">(Summary of changes)</span>
+<span class="gp">$</span> git tag -a 1.2.1</code></pre>
+<p><ins><strong>Edit:</strong> You might as well want to use the <code>-s</code> or <code>-u &lt;key&gt;</code> flags to sign
+your tag cryptographically.</ins></p>
+<p>Next,&nbsp;include the bugfix in <code>develop</code>, too:</p>
+<pre><code class="language-console"><span class="gp">$</span> git checkout develop
+<span class="go">Switched to branch 'develop'</span>
+<span class="gp">$</span> git merge --no-ff hotfix-1.2.1
+<span class="go">Merge made by recursive.</span>
+<span class="go">(Summary of changes)</span></code></pre>
+<p>The one exception to the rule here is that,&nbsp;<strong>when a release branch currently
+exists, the hotfix changes need to be merged into that release branch, instead
+of <code>develop</code></strong>. Back-merging the bugfix into the release branch will
+eventually result in the bugfix being merged into <code>develop</code> too, when the
+release branch is finished. (If work in <code>develop</code> immediately requires this
+bugfix and cannot wait for the release branch to be finished, you may safely
+merge the bugfix into <code>develop</code> now already as well.)</p>
+<p>Finally, remove the temporary branch:</p>
+<pre><code class="language-console"><span class="gp">$</span> git branch -d hotfix-1.2.1
+<span class="go">Deleted branch hotfix-1.2.1 (was abbe5d6).</span></code></pre>
+<h2>Summary</h2>
+<p>While there is nothing really shocking new to this branching model, the “big
+picture” figure that this post began with has turned out to be tremendously
+useful in our projects. It forms an elegant mental model that is easy to
+comprehend and allows team members to develop a shared understanding of the
+branching and releasing processes.</p>
+<p>A high-quality <span class="caps">PDF</span> version of the figure is provided here. Go ahead and hang it
+on the wall for quick reference at any time.</p>
+<p><ins><strong>Update:</strong> And for anyone who requested it: here’s the
+<a href="http://github.com/downloads/nvie/gitflow/Git-branching-model-src.key.zip" target="_blank">gitflow-model.src.key</a>
+of the main diagram image (Apple Keynote).</ins></p>
+<p style="text-align:center;"><a href="http://nvie.com/files/Git-branching-model.pdf"><img src="./A successful Git branching model » nvie.com_files/pdf.png" alt=""></a><br><a href="http://nvie.com/files/Git-branching-model.pdf">Git-branching-model.pdf</a></p>
+</div>
+
+
+<div class="flattr-quick no-print">
+<iframe src="./A successful Git branching model » nvie.com_files/saved_resource(1).htm" class="FlattrButton" width="110" height="20" frameborder="0" scrolling="no" title="Flattr" border="0" marginheight="0" marginwidth="0" allowtransparency="true"></iframe>
+</div>
+
+
+<p>If you want to get in touch, I'm <a href="http://twitter.com/nvie" target="_blank">@nvie</a> on Twitter.</p>
+
+		</div>
+		<div id="footer">
+            <p>Vincent Driessen is an independent Python software engineer and
+            consultant from the Netherlands. You may <a href="http://www.3rdcloud.com/" target="_blank">hire him</a>.
+
+            </p>
+		</div>
+
+		
+		
+		<script type="text/javascript"> 
+		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+		document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script><script src="./A successful Git branching model » nvie.com_files/ga.js" type="text/javascript"></script> 
+		<script type="text/javascript"> 
+		var pageTracker = _gat._getTracker("UA-7780973-1");
+		pageTracker._initData();
+		pageTracker._trackPageview();
+		</script>
+		
+
+		
+		
+        <script type="text/javascript">
+        var _gauges = _gauges || [];
+        (function() {
+            var t   = document.createElement('script');
+            t.type  = 'text/javascript';
+            t.async = true;
+            t.id    = 'gauges-tracker';
+            t.setAttribute('data-site-id', '50693215613f5d378200002c');
+            t.src = '//secure.gaug.es/track.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(t, s);
+        })();
+        </script>
+		
+
+        <script type="text/javascript">
+        /* <![CDATA[ */
+            (function() {
+                var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+                s.type = 'text/javascript';
+                s.async = true;
+                s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+                t.parentNode.insertBefore(s, t);
+            })();
+        /* ]]> */</script>
+
+		
+		
+	
+
+</body></html>
