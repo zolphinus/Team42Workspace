@@ -61,3 +61,58 @@ For the sake of coupling and abstraction, the reason for both character and bein
 At creation, it’d be something like Assign_Start()
 Within the game, that would take your choice of jobs from a given list, create a “new (insert class)” off of a Being/Player pointer(probably Player pointer, to keep enemies to themselves), and then assign values at random(or fixed values) dependant on the class: Mages having less HP and defense, maybe more EVA, etc. 
 This is just a start, so feel free to point out any discrepancies, redundancies, etc. 
+
+
+
+
+
+*****************************************************************
+Great ideas, I think for design we should use "character" instead of "being" for simplicity's sake (the word choice summarizes the class at a glance, no external explanation needed), although still allow enemy/player to branch off. Although since enemies have effectively the same information anyways, perhaps the best way to tackle this would be to derive classes for types of enemy families.
+
+Ex.
+
+Character -> Rogue
+Character -> Mage
+Character -> Warrior
+
+Works just fine, as stated. Expanding to
+
+Character -> Slime
+Character -> Wolf
+Character -> Bat
+
+would allow enemy generation by a call of the enemy class name (easier identification for level design), while maintaining the stats/inventory system.
+
+
+
+For initial design, I feel we should have the following implemented:
+
+Character class (treated as abstract), two jobs, two enemies.
+
+Starting stats should be CurrentHP, MaxHP, Attack. We can add the others later, we simply want the interaction/methods to work before expanding so we can save time bug testing down the road.
+
+I think an inventory system will be easy to implement, so let's worry about that once we have a character able to navigate the map.
+
+As far as an attack method goes, try to design it in such a way where it can take an input of type character. Basically, just have them trade blows, don't worry about checking for life below zero or anything else at this point.
+
+Last, I should be able to generate a character both randomly and intentionally. I need a function that basically looks like this:
+
+
+"Do you want to generate a character randomly? Y/N"
+
+If yes, do so.
+
+If not
+
+[Insert some menu system here that allows me to make those choices]
+
+
+I would suggest just working on the absolute bare minimum until our character can 1) Move on a map, 2) attack an enemy, 3) go up/down floors, 4)update maps with fog of war.
+
+Once we reach this milestone, we will expand.
+
+Great research by the way!
+
+-----------------------------------------------------------------
+
+Jacob and Adam, work together to implement this. Can you have this done by the weekend?
