@@ -1,0 +1,31 @@
+I'm thinking of what functions each class needs to have, and what should be donefd in each function.
+A lot of this stuff may have already been said in Adam's file about character classes, but I'm Just writing down my thoughts to get a general idea
+on how I should go about implementing this.
+
+First of all, we'll need a function to make a character.  It should let the player choose their job class, name, etc.  Additionally,
+they should be able to randomize their class (and I guess we could think of some random funny names or something if we want names to be randomized too...).
+
+Character
+-Move-
+Just use the wmove from the curses library, so the job classes could just inherit from it.  
+For enemies, we could generate a random number (1-4) to determine direction of movement instead of using arrow keys.
+
+
+-Attack-
+Take in a character as a parameter. Attacker's strength - other character's defense = damage dealt maybe?
+This should be the same for all classes,player and enemies. Class-specific attacks would be different of course.
+
+
+-Reduce HP-
+Takes in an integer for damage.  Would calculate currentHP = currentHP - damage.
+
+
+-Increase HP-
+This would be used when using a healing spell or a potion.  Takes in an integer parameter for amount to heal.  Current HP = Current HP + amountToHeal.
+
+
+
+If complications arise when using inheritance, we could always just not use it.  These classes should still be simple enough to implement, 
+even without polymorphism and inheritance.
+
+Will add more later. Just edit this if you want to leave some feedback.
