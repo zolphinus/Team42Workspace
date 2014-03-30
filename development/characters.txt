@@ -116,3 +116,53 @@ Great research by the way!
 -----------------------------------------------------------------
 
 Jacob and Adam, work together to implement this. Can you have this done by the weekend?
+
+
+-----------------------------------------------------------------
+Jacob
+I don't think using inheritance is going to work out very well here.  I am beginning to believe that we should simply
+ask the user for their job in the character generation function and adjusts the stats accordingly.  Then, we can have a
+variable that determines what special abilities the character will have.  For example, we could make a function
+specialAbility().  What it does could depend on the variable mentioned earlier, the one that is determined by job.
+
+Any thoughts?
+----------------------------------------------------------------
+
+Jonathan
+I'm thinking the best way to handle the inheritance would be to make the character class,
+and make the inherited "Jobs". I can make a function in the controller class that can generate "what class", and that may be
+easier with how inheritance works in C++ anyways.
+
+If you make the "stats" protected instead of private, then the derived classes (jobs) can directly access them.
+So the "character" generates "base stats", and the "jobs" just need to "add to them".
+
+Example:
+
+character may have 
+
+int strength = rand() % 5 + 5 (random range 5 t 9).
+int mana = rand() % 5 + 10 (random from 10 to 14).
+
+Then a warrior would have
+
+strength = strength + 4; (effectively changes the starting range to "9 to 13")
+mana = mana - 8; (effectively changes the starting range to "2 to 6")
+
+While a mage may have
+
+strength = strength -3; (range "2 to 6")
+mana = mana + 10; (range "20 to 24")
+
+
+
+
+And then, the character can have a method "specialMove()" that we simply overload in the "jobs". This way we can
+simply call one function name for all of the derived classes, even though we would need to define the ability for each class.
+
+
+As a side note for technical stuffs, are you familiar with how to use header files?
+If not, I'll be happy to assist, they work a bit differently with inheritance, and that requires a bit of work around,
+but cleans up and compartmentalizes the code.
+
+
+
