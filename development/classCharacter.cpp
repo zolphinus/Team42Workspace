@@ -1,13 +1,14 @@
 #include <iostream>
 #include <string>
 #include <ctime>
+#include <algorithm>
 
 using namespace std;
 
 class character{
 public:
-    character();
-    character(string enemy);
+    character(); //used when making player character
+    character(string enemy); //used only when creating enemies
     void setMaxHP(int newHP);
     int getMaxHP();
     void setCurHP(int newHP);
@@ -18,59 +19,97 @@ public:
     int getSpd();
     void setName(string playerName);
     string getName();
-private:
+protected:
     int currentHP;
-    int maxHP;
-    int strength;
+    int maxHP = rand() % 100 + 120;
+    int strength = rand() % 5 + 5;
     int speed;
     string name;
 };
 
-character generateChar()
+
+/*I don't think using inheritance is going to work out very well here.  I am beginning to believe that we should simply
+ask the user for their job in the character generation function and adjusts the stats accordingly.  Then, we can have a
+variable that determines what special abilities the character will have.  For example, we could make a function
+specialAbility().  What it does could depend on the variable mentioned earlier, the one that is determined by job.
+
+Any thoughts?
+*/
+class warrior: public character
 {
-    string playerName;
-    string userChoice;
-
-    cout << "What is your name?" << endl;
-    cin >> playerName;
-
-    cout << "Do you want to randomize your character?  Y/N" << endl;
-    cin >> userChoice;
-
-    if (userChoice == "Y" || userChoice == "y")
+public:
+    warrior()
     {
-        //randomize class
-
+        strength = strength + 5;
     }
-
-    else if (userChoice == "N" || userChoice == "n")
+    void hello()//test function
     {
-        int jobChoice;
-        cout << "Choose your job class" << endl;
-        cout << "1. Warrior - Focuses on physical strength" << endl;
-        cout << "2. Healer - Focuses on healing" << endl;
-        cin >> jobChoice;
-
-        if (jobChoice == 1)
-        {
-            //adjust stats based on class chosen
-        }
-        else if (jobChoice == 2)
-        {
-            //adjust stats based on class chosen
-        }
+        cout << "Hello" << endl;
     }
+};
 
-    else
-    {
+class healer: public character
+{
+private:
+    //strength = strength - 3;
+};
 
-    }
-}
+character generateChar();
+character generateRanChar();
 
 int main()
 {
-    character bob;
+    character player = generateChar();
+    character* hero = &player;
+
+    cout << hero -> getName() << endl;
+    cout << hero -> getCurHP() << endl;
+    cout << hero -> getStr() << endl;
+    hero.hello();
+
     return 0;
+}
+
+character generateChar()
+{
+    character player;
+    string playerName;
+    int jobChoice;
+
+    cout << "What is your name?" << endl;
+    cin >> playerName;
+    player.setName(playerName);
+
+    cout << "Choose your job class" << endl;
+    cout << "1. Warrior - Focuses on physical strength" << endl;
+    cout << "2. Healer - Focuses on healing" << endl;
+    cin >> jobChoice;
+
+    if (jobChoice == 1)
+    {
+        warrior player;
+        player.setName(playerName);
+        player.setStr(10);
+        player.setSpd(1);
+        player.setMaxHP(150);
+        player.setCurHP(150);
+    }
+    else if (jobChoice == 2)
+    {
+        healer player;
+        player.setName(playerName);
+        player.setStr(5);
+        player.setSpd(1);
+        player.setMaxHP(100);
+        player.setCurHP(100);
+    }
+
+    return player;
+}
+
+character generateRanChar()
+{
+
 }
 
 character::character()

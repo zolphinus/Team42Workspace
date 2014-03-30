@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1396202328 source:c:\users\jacob\documents\c++ prog\character class\characterclass.cpp
+	<iostream>
+	<string>
+	<ctime>
+	<algorithm>
+	"characterclass.h"
+
+1396202984 c:\users\jacob\documents\c++ prog\character class\characterclass.h
+	<iostream>
+	<string>
+	<ctime>
+	<algorithm>
+
