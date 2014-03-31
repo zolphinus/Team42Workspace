@@ -164,5 +164,47 @@ As a side note for technical stuffs, are you familiar with how to use header fil
 If not, I'll be happy to assist, they work a bit differently with inheritance, and that requires a bit of work around,
 but cleans up and compartmentalizes the code.
 
+---------------------------------------------------------------------------------------
+
+Nice job on the character class code, I'm gonna offer a few suggestions and explain them as I go, mostly style stuffs  :)
+
+
+When in a header file, try to avoid
+
+"Using namespace STD"Although we are allowed to use that statement for our assignments, it's a good habit to only call specific elements of the STD libraryodds are, you are using just cout/cin/endl, and stringso you can instead use the statement "using std::cin" "using std::cout" using "std::endl" etcto call just the specific functions. The reason for this is, whenever you make the transition from school to workplace, you may create functions that share a name (unknowingly) with something in std libraryIt's a great habit to get into early because namespaces offer some powerful options down the roadThe only other style issue I saw was structure of variables inside of the class declaration.
+
+
+Although we can technical assign values to these, such as in the protected:
+
+int variable = some value;
+
+
+but any time you have an assignment that you want to make like this, that assignment should be in the constructorthis is more of an organization technique than anything, effectively they are the same, however sometimes you want to manipulate these variables down the road and assigning them in the class declaration will cause headaches in those cases.
+
+
+Although it's not a big change, mostly a copy and paste 
+
+
+These are two great habits to focus on for your coding style, and overall, will help you structure more complicated classes more cleanly (down the road)I think as far as the actual content of the code goes, i would slightly modify  generateChar() to be a void function.
+
+Basically, the only time this function is relevant is when a character is first created, so we can just use the class itself.
+
+So for example, instead of creating a player object within the function, you can simply state
+setMaxHP(value)
+
+or
+
+
+this->maxHP = value;and what this allows is that we no longer have to use generation purely as an assignment value.
+
+Now, we can call generation in the derived class constructors, if we desire. Or, in the controller class, I can just use new command and simply call the function from my pointer object.
+
+
+And this means if we modify the function later, the code will not have to change in the controller class.
+
+Minor change, but I wanted to point it out as an example of how we can lower coupling and reuse the code more readily.
+
+---------------------------------------------------------------------------------------
+
 
 
