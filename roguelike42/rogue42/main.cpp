@@ -13,8 +13,9 @@ void gameControllerDriver();
 
 int main()
 {
+    //srand(time(NULL)); // random seed for randomization of stats, when it matters
     characterTestDriver();
-    gameControllerDriver();
+    //gameControllerDriver();
 
     return 0;
 }
@@ -22,7 +23,7 @@ int main()
 
 void characterTestDriver(){
     //Testing the classes
-    character hero = generateChar();
+    Character hero = generateChar();
 
     cout << "Character name is " <<hero.getName() << endl;
     cout << "Current HP is " << hero.getCurHP() << endl;
@@ -32,6 +33,6 @@ void characterTestDriver(){
 
 
 void gameControllerDriver(){
-
-
+    GameController ourGame;
+    cout << ourGame.hero->getStr() << endl;
 }

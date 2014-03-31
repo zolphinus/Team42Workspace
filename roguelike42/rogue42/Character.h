@@ -9,10 +9,10 @@
 using namespace std;
 
 
-class character{
+class Character{
 public:
-    character(); //used when making player character
-    character(string enemy); //used only when creating enemies
+    Character(); //used when making player Character
+    Character(string enemy); //used only when creating enemies
     virtual void specialMove();
     void setMaxHP(int newHP);
     int getMaxHP();
@@ -33,23 +33,23 @@ protected:
 };
 
 
-class warrior: public character
+class warrior: public Character
 {
 public:
     warrior();
     virtual void specialMove();
 };
 
-class healer: public character
+class healer: public Character
 {
 public:
     healer();
     virtual void specialMove();
 };
 
-character generateChar()
+Character generateChar()
 {
-    character player;
+    Character player;
     string playerName;
 
     cout << "What is your name?" << endl;
@@ -64,63 +64,63 @@ character generateChar()
     return player;
 }
 
-character::character()
+Character::Character()
 {
     currentHP = maxHP;
 }
 
-character::character(string enemy)
+Character::Character(string enemy)
 {
     name = enemy;
     //Will the stats for enemies always be randomized?
 }
 
-void character::setMaxHP(int newHP)
+void Character::setMaxHP(int newHP)
 {
     maxHP = newHP;
 }
 
-int character::getMaxHP()
+int Character::getMaxHP()
 {
     return maxHP;
 }
 
-void character::setCurHP(int newHP)
+void Character::setCurHP(int newHP)
 {
     currentHP = newHP;
 }
 
-int character::getCurHP()
+int Character::getCurHP()
 {
     return currentHP;
 }
 
-void character::setStr(int newStr)
+void Character::setStr(int newStr)
 {
     strength = newStr;
 }
 
-int character::getStr()
+int Character::getStr()
 {
     return strength;
 }
 
-void character::setSpd(int newSpd)
+void Character::setSpd(int newSpd)
 {
     speed = newSpd;
 }
 
-int character::getSpd()
+int Character::getSpd()
 {
     return speed;
 }
 
-void character::setName(string playerName)
+void Character::setName(string playerName)
 {
     name = playerName;
 }
 
-string character::getName()
+string Character::getName()
 {
     return name;
 }
@@ -141,7 +141,7 @@ healer::healer()
 
 
 //PLACEHOLDER FUNCTIONS
-void character::specialMove()
+void Character::specialMove()
 {
 //will add more to special move when we know what the special moves should do
 }
