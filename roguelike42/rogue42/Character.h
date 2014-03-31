@@ -139,6 +139,8 @@ healer::healer()
     //will add more stat adjustments as we add more stats
 }
 
+
+//PLACEHOLDER FUNCTIONS
 void character::specialMove()
 {
 //will add more to special move when we know what the special moves should do

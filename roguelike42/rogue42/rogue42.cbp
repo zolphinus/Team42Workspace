@@ -32,6 +32,9 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Character.h" />
+		<Unit filename="GameController.h" />
+		<Unit filename="MapRead.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

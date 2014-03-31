@@ -6,10 +6,17 @@ using std::endl;
 
 #include "Character.h"
 
+void characterTestDriver();
+
 int main()
 {
-    cout << "Hello world!" << endl;
+    characterTestDriver();
 
+    return 0;
+}
+
+
+void characterTestDriver(){
     //Testing the classes
     character hero = generateChar();
 
@@ -17,6 +24,4 @@ int main()
     cout << "Current HP is " << hero.getCurHP() << endl;
     cout << "Max HP is " << hero.getMaxHP() << endl;
     cout << "Strength is " << hero.getStr() << endl;
-
-    return 0;
 }
