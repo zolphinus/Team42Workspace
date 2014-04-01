@@ -1,5 +1,5 @@
-#ifndef CHARACTER_H
-#define CHARACTER_H
+#ifndef CHARACTERCLASS_H
+#define CHARACTERCLASS_H
 
 #include <iostream>
 #include <string>
@@ -8,11 +8,10 @@
 
 using namespace std;
 
-
-class Character{
+class character{
 public:
-    Character(); //used when making player Character
-    Character(string enemy); //used only when creating enemies
+    character(); //used when making player character
+    character(string enemy); //used only when creating enemies
     virtual void specialMove();
     void setMaxHP(int newHP);
     int getMaxHP();
@@ -33,94 +32,78 @@ protected:
 };
 
 
-class warrior: public Character
+class warrior: public character
 {
 public:
     warrior();
     virtual void specialMove();
 };
 
-class healer: public Character
+class healer: public character
 {
 public:
     healer();
     virtual void specialMove();
 };
 
-Character generateChar()
+character::character()
 {
-    Character player;
-    string playerName;
-
-    cout << "What is your name?" << endl;
-    cin >> playerName;
-    player.setName(playerName);
-
-    player.setMaxHP(10);
-    player.setCurHP(10);
-    player.setStr(10);
-    player.setSpd(10);
-
-    return player;
-}
-
-Character::Character()
-{
+    cout << "Created character" << endl;
     currentHP = maxHP;
 }
 
-Character::Character(string enemy)
+character::character(string enemy)
 {
     name = enemy;
     //Will the stats for enemies always be randomized?
 }
 
-void Character::setMaxHP(int newHP)
+void character::setMaxHP(int newHP)
 {
     maxHP = newHP;
 }
 
-int Character::getMaxHP()
+int character::getMaxHP()
 {
     return maxHP;
 }
 
-void Character::setCurHP(int newHP)
+void character::setCurHP(int newHP)
 {
     currentHP = newHP;
 }
 
-int Character::getCurHP()
+int character::getCurHP()
 {
     return currentHP;
 }
 
-void Character::setStr(int newStr)
+void character::setStr(int newStr)
 {
     strength = newStr;
 }
 
-int Character::getStr()
+int character::getStr()
 {
     return strength;
 }
 
-void Character::setSpd(int newSpd)
+void character::setSpd(int newSpd)
 {
     speed = newSpd;
 }
 
-int Character::getSpd()
+int character::getSpd()
 {
     return speed;
 }
 
-void Character::setName(string playerName)
+void character::setName(string playerName)
 {
     name = playerName;
 }
 
-string Character::getName()
+string character::getName()
 {
     return name;
 }
@@ -139,9 +122,7 @@ healer::healer()
     //will add more stat adjustments as we add more stats
 }
 
-
-//PLACEHOLDER FUNCTIONS
-void Character::specialMove()
+void character::specialMove()
 {
 //will add more to special move when we know what the special moves should do
 }
