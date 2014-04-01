@@ -6,7 +6,10 @@
 #include <ctime>
 #include <algorithm>
 
-using namespace std;
+using std::cout;
+using std::cin;
+using std::endl;
+using std::string;
 
 
 class Character{
@@ -14,6 +17,7 @@ public:
     Character(); //used when making player Character
     Character(string enemy); //used only when creating enemies
     virtual void specialMove();
+    void generateChar();
     void setMaxHP(int newHP);
     int getMaxHP();
     void setCurHP(int newHP);
@@ -26,8 +30,8 @@ public:
     string getName();
 protected:
     int currentHP;
-    int maxHP = rand() % 100 + 120;
-    int strength = rand() % 5 + 5;
+    int maxHP;
+    int strength;
     int speed;
     string name;
 };
@@ -47,32 +51,34 @@ public:
     virtual void specialMove();
 };
 
-Character generateChar()
-{
-    Character player;
-    string playerName;
-
-    cout << "What is your name?" << endl;
-    cin >> playerName;
-    player.setName(playerName);
-
-    player.setMaxHP(10);
-    player.setCurHP(10);
-    player.setStr(10);
-    player.setSpd(10);
-
-    return player;
-}
-
 Character::Character()
 {
+    maxHP = rand() % 100 + 120;
     currentHP = maxHP;
+    strength = rand() % 5 + 5;
+    speed = rand() % 1 + 2;
+    this -> speed = 90;
 }
 
 Character::Character(string enemy)
 {
     name = enemy;
     //Will the stats for enemies always be randomized?
+}
+
+void Character::generateChar()
+{
+    string userName;
+    cout << "Please Enter your name: ";
+    cin >> userName;
+
+    setName(userName);
+    setMaxHP(100);
+    setCurHP(100);
+    setStr(10);
+    setSpd(10);
+
+    return;
 }
 
 void Character::setMaxHP(int newHP)
