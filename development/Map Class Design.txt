@@ -1,0 +1,119 @@
+After researching how to update our map to a Window Object, this is how I feel our Map Class should be designed.
+
+
+
+
+First, Class Map needs a window on our standard screen. This will be a fixed window, decide on some dimensions for this. Leave enough room at the bottom of the standard screen so we can have another Window Object for updating messages to the player (this second Window will hopefully be in another class, or can be implemented later).
+
+Next, we need two "Vectors of Vectors of Char". The first will be named "fullMap" and the second will be "fogMap". These vectors will be identical sizes, and the y/x dimensions need to be chosen, but should map to the y/x dimension of the window.
+
+Example: If our window is a 3 by 3, both fullMap and fogMap need to be a 3 by 3 setup.
+
+If window is 5 by 7, fullMap/fogMap are as well.
+
+
+This size decision is to allow us to both read in and update these more easily.
+
+Finally, we need a vector to store enemies. Until the class character is designed and implemented, we can simply use a vector of type char, and add 'E' to test if the enemy read in works. Later, we will simply modify this to store enemy objects instead of type character.
+
+
+-------------Methods-------------------------------
+
+The primary methods we need from this class are
+
+loadNewMap("mapname.txt")
+updateFog()
+displayCharacters()
+
+updateMap()
+
+
+
+
+
+loadNewMap("mapname.txt")
+------------------------------
+should take an input of type string.
+It should open the text file (test if it exists and write code to handle if it doesnt).
+
+Once the text file is loaded, we need to do some cleanup.
+First, we will delete the contents of the enemy vector. For now, that simply means resizing to zero because we are using type char. However, we will need to perform a delete command for each enemy once we implement class character.
+
+Then, fullMap will initialize to match the contents of the opened file. If the character being input is an 'E', we need to call a push_back('E') on our enemy vector. Later, this will be modified to push enemy objects. This should allow our enemy vector to grow as big as exactly the number of enemies on the map.
+
+Then, fogMap needs to initialize to all zeros or blanks (whatever we need to use to accomplish this).
+
+Then, the file needs to be closed.
+---------------------------------
+
+
+updateFog(character&)
+---------------------------------
+should take an input of type character.
+For initial function implementation, we can use a variable "vision" to represent the vision stat of the character.
+
+Also, use variables HeroY and HeroX to represent the location of the Hero until we can use the character class.
+
+Lastly, use the variable 'range' so we can loop through a pyramid of locations to update.
+
+The general algorithm is as follows.
+
+Starting from the character, we move squares equal to the vision in some direction. For the example, we will use the north direction (note all four directions need similar logic).
+
+
+Since 0,0 is the topleft corner of a window, decreasing the y value is 'up'.
+
+Before each direction is checked, set "range = 0"
+
+
+If the character was at position y = 6, x = 7, and had a vision of 3...
+
+First, we find the hero's y value (north is in the y direction) and subtract the vision value (store this difference in a temporary variable).
+
+Now the general algorithm will change a bit, based on which direction is being updated at that time. In essence, for North, it looks like this...
+
+for( int i = tempY; i < HeroY; i ++;)
+{
+	For( int j = range * (-1); j < range+1; j++)
+	{
+		fogMap[j][i] = fullMap[j][i];
+	}
+range++;
+}
+
+
+This should first check one square, at 3 blocks away.
+Then, it should check 3 squares at 2 blocks away. Then 5 squares at 1 block away. Then it reaches the hero, and stops updating this direction.
+
+
+The algorithm may need tweaked a bit, but it should allow us to introduce "blind" effects super easily as a status, as well as create any items that allows our player to see better"
+
+
+Basically, the x/y values need toyed with for each direction, but the general principle is that we check in a pyramid shape that will simply grow more and more based on this character stat, so we should only need to write this function once.
+---------------------------------
+
+displayCharacters()
+---------------------------------
+
+As I'm writing this, I realize that if we update fullMap's contents to reflect where enemies/hero are, then updateFog() should automatically do this for us.
+
+
+However, if that approach deems too complicated, we may need to write a function for this. This function should be the alternative options.
+
+---------------------------------
+
+
+
+updateMap(character&)
+---------------------------------
+if updateFog() ends up doing everything we want automatically, then we can rename it to updateMap.
+
+Otherwise, this will serve as a wrapper function, and perform the updateFog() then displayCharacters() functions. Mostly serves as information hiding when using this class in the controller class.
+
+---------------------------------
+
+
+
+
+Note: Character/enemy movement may work best as a function in controller class, or as it's own object, so it will be handled outside of the map class if possible. Because of this, we will likely need a few functions that return values from a given y/x coordinate, or set values for y/x coordinates.
+Mostly to check for move validity or if combat is necessary.

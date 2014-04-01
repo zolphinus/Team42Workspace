@@ -28,6 +28,7 @@ protected:
 };
 
 
+<<<<<<< HEAD
 /*I don't think using inheritance is going to work out very well here.  I am beginning to believe that we should simply
 ask the user for their job in the character generation function and adjusts the stats accordingly.  Then, we can have a
 variable that determines what special abilities the character will have.  For example, we could make a function
@@ -42,6 +43,12 @@ public:
     {
         strength = strength + 5;
     }
+=======
+
+class warrior: public character
+{
+public:
+>>>>>>> fbd0cbd90b950e7e850ba9d5ffeeff879244213d
     void hello()//test function
     {
         cout << "Hello" << endl;
@@ -50,8 +57,12 @@ public:
 
 class healer: public character
 {
+<<<<<<< HEAD
 private:
     //strength = strength - 3;
+=======
+
+>>>>>>> fbd0cbd90b950e7e850ba9d5ffeeff879244213d
 };
 
 character generateChar();
@@ -65,7 +76,10 @@ int main()
     cout << hero -> getName() << endl;
     cout << hero -> getCurHP() << endl;
     cout << hero -> getStr() << endl;
+<<<<<<< HEAD
     hero.hello();
+=======
+>>>>>>> fbd0cbd90b950e7e850ba9d5ffeeff879244213d
 
     return 0;
 }

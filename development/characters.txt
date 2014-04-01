@@ -116,3 +116,95 @@ Great research by the way!
 -----------------------------------------------------------------
 
 Jacob and Adam, work together to implement this. Can you have this done by the weekend?
+
+
+-----------------------------------------------------------------
+Jacob
+I don't think using inheritance is going to work out very well here.  I am beginning to believe that we should simply
+ask the user for their job in the character generation function and adjusts the stats accordingly.  Then, we can have a
+variable that determines what special abilities the character will have.  For example, we could make a function
+specialAbility().  What it does could depend on the variable mentioned earlier, the one that is determined by job.
+
+Any thoughts?
+----------------------------------------------------------------
+
+Jonathan
+I'm thinking the best way to handle the inheritance would be to make the character class,
+and make the inherited "Jobs". I can make a function in the controller class that can generate "what class", and that may be
+easier with how inheritance works in C++ anyways.
+
+If you make the "stats" protected instead of private, then the derived classes (jobs) can directly access them.
+So the "character" generates "base stats", and the "jobs" just need to "add to them".
+
+Example:
+
+character may have 
+
+int strength = rand() % 5 + 5 (random range 5 t 9).
+int mana = rand() % 5 + 10 (random from 10 to 14).
+
+Then a warrior would have
+
+strength = strength + 4; (effectively changes the starting range to "9 to 13")
+mana = mana - 8; (effectively changes the starting range to "2 to 6")
+
+While a mage may have
+
+strength = strength -3; (range "2 to 6")
+mana = mana + 10; (range "20 to 24")
+
+
+
+
+And then, the character can have a method "specialMove()" that we simply overload in the "jobs". This way we can
+simply call one function name for all of the derived classes, even though we would need to define the ability for each class.
+
+
+As a side note for technical stuffs, are you familiar with how to use header files?
+If not, I'll be happy to assist, they work a bit differently with inheritance, and that requires a bit of work around,
+but cleans up and compartmentalizes the code.
+
+---------------------------------------------------------------------------------------
+
+Nice job on the character class code, I'm gonna offer a few suggestions and explain them as I go, mostly style stuffs  :)
+
+
+When in a header file, try to avoid
+
+"Using namespace STD"Although we are allowed to use that statement for our assignments, it's a good habit to only call specific elements of the STD libraryodds are, you are using just cout/cin/endl, and stringso you can instead use the statement "using std::cin" "using std::cout" using "std::endl" etcto call just the specific functions. The reason for this is, whenever you make the transition from school to workplace, you may create functions that share a name (unknowingly) with something in std libraryIt's a great habit to get into early because namespaces offer some powerful options down the roadThe only other style issue I saw was structure of variables inside of the class declaration.
+
+
+Although we can technical assign values to these, such as in the protected:
+
+int variable = some value;
+
+
+but any time you have an assignment that you want to make like this, that assignment should be in the constructorthis is more of an organization technique than anything, effectively they are the same, however sometimes you want to manipulate these variables down the road and assigning them in the class declaration will cause headaches in those cases.
+
+
+Although it's not a big change, mostly a copy and paste 
+
+
+These are two great habits to focus on for your coding style, and overall, will help you structure more complicated classes more cleanly (down the road)I think as far as the actual content of the code goes, i would slightly modify  generateChar() to be a void function.
+
+Basically, the only time this function is relevant is when a character is first created, so we can just use the class itself.
+
+So for example, instead of creating a player object within the function, you can simply state
+setMaxHP(value)
+
+or
+
+
+this->maxHP = value;and what this allows is that we no longer have to use generation purely as an assignment value.
+
+Now, we can call generation in the derived class constructors, if we desire. Or, in the controller class, I can just use new command and simply call the function from my pointer object.
+
+
+And this means if we modify the function later, the code will not have to change in the controller class.
+
+Minor change, but I wanted to point it out as an example of how we can lower coupling and reuse the code more readily.
+
+---------------------------------------------------------------------------------------
+
+
+

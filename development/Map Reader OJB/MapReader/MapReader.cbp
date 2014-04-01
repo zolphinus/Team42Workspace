@@ -2,12 +2,12 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="rogue42" />
+		<Option title="MapReader" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/rogue42" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/MapReader" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -16,7 +16,7 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/rogue42" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/MapReader" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -30,16 +30,18 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="Character.h" />
-		<Unit filename="GameController.h" />
-		<Unit filename="MapRead.h" />
-		<Unit filename="main.cpp" />
+		<Linker>
+			<Add library="..\..\..\..\..\Program Files (x86)\CodeBlocks\MinGW\lib\pdcurses.lib" />
+		</Linker>
+		<Unit filename="MapReader.cpp" />
+		<Unit filename="MapReader.h" />
+		<Unit filename="TestFile.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
 			<debugger />
+			<lib_finder disable_auto="1" />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
