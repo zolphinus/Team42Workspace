@@ -6,6 +6,9 @@
 #include <fstream>
 #include <cstring>
 #include <curses.h>
+
+const int WINDOW_SIZE = 500;
+
 using namespace std;
 
 class MapReader
@@ -13,6 +16,8 @@ class MapReader
 public:
     MapReader(string);
     char floorMap[500][500];
+
+
 private:
 
     ifstream mapFile;

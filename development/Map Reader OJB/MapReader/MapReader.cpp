@@ -3,7 +3,7 @@
 MapReader::MapReader(string FileName)
 {
     ifstream mapIn;
-    char inCharHolder;
+    //char inCharHolder;
     string getlineHolder;
     int rowMarker = 0;
     char *cstr = new char[FileName.length()+1];          // converts the string into usable format for opening
