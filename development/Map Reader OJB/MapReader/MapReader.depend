@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1396323665 source:c:\users\jeremy\desktop\curses map reader\mapreader\mapreader.cpp
+	"MapReader.h"
+
+1396323204 c:\users\jeremy\desktop\curses map reader\mapreader\mapreader.h
+	<string>
+	<iostream>
+	<fstream>
+	<cstring>
+	<curses.h>
+
+1396324335 source:c:\users\jeremy\desktop\curses map reader\mapreader\testfile.cpp
+	"MapReader.h"
+
