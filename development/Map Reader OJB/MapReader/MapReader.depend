@@ -1,27 +1,14 @@
 # depslib dependency file v1.0
-1396323665 source:c:\users\jeremy\desktop\curses map reader\mapreader\mapreader.cpp
+1396391379 source:c:\users\jeremy\desktop\curses map reader\mapreader\mapreader.cpp
 	"MapReader.h"
 
-1396323204 c:\users\jeremy\desktop\curses map reader\mapreader\mapreader.h
+1396388365 c:\users\jeremy\desktop\curses map reader\mapreader\mapreader.h
 	<string>
 	<iostream>
 	<fstream>
 	<cstring>
 	<curses.h>
 
-1396324335 source:c:\users\jeremy\desktop\curses map reader\mapreader\testfile.cpp
-	"MapReader.h"
-
-1396355446 source:c:\users\zolphinus\documents\github\team42workspace\development\map reader ojb\mapreader\mapreader.cpp
-	"MapReader.h"
-
-1396355665 c:\users\zolphinus\documents\github\team42workspace\development\map reader ojb\mapreader\mapreader.h
-	<string>
-	<iostream>
-	<fstream>
-	<cstring>
-	<curses.h>
-
-1396355446 source:c:\users\zolphinus\documents\github\team42workspace\development\map reader ojb\mapreader\testfile.cpp
+1396388520 source:c:\users\jeremy\desktop\curses map reader\mapreader\testfile.cpp
 	"MapReader.h"
 
