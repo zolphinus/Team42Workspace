@@ -39,3 +39,25 @@ Suggestion for next task:
 
 I don't really know yet.  It depends on how things go later.
 *****************************************************************
+
+We could likely add a few stats like EXP, Level, Defense, Vision (set this to 2). If you would like to make a String Race, we could populate that as well (likely justfor flavor, may end up a placeholder for a new class later).
+
+So maybe make a function generateRace() and just assign random strings for race types (humor is welcome here!). A levelUP() function, which basically checks some value of EXP and determines that raising level/stats happens.
+
+For now, let's assume that for every 100 EXP earned, our character will grow one level.
+
+A level will reward
++5 to 10 MaxHP
++1 to a stat at random
+Then a plus 0 or 1 to each stat (so one stat WILL go up, then each stat has a chance to go up, meaning one stat may go up twice).
+
+
+Then, once this is tested, we can extend and modify this function to the Jobs. For example, a Warrior would call this same base function, but it also adds a chance for Strength to go up 0 to 2 points.
+And his HP has a chance to go up 0 to 2 points.
+
+So as a warrior levels, over time, he will have a higher maxHP than other jobs. A cleric may focus on MP and HP. While a Theif may focus purely on some other stat. This also allows us to tailor this to new jobs should we like, and gives us a way for them to feel distinct if we cannot work in a special ability function.
+
+
+If you find this is quickly accomplished and want another task after, I believe the next step for the character is to have an equipment and inventory setup. Although before that happens, it may make sense to design an Item class in psuedo code, so that's also up for grabs currently.
+----------------------------------------------------------------------
+
