@@ -27,3 +27,15 @@ each job.
 *****************************************************************
 
 Great job, work closely with Adam on this since you guys will overlap in design. Our first milestone for the project as a whole is to get a character generated, get a map loaded, and be able to move the character. Keep that in mind when initial design takes place.
+
+*****************************************************************
+Date:  4/1/14
+
+Update on progress:
+
+Character class completed (for now).  Will add more as needed further along in the project.
+
+Suggestion for next task:
+
+I don't really know yet.  It depends on how things go later.
+*****************************************************************
