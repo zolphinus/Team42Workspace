@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Character.h"
 #include "GameController.h"
+#include "MapReader.h"
+#include "MessageWindow.h"
 
 using std::cout;
 using std::cin;
@@ -13,9 +15,15 @@ void gameControllerDriver();
 
 int main()
 {
-    srand(time(NULL)); // random seed for randomization of stats, when it matters
-    characterTestDriver();
+    //srand(time(NULL)); // random seed for randomization of stats, when it matters
+    //characterTestDriver();
     //gameControllerDriver();
+
+    MapReader mapReader("map0.txt");
+    MessageWindow messageWindow;
+    messageWindow.AddMessage("compatability testing");
+    mapReader.PrintWindow(0,0);
+    messageWindow.PrintMessageWindow();
 
     return 0;
 }
