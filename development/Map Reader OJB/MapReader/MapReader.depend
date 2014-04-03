@@ -25,3 +25,16 @@
 1396355446 source:c:\users\zolphinus\documents\github\team42workspace\development\map reader ojb\mapreader\testfile.cpp
 	"MapReader.h"
 
+1396372770 source:c:\users\jacob\documents\github\team42workspace\development\map reader ojb\mapreader\mapreader.cpp
+	"MapReader.h"
+
+1396372770 c:\users\jacob\documents\github\team42workspace\development\map reader ojb\mapreader\mapreader.h
+	<string>
+	<iostream>
+	<fstream>
+	<cstring>
+	<curses.h>
+
+1396372770 source:c:\users\jacob\documents\github\team42workspace\development\map reader ojb\mapreader\testfile.cpp
+	"MapReader.h"
+

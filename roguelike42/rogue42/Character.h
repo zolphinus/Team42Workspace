@@ -33,13 +33,14 @@ public:
     void setName(string playerName);
     void levelUp();
     string getName();
+
 protected:
     int level;
     int currentHP;
     int maxHP;
     int strength;
     int defense;
-    int speed;
+    int speed; //who attacks first
     int expPoints;
     int vision;
     string name;
@@ -61,12 +62,13 @@ public:
 
 Character::Character()
 {
+    srand(time(NULL));
     level = 1;
     maxHP = rand() % 100 + 120;
     currentHP = maxHP;
     strength = rand() % 5 + 5;
     defense = rand() % 5 + 5;
-    speed = rand() % 1 + 2;
+    speed = rand() % 1+ 2;
     vision = 2;
     expPoints = 0;
 }
@@ -162,15 +164,16 @@ string Character::getName()
     return name;
 }
 
-void Character::levelUp() //Not finished
+void Character::levelUp()
 {
-    if (expPoints >= 100)//might not need this loop if we only call the function when we know the character will level up
+    if (expPoints >= 0)//might not need this loop if we only call the function when we know the character will level up
     {
         maxHP = maxHP + rand() % 5 + 10;
 
-        int statUp = rand() % 3 + 1;
+        int statUp = rand() % 3 + 1;//decides what stat goes up randomly
 
-        if (statUp == 1)
+        //Randomly raise a stat by one point
+        if (statUp == 1) //may change to switch statement later
         {
             strength = strength + 1;
         }
@@ -181,13 +184,36 @@ void Character::levelUp() //Not finished
         else if (statUp == 3)
         {
             speed = speed + 1;
-            //Should speed even go up?
         }
         else
         {
-            cout << "Error occured!" << endl;
+            cout << "Error occurred!" << endl;
         }
-    }
+
+        //After the first random stat increase, each stat has a chance of going up by one
+        int statIncrease;
+
+        for (int i = 1; i < 4; i++)
+        {
+            statIncrease = rand() % 1;
+            if (i == 1 && statIncrease == 1)
+            {
+                strength = strength + 1;
+            }
+            if (i == 2 && statIncrease == 1)
+            {
+                defense = defense + 1;
+            }
+            if (i == 3 && statIncrease == 1)
+            {
+                speed = speed + 1;
+            }
+        }
+
+        level = level + 1;
+        expPoints = expPoints - 100;
+
+    }//end if 100 EXP loop
 }
 
 warrior::warrior()

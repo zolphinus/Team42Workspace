@@ -16,3 +16,20 @@
 
 1396308092 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\mapread.h
 
+1396560077 source:c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\main.cpp
+	<iostream>
+	"Character.h"
+	"GameController.h"
+
+1396560543 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\character.h
+	<iostream>
+	<string>
+	<ctime>
+	<algorithm>
+
+1396372770 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.h
+	"Character.h"
+	"MapRead.h"
+
+1396227523 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\mapread.h
+

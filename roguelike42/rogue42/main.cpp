@@ -13,7 +13,7 @@ void gameControllerDriver();
 
 int main()
 {
-    //srand(time(NULL)); // random seed for randomization of stats, when it matters
+    srand(time(NULL)); // random seed for randomization of stats, when it matters
     characterTestDriver();
     //gameControllerDriver();
 
@@ -30,6 +30,8 @@ void characterTestDriver(){
     cout << "Max HP is " << hero.getMaxHP() << endl;
     cout << "Strength is " << hero.getStr() << endl;
     cout << "Defense is " << hero.getDef() << endl;
+    cout << "Speed is " << hero.getSpd() << endl;
+
 }
 
 
