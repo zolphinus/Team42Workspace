@@ -1,0 +1,210 @@
+Creation of Jobs/Enemies, etc.
+
+Basic “Being” class
+
+(Abstract Base)
+Public:
+
+Setters/Getters for stats
+
+Attack();  //self explanatory, physical attack, maybe linked to movement, maybe not.
+	  //Rewritten by job, to differentiate them. Could be dealt with at creation, hence why the class is abstract.
+
+Move();
+Private:
+		HP	HP Max
+		MP	MP Max
+		STR	DEF
+		MAG    	RES
+		EVA 	AGI
+		Inventory: Stores items, Equips or otherwise, fixed or  dynamic/weight-dependant, depending on how we want it implemented.
+		Location: simply the location on the map of the character, on its own, in case of flexibility/expansion. Setters/Getters of location are found here.
+
+	
+
+
+
+2
+ “Being” could/may branch to both Enemies and Players,
+		 Making drops easier to find and obtain, through Enemy inventories, 
+			And making “half-way point” stat increases/behavior changes
+			For enemies in later advancements.
+
+
+Player: Public Being
+  
+	(Also Abstract if possible)
+	Public:
+		SetName(string<?>  Name)
+		Set_Job(string<?>  Job)
+		Get_Job();
+Private:
+Equips:  stores currently equipped items (anywhere from 2-4+ slots, depending on how detailed), fixed storage, same for every character. 
+		Job class: Stores the job class, depends on player choice: not used until job selection at title screen.
+		Name: Just decorative, the name of the character, for status messages or death messages, etc.(“<name> obtained <item>!” etc. etc.)
+
+
+(insert Job): Public Player
+
+	Public:
+		//insert functions of class here
+		// i.e. ‘Heal All(int Radius), Heal_Self(),  Flame_Summon(), etc.
+		Move();
+		Attack(); //rewritten to account for range(archers? Mages?) or stats of character.
+	Private:
+		// insert class-dependant stats/items, etc.
+
+
+Clarification of use in beginning creation:
+For the sake of coupling and abstraction, the reason for both character and being’s use as abstract would be to create the characters at job level, but break up what’s needed in such a way that it can be used elsewhere(enemies, etc.), or otherwise taken care of easily.
+
+At creation, it’d be something like Assign_Start()
+Within the game, that would take your choice of jobs from a given list, create a “new (insert class)” off of a Being/Player pointer(probably Player pointer, to keep enemies to themselves), and then assign values at random(or fixed values) dependant on the class: Mages having less HP and defense, maybe more EVA, etc. 
+This is just a start, so feel free to point out any discrepancies, redundancies, etc. 
+
+
+
+
+
+*****************************************************************
+Great ideas, I think for design we should use "character" instead of "being" for simplicity's sake (the word choice summarizes the class at a glance, no external explanation needed), although still allow enemy/player to branch off. Although since enemies have effectively the same information anyways, perhaps the best way to tackle this would be to derive classes for types of enemy families.
+
+Ex.
+
+Character -> Rogue
+Character -> Mage
+Character -> Warrior
+
+Works just fine, as stated. Expanding to
+
+Character -> Slime
+Character -> Wolf
+Character -> Bat
+
+would allow enemy generation by a call of the enemy class name (easier identification for level design), while maintaining the stats/inventory system.
+
+
+
+For initial design, I feel we should have the following implemented:
+
+Character class (treated as abstract), two jobs, two enemies.
+
+Starting stats should be CurrentHP, MaxHP, Attack. We can add the others later, we simply want the interaction/methods to work before expanding so we can save time bug testing down the road.
+
+I think an inventory system will be easy to implement, so let's worry about that once we have a character able to navigate the map.
+
+As far as an attack method goes, try to design it in such a way where it can take an input of type character. Basically, just have them trade blows, don't worry about checking for life below zero or anything else at this point.
+
+Last, I should be able to generate a character both randomly and intentionally. I need a function that basically looks like this:
+
+
+"Do you want to generate a character randomly? Y/N"
+
+If yes, do so.
+
+If not
+
+[Insert some menu system here that allows me to make those choices]
+
+
+I would suggest just working on the absolute bare minimum until our character can 1) Move on a map, 2) attack an enemy, 3) go up/down floors, 4)update maps with fog of war.
+
+Once we reach this milestone, we will expand.
+
+Great research by the way!
+
+-----------------------------------------------------------------
+
+Jacob and Adam, work together to implement this. Can you have this done by the weekend?
+
+
+-----------------------------------------------------------------
+Jacob
+I don't think using inheritance is going to work out very well here.  I am beginning to believe that we should simply
+ask the user for their job in the character generation function and adjusts the stats accordingly.  Then, we can have a
+variable that determines what special abilities the character will have.  For example, we could make a function
+specialAbility().  What it does could depend on the variable mentioned earlier, the one that is determined by job.
+
+Any thoughts?
+----------------------------------------------------------------
+
+Jonathan
+I'm thinking the best way to handle the inheritance would be to make the character class,
+and make the inherited "Jobs". I can make a function in the controller class that can generate "what class", and that may be
+easier with how inheritance works in C++ anyways.
+
+If you make the "stats" protected instead of private, then the derived classes (jobs) can directly access them.
+So the "character" generates "base stats", and the "jobs" just need to "add to them".
+
+Example:
+
+character may have 
+
+int strength = rand() % 5 + 5 (random range 5 t 9).
+int mana = rand() % 5 + 10 (random from 10 to 14).
+
+Then a warrior would have
+
+strength = strength + 4; (effectively changes the starting range to "9 to 13")
+mana = mana - 8; (effectively changes the starting range to "2 to 6")
+
+While a mage may have
+
+strength = strength -3; (range "2 to 6")
+mana = mana + 10; (range "20 to 24")
+
+
+
+
+And then, the character can have a method "specialMove()" that we simply overload in the "jobs". This way we can
+simply call one function name for all of the derived classes, even though we would need to define the ability for each class.
+
+
+As a side note for technical stuffs, are you familiar with how to use header files?
+If not, I'll be happy to assist, they work a bit differently with inheritance, and that requires a bit of work around,
+but cleans up and compartmentalizes the code.
+
+---------------------------------------------------------------------------------------
+
+Nice job on the character class code, I'm gonna offer a few suggestions and explain them as I go, mostly style stuffs  :)
+
+
+When in a header file, try to avoid
+
+"Using namespace STD"Although we are allowed to use that statement for our assignments, it's a good habit to only call specific elements of the STD libraryodds are, you are using just cout/cin/endl, and stringso you can instead use the statement "using std::cin" "using std::cout" using "std::endl" etcto call just the specific functions. The reason for this is, whenever you make the transition from school to workplace, you may create functions that share a name (unknowingly) with something in std libraryIt's a great habit to get into early because namespaces offer some powerful options down the roadThe only other style issue I saw was structure of variables inside of the class declaration.
+
+
+Although we can technical assign values to these, such as in the protected:
+
+int variable = some value;
+
+
+but any time you have an assignment that you want to make like this, that assignment should be in the constructorthis is more of an organization technique than anything, effectively they are the same, however sometimes you want to manipulate these variables down the road and assigning them in the class declaration will cause headaches in those cases.
+
+
+Although it's not a big change, mostly a copy and paste 
+
+
+These are two great habits to focus on for your coding style, and overall, will help you structure more complicated classes more cleanly (down the road)I think as far as the actual content of the code goes, i would slightly modify  generateChar() to be a void function.
+
+Basically, the only time this function is relevant is when a character is first created, so we can just use the class itself.
+
+So for example, instead of creating a player object within the function, you can simply state
+setMaxHP(value)
+
+or
+
+
+this->maxHP = value;and what this allows is that we no longer have to use generation purely as an assignment value.
+
+Now, we can call generation in the derived class constructors, if we desire. Or, in the controller class, I can just use new command and simply call the function from my pointer object.
+
+
+And this means if we modify the function later, the code will not have to change in the controller class.
+
+Minor change, but I wanted to point it out as an example of how we can lower coupling and reuse the code more readily.
+
+---------------------------------------------------------------------------------------
+
+
+
