@@ -17,7 +17,7 @@ public:
     #define MESSAGE_WINDOW_HEIGHT 8
     #define MESSAGE_WINDOW_WIDTH 80
 private:
-    vector<string> UserMessages;
+    string MessageArray[8];
 };
 
 

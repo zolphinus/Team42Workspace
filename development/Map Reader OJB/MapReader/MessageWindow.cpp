@@ -2,31 +2,28 @@
 
 MessageWindow::MessageWindow()
 {
-    UserMessages.resize(8);
+    for(int arrayInitializer = 0; arrayInitializer<8; arrayInitializer++)
+    {
+        MessageArray[arrayInitializer] = "";
+    }
 
 
 }
 
 void MessageWindow::AddMessage(string stringToAdd)
 {
-    UserMessages.insert(1,  stringToAdd);
-    UserMessages.pop_back();
-
+    string messageMover = "", messageHolder="";
+    messageHolder = MessageArray[6];
+    for(int arrayCycler=7; arrayCycler>0; arrayCycler--)
+    {
+        messageMover = MessageArray[arrayCycler-1];
+        MessageArray[arrayCycler] = messageMover;
+    }
+    MessageArray[0]=stringToAdd;
 }
 
 void MessageWindow::PrintMessageWindow()
 {
-    while(true)
-    {
-        if(UserMessages.size()>8)
-        {
-            UserMessages.pop_back(1);
-        }
-        else
-        {
-            break;
-        }
-    }
 
     initscr();//-------------------------curses stuff
     cbreak();//--------------------------disables the buffer
@@ -38,13 +35,15 @@ void MessageWindow::PrintMessageWindow()
     WINDOW *MessageWindow = newwin(MESSAGE_WINDOW_HEIGHT,MESSAGE_WINDOW_WIDTH,17,0);
     wbkgd(MessageWindow, COLOR_PAIR(2));
 
-    for(int rowCounter = 8, vectorPos = 0; rowCounter>0; rowCounter--,vectorPos++)
-    {
+
+
+    for(int rowCounter = 7, arrayPos = 0; rowCounter>0; rowCounter--,arrayPos++)//This dual variable for loop prints bottom to top
+    {                                                                           //and reads the array top to bottom
         wmove(MessageWindow, rowCounter,0);
-        waddstr(MessageWindow, UserMessages[vectorPos]);
+        waddstr(MessageWindow, MessageArray[arrayPos].c_str());
     }
 
-    wrefresh(MessageWindow);
     wgetch(MessageWindow);
+    wrefresh(MessageWindow);
     endwin();
 }

@@ -28,8 +28,17 @@ MapReader::MapReader(string FileName)
     mapIn.close();
 }
 
-void MapReader::PrintWindow(int CharacterY, int CharacterX)
+void MapReader::PrintWindow(int CharacterPosY, int CharacterPosX)
 {
+    if(CharacterPosY<0)
+    {
+        CharacterPosY = 0;         //Keeps from printing junk
+    }
+    if(CharacterPosX<0)
+    {
+        CharacterPosX = 0;
+    }
+
     initscr();//-------------------------curses stuff
     cbreak();//--------------------------disables the buffer
     curs_set(0);//-----------------------makes cursor invisible
@@ -43,17 +52,13 @@ void MapReader::PrintWindow(int CharacterY, int CharacterX)
         for(int row=0; row<MAP_WINDOW_HEIGHT; row++)
         {
             wmove(MapWindow, row, column);//------moves the cursor and prints the character in the floormap
-            waddch(MapWindow, floorMap[row+CharacterY][column+CharacterX]);
+            waddch(MapWindow, floorMap[row+CharacterPosY][column+CharacterPosX]);
         }// END ROW FORLOOP
     }// END COLUMN FORLOOP
     wrefresh(MapWindow);//Pushes changes to the screen
-
-    WINDOW *MessageWindow = newwin(8,80,17,0);
-    wbkgd(MessageWindow, COLOR_PAIR(2));
-    wmove(MessageWindow, 0,0);
-    waddstr(MessageWindow, "This is club kick Adam out!");
-    wrefresh(MessageWindow);
-    wgetch(MessageWindow);
-    endwin();
 }
 
+char MapReader::atPosition(int yToCheck, int xToCheck)
+{
+    return floorMap[yToCheck][xToCheck];
+}
