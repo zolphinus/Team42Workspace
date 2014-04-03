@@ -18,3 +18,27 @@
 	<curses.h>
 	<vector>
 
+1396560956 source:c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\main.cpp
+	<iostream>
+	"MapReader.h"
+	"MessageWindow.h"
+
+1396560956 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\mapreader.h
+	<string>
+	<iostream>
+	<fstream>
+	<cstring>
+	<curses.h>
+
+1396560956 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\messagewindow.h
+	<string>
+	<iostream>
+	<curses.h>
+	<vector>
+
+1396560956 source:c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\mapreader.cpp
+	"MapReader.h"
+
+1396560956 source:c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\messagewindow.cpp
+	"MessageWindow.h"
+
