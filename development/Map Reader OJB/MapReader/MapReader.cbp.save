@@ -36,6 +36,8 @@
 		</Linker>
 		<Unit filename="MapReader.cpp" />
 		<Unit filename="MapReader.h" />
+		<Unit filename="MessageWindow.cpp" />
+		<Unit filename="MessageWindow.h" />
 		<Unit filename="TestFile.cpp" />
 		<Extensions>
 			<code_completion />

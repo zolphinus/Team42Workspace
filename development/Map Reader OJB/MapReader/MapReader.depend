@@ -1,29 +1,49 @@
 # depslib dependency file v1.0
-1396323665 source:c:\users\jeremy\desktop\curses map reader\mapreader\mapreader.cpp
+1396498789 source:c:\users\jeremy\desktop\curses map reader\mapreader\mapreader.cpp
 	"MapReader.h"
 
-1396323204 c:\users\jeremy\desktop\curses map reader\mapreader\mapreader.h
+1396495091 c:\users\jeremy\desktop\curses map reader\mapreader\mapreader.h
 	<string>
 	<iostream>
 	<fstream>
 	<cstring>
 	<curses.h>
 
-1396324335 source:c:\users\jeremy\desktop\curses map reader\mapreader\testfile.cpp
+1396498419 source:c:\users\jeremy\desktop\curses map reader\mapreader\testfile.cpp
+	"MapReader.h"
+	"MessageWindow.h"
+
+1396494916 source:c:\users\jeremy\desktop\curses map reader\mapreader\messagewindow.cpp
+	"MessageWindow.h"
+
+1396479265 c:\users\jeremy\desktop\curses map reader\mapreader\messagewindow.h
+	<string>
+	<iostream>
+	<curses.h>
+	<vector>
+
+1396558865 source:c:\users\jeremy\documents\github\team42workspace\development\map reader ojb\mapreader\mapreader.cpp
 	"MapReader.h"
 
-1396355446 source:c:\users\zolphinus\documents\github\team42workspace\development\map reader ojb\mapreader\mapreader.cpp
-	"MapReader.h"
-
-1396355665 c:\users\zolphinus\documents\github\team42workspace\development\map reader ojb\mapreader\mapreader.h
+1396557858 c:\users\jeremy\documents\github\team42workspace\development\map reader ojb\mapreader\mapreader.h
 	<string>
 	<iostream>
 	<fstream>
 	<cstring>
 	<curses.h>
 
-1396355446 source:c:\users\zolphinus\documents\github\team42workspace\development\map reader ojb\mapreader\testfile.cpp
+1396557858 source:c:\users\jeremy\documents\github\team42workspace\development\map reader ojb\mapreader\messagewindow.cpp
+	"MessageWindow.h"
+
+1396557858 c:\users\jeremy\documents\github\team42workspace\development\map reader ojb\mapreader\messagewindow.h
+	<string>
+	<iostream>
+	<curses.h>
+	<vector>
+
+1396559768 source:c:\users\jeremy\documents\github\team42workspace\development\map reader ojb\mapreader\testfile.cpp
 	"MapReader.h"
+	"MessageWindow.h"
 
 1396372770 source:c:\users\jacob\documents\github\team42workspace\development\map reader ojb\mapreader\mapreader.cpp
 	"MapReader.h"
