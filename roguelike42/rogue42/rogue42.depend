@@ -1,8 +1,10 @@
 # depslib dependency file v1.0
-1396566198 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\main.cpp
+1396566518 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\main.cpp
 	<iostream>
 	"Character.h"
 	"GameController.h"
+	"MapReader.h"
+	"MessageWindow.h"
 
 1396566198 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\character.h
 	<iostream>
