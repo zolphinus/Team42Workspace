@@ -64,11 +64,11 @@ Character::Character()
 {
     srand(time(NULL));
     level = 1;
-    maxHP = rand() % 100 + 120;
+    maxHP = rand() % 51 + 100;
     currentHP = maxHP;
     strength = rand() % 5 + 5;
     defense = rand() % 5 + 5;
-    speed = rand() % 1+ 2;
+    speed = rand() % 1 + 2;
     vision = 2;
     expPoints = 0;
 }
