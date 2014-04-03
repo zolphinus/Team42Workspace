@@ -20,44 +20,55 @@ public:
     void generateChar();
     void setMaxHP(int newHP);
     int getMaxHP();
+    void setEXP(int newEXPAmount);
+    int getEXP();
     void setCurHP(int newHP);
     int getCurHP();
     void setStr(int newStr);
     int getStr();
+    void setDef(int newDef);
+    int getDef();
     void setSpd(int newSpd);
     int getSpd();
     void setName(string playerName);
+    void levelUp();
     string getName();
 protected:
+    int level;
     int currentHP;
     int maxHP;
     int strength;
+    int defense;
     int speed;
+    int expPoints;
+    int vision;
     string name;
 };
-
 
 class warrior: public Character
 {
 public:
     warrior();
-    virtual void specialMove();
+    void specialMove();
 };
 
 class healer: public Character
 {
 public:
     healer();
-    virtual void specialMove();
+    void specialMove();
 };
 
 Character::Character()
 {
+    level = 1;
     maxHP = rand() % 100 + 120;
     currentHP = maxHP;
     strength = rand() % 5 + 5;
+    defense = rand() % 5 + 5;
     speed = rand() % 1 + 2;
-    this -> speed = 90;
+    vision = 2;
+    expPoints = 0;
 }
 
 Character::Character(string enemy)
@@ -91,6 +102,16 @@ int Character::getMaxHP()
     return maxHP;
 }
 
+void Character::setEXP(int newEXPAmount)
+{
+    expPoints = newEXPAmount;
+}
+
+int Character::getEXP()
+{
+    return expPoints;
+}
+
 void Character::setCurHP(int newHP)
 {
     currentHP = newHP;
@@ -111,6 +132,16 @@ int Character::getStr()
     return strength;
 }
 
+void Character::setDef(int newDef)
+{
+    defense = newDef;
+}
+
+int Character::getDef()
+{
+    return defense;
+}
+
 void Character::setSpd(int newSpd)
 {
     speed = newSpd;
@@ -129,6 +160,34 @@ void Character::setName(string playerName)
 string Character::getName()
 {
     return name;
+}
+
+void Character::levelUp() //Not finished
+{
+    if (expPoints >= 100)//might not need this loop if we only call the function when we know the character will level up
+    {
+        maxHP = maxHP + rand() % 5 + 10;
+
+        int statUp = rand() % 3 + 1;
+
+        if (statUp == 1)
+        {
+            strength = strength + 1;
+        }
+        else if (statUp == 2)
+        {
+            defense = defense + 1;
+        }
+        else if (statUp == 3)
+        {
+            speed = speed + 1;
+            //Should speed even go up?
+        }
+        else
+        {
+            cout << "Error occured!" << endl;
+        }
+    }
 }
 
 warrior::warrior()

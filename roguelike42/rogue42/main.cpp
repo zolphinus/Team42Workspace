@@ -29,6 +29,7 @@ void characterTestDriver(){
     cout << "Current HP is " << hero.getCurHP() << endl;
     cout << "Max HP is " << hero.getMaxHP() << endl;
     cout << "Strength is " << hero.getStr() << endl;
+    cout << "Defense is " << hero.getDef() << endl;
 }
 
 
