@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1396558865 source:c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\mapreader.cpp
+	"MapReader.h"
+
+1396557858 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\mapreader.h
+	<string>
+	<iostream>
+	<fstream>
+	<cstring>
+	<curses.h>
+
+1396557858 source:c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\messagewindow.cpp
+	"MessageWindow.h"
+
+1396557858 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\messagewindow.h
+	<string>
+	<iostream>
+	<curses.h>
+	<vector>
+
