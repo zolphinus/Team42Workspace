@@ -46,23 +46,23 @@ protected:
     string name;
 };
 
-class warrior: public Character
+class Warrior: public Character
 {
 public:
-    warrior();
+    Warrior();
     void specialMove();
 };
 
-class healer: public Character
+class Healer: public Character
 {
 public:
-    healer();
+    Healer();
     void specialMove();
 };
 
-Character::Character()
+inline Character::Character()
 {
-    srand(time(NULL));
+
     level = 1;
     maxHP = rand() % 100 + 120;
     currentHP = maxHP;
@@ -73,13 +73,13 @@ Character::Character()
     expPoints = 0;
 }
 
-Character::Character(string enemy)
+inline Character::Character(string enemy)
 {
     name = enemy;
     //Will the stats for enemies always be randomized?
 }
 
-void Character::generateChar()
+inline void Character::generateChar()
 {
     string userName;
     cout << "Please Enter your name: ";
@@ -94,77 +94,77 @@ void Character::generateChar()
     return;
 }
 
-void Character::setMaxHP(int newHP)
+inline void Character::setMaxHP(int newHP)
 {
     maxHP = newHP;
 }
 
-int Character::getMaxHP()
+inline int Character::getMaxHP()
 {
     return maxHP;
 }
 
-void Character::setEXP(int newEXPAmount)
+inline void Character::setEXP(int newEXPAmount)
 {
     expPoints = newEXPAmount;
 }
 
-int Character::getEXP()
+inline int Character::getEXP()
 {
     return expPoints;
 }
 
-void Character::setCurHP(int newHP)
+inline void Character::setCurHP(int newHP)
 {
     currentHP = newHP;
 }
 
-int Character::getCurHP()
+inline int Character::getCurHP()
 {
     return currentHP;
 }
 
-void Character::setStr(int newStr)
+inline void Character::setStr(int newStr)
 {
     strength = newStr;
 }
 
-int Character::getStr()
+inline int Character::getStr()
 {
     return strength;
 }
 
-void Character::setDef(int newDef)
+inline void Character::setDef(int newDef)
 {
     defense = newDef;
 }
 
-int Character::getDef()
+inline int Character::getDef()
 {
     return defense;
 }
 
-void Character::setSpd(int newSpd)
+inline void Character::setSpd(int newSpd)
 {
     speed = newSpd;
 }
 
-int Character::getSpd()
+inline int Character::getSpd()
 {
     return speed;
 }
 
-void Character::setName(string playerName)
+inline void Character::setName(string playerName)
 {
     name = playerName;
 }
 
-string Character::getName()
+inline string Character::getName()
 {
     return name;
 }
 
-void Character::levelUp()
+inline void Character::levelUp()
 {
     if (expPoints >= 0)//might not need this loop if we only call the function when we know the character will level up
     {
@@ -216,13 +216,13 @@ void Character::levelUp()
     }//end if 100 EXP loop
 }
 
-warrior::warrior()
+inline Warrior::Warrior()
 {
     strength = strength + 5;
     //will add more stat adjustments as we add more stats
 }
 
-healer::healer()
+inline Healer::Healer()
 {
     strength = strength - 3;
     maxHP = maxHP - 20;
@@ -232,17 +232,17 @@ healer::healer()
 
 
 //PLACEHOLDER FUNCTIONS
-void Character::specialMove()
+inline void Character::specialMove()
 {
 //will add more to special move when we know what the special moves should do
 }
 
-void warrior::specialMove()
+inline void Warrior::specialMove()
 {
 //will add more to special move when we know what the special moves should do
 }
 
-void healer::specialMove()
+inline void Healer::specialMove()
 {
 //will add more to special move when we know what the special moves should do
 }

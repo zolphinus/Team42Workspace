@@ -18,7 +18,7 @@ int main()
 {
     //srand(time(NULL)); // random seed for randomization of stats, when it matters
     //characterTestDriver();
-    //gameControllerDriver();
+    gameControllerDriver();
     //screenTestDriver();
 
 
@@ -43,7 +43,9 @@ void characterTestDriver(){
 
 void gameControllerDriver(){
     GameController ourGame;
-    cout << ourGame.hero->getStr() << endl;
+
+    cout << "MY NAME IS : " << ourGame.getHero()->getName();
+
 }
 
 

@@ -1,18 +1,18 @@
 # depslib dependency file v1.0
-1396569081 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\main.cpp
+1396671080 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\main.cpp
 	<iostream>
 	"Character.h"
 	"GameController.h"
 	"MapReader.h"
 	"MessageWindow.h"
 
-1396569081 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\character.h
+1396670310 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\character.h
 	<iostream>
 	<string>
 	<ctime>
 	<algorithm>
 
-1396567722 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.h
+1396671178 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.h
 	"Character.h"
 	"MapRead.h"
 
@@ -35,7 +35,7 @@
 
 1396227523 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\mapread.h
 
-1396567722 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\mapreader.cpp
+1396651632 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\mapreader.cpp
 	"MapReader.h"
 
 1396567722 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\mapreader.h
@@ -53,4 +53,7 @@
 	<iostream>
 	<curses.h>
 	<vector>
+
+1396671148 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.cpp
+	"GameController.h"
 

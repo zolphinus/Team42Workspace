@@ -4,6 +4,8 @@
 #include "Character.h"
 #include "MapRead.h"
 
+class Character;
+
 class GameController{
 
 public:
@@ -15,10 +17,12 @@ public:
     void fight();
     //void updateGameState(character&);
     void makeHero();
-    Character* hero;
+    void randomHero(Character*&);
+    void selectHero(Character*&);
+    Character* getHero();
 
 private:
-    //Character* hero;
+    Character* hero;
     //spot for MapReader Object
     //spot for status window
     bool playingGame;
@@ -27,15 +31,6 @@ private:
 };
 
 
-GameController::GameController()
-{
-    hero = new Character;
-}
-
-GameController::~GameController()
-{
-    delete hero;
-}
 
 
 #endif // GAME_CONTROLLER_H

@@ -26,6 +26,8 @@ MapReader::MapReader(string FileName)
         rowMarker++;
     }
     mapIn.close();
+    delete cstr;
+    cstr = NULL;
 }
 
 void MapReader::PrintWindow(int CharacterPosY, int CharacterPosX)
