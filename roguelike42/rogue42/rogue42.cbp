@@ -36,7 +36,9 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="Character.h" />
+		<Unit filename="GameController.cpp" />
 		<Unit filename="GameController.h" />
+		<Unit filename="MapRead.h" />
 		<Unit filename="MapReader.cpp" />
 		<Unit filename="MapReader.h" />
 		<Unit filename="MessageWindow.cpp" />
