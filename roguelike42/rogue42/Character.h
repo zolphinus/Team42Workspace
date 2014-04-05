@@ -46,18 +46,35 @@ protected:
     string name;
 };
 
-class warrior: public Character
+class Player: public Character
+{
+
+};
+
+class warrior: public Player
 {
 public:
     warrior();
     void specialMove();
 };
 
-class healer: public Character
+class healer: public Player
 {
 public:
     healer();
     void specialMove();
+};
+
+class Enemy: public Character
+{
+public:
+    void generateChar();
+};
+
+class Slime: public Enemy
+{
+public:
+    Slime();
 };
 
 Character::Character()
@@ -82,7 +99,7 @@ Character::Character(string enemy)
 void Character::generateChar()
 {
     string userName;
-    cout << "Please Enter your name: ";
+    cout << "Please enter your name: ";
     cin >> userName;
 
     setName(userName);
@@ -166,7 +183,7 @@ string Character::getName()
 
 void Character::levelUp()
 {
-    if (expPoints >= 0)//might not need this loop if we only call the function when we know the character will level up
+    if (expPoints >= 100)//might not need this loop if we only call the function when we know the character will level up
     {
         maxHP = maxHP + rand() % 5 + 10;
 
@@ -219,7 +236,7 @@ void Character::levelUp()
 warrior::warrior()
 {
     strength = strength + 5;
-    //will add more stat adjustments as we add more stats
+    defense = defense + 5;
 }
 
 healer::healer()
@@ -228,6 +245,26 @@ healer::healer()
     maxHP = maxHP - 20;
     currentHP = maxHP;
     //will add more stat adjustments as we add more stats
+}
+
+void Enemy::generateChar()
+{
+    setMaxHP(50);
+    setCurHP(maxHP);
+    setStr(10);
+    setDef(10);
+    setSpd(10);
+
+    return;
+}
+
+Slime::Slime()
+{
+    name = "Slime";
+    strength = strength - 3;
+    defense = defense - 3;
+    speed = speed - 1;
+
 }
 
 

@@ -32,21 +32,13 @@ int main()
 void characterTestDriver(){
     //Testing the classes
     Character hero;
-    //hero.generateChar();
+    hero.generateChar();
     cout << "Character name is " <<hero.getName() << endl;
     cout << "Current HP is " << hero.getCurHP() << endl;
     cout << "Max HP is " << hero.getMaxHP() << endl;
     cout << "Strength is " << hero.getStr() << endl;
     cout << "Defense is " << hero.getDef() << endl;
     cout << "Speed is " << hero.getSpd() << endl;
-    hero.levelUp();
-    cout << "Character name is " <<hero.getName() << endl;
-    cout << "Current HP is " << hero.getCurHP() << endl;
-    cout << "Max HP is " << hero.getMaxHP() << endl;
-    cout << "Strength is " << hero.getStr() << endl;
-    cout << "Defense is " << hero.getDef() << endl;
-    cout << "Speed is " << hero.getSpd() << endl;
-
 }
 
 
