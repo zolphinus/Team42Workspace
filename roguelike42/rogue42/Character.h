@@ -33,6 +33,10 @@ public:
     void setName(string playerName);
     void levelUp();
     string getName();
+    void setYPos(int newY);
+    int getYPos();
+    void setXPos(int newX);
+    int getXPos();
 
 protected:
     int level;
@@ -44,6 +48,8 @@ protected:
     int expPoints;
     int vision;
     string name;
+    int yPos;
+    int xPos;
 };
 
 class Player: public Character
@@ -179,6 +185,26 @@ void Character::setName(string playerName)
 string Character::getName()
 {
     return name;
+}
+
+void Character::setYPos(int newY)
+{
+    yPos = newY;
+}
+
+int Character::getYPos()
+{
+    return yPos;
+}
+
+void Character::setXPos(int newX)
+{
+    xPos = newX;
+}
+
+int Character::getXPos()
+{
+    return xPos;
 }
 
 void Character::levelUp()
