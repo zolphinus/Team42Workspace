@@ -33,6 +33,10 @@ public:
     void setName(string playerName);
     void levelUp();
     string getName();
+    void setYPos(int newY);
+    int getYPos();
+    void setXPos(int newX);
+    int getXPos();
 
 protected:
     int level;
@@ -44,31 +48,53 @@ protected:
     int expPoints;
     int vision;
     string name;
+    int yPos;
+    int xPos;
 };
 
-class Warrior: public Character
+
+class Player: public Character
+{
+
+};
+
+class Warrior: public Player
 {
 public:
     Warrior();
     void specialMove();
 };
 
-class Healer: public Character
+class healer: public Player
 {
 public:
     Healer();
     void specialMove();
 };
 
+
+class Enemy: public Character
+{
+public:
+    void generateChar();
+};
+
+class Slime: public Enemy
+{
+public:
+    Slime();
+};
+
+
 inline Character::Character()
 {
 
     level = 1;
-    maxHP = rand() % 100 + 120;
+    maxHP = rand() % 51 + 100;
     currentHP = maxHP;
     strength = rand() % 5 + 5;
     defense = rand() % 5 + 5;
-    speed = rand() % 1+ 2;
+    speed = rand() % 1 + 2;
     vision = 2;
     expPoints = 0;
 }
@@ -82,7 +108,7 @@ inline Character::Character(string enemy)
 inline void Character::generateChar()
 {
     string userName;
-    cout << "Please Enter your name: ";
+    cout << "Please enter your name: ";
     cin >> userName;
 
     setName(userName);
@@ -164,9 +190,29 @@ inline string Character::getName()
     return name;
 }
 
+inline void Character::setYPos(int newY)
+{
+    yPos = newY;
+}
+
+inline int Character::getYPos()
+{
+    return yPos;
+}
+
+inline void Character::setXPos(int newX)
+{
+    xPos = newX;
+}
+
+inline int Character::getXPos()
+{
+    return xPos;
+}
+
 inline void Character::levelUp()
 {
-    if (expPoints >= 0)//might not need this loop if we only call the function when we know the character will level up
+    if (expPoints >= 100)//might not need this loop if we only call the function when we know the character will level up
     {
         maxHP = maxHP + rand() % 5 + 10;
 
@@ -219,7 +265,7 @@ inline void Character::levelUp()
 inline Warrior::Warrior()
 {
     strength = strength + 5;
-    //will add more stat adjustments as we add more stats
+    defense = defense + 5;
 }
 
 inline Healer::Healer()
@@ -228,6 +274,26 @@ inline Healer::Healer()
     maxHP = maxHP - 20;
     currentHP = maxHP;
     //will add more stat adjustments as we add more stats
+}
+
+void Enemy::generateChar()
+{
+    setMaxHP(50);
+    setCurHP(maxHP);
+    setStr(10);
+    setDef(10);
+    setSpd(10);
+
+    return;
+}
+
+Slime::Slime()
+{
+    name = "Slime";
+    strength = strength - 3;
+    defense = defense - 3;
+    speed = speed - 1;
+
 }
 
 

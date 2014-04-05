@@ -37,7 +37,6 @@ void characterTestDriver(){
     cout << "Strength is " << hero.getStr() << endl;
     cout << "Defense is " << hero.getDef() << endl;
     cout << "Speed is " << hero.getSpd() << endl;
-
 }
 
 
