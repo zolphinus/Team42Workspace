@@ -2,7 +2,9 @@
 #define GAME_CONTROLLER_H
 
 #include "Character.h"
-#include "MapRead.h"
+#include "MapReader.h"
+#include <vector>
+#include "MessageWindow.h"
 
 class Character;
 
@@ -17,14 +19,21 @@ public:
     void fight();
     //void updateGameState(character&);
     void makeHero();
+    void makeEnemies();
+    void randomEnemy(Enemy*&);
     void randomHero(Character*&);
     void selectHero(Character*&);
+
+    void moveHero(); //conceptual
+    void cleanUp();
     Character* getHero();
 
 private:
     Character* hero;
-    //spot for MapReader Object
-    //spot for status window
+    std::vector <Enemy*> enemy;
+    MapReader mapReader;
+    MessageWindow messageWindow;
+
     bool playingGame;
     int floorsCleared;
 

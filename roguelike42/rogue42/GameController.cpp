@@ -4,13 +4,15 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-GameController::GameController(){
+GameController::GameController() : mapReader("map0.txt")
+{
     makeHero();
+    makeEnemies();
 }
 
 GameController::~GameController()
 {
-    delete hero;
+    cleanUp();
 }
 
 
@@ -70,6 +72,43 @@ Character* GameController::getHero(){
     return hero;
 }
 
+void GameController::makeEnemies(){
+
+    if(enemy.size() != 0){
+        for( int i = 0; i < enemy.size(); i++)
+        {
+            randomEnemy(enemy[i]);
+            enemy[i]->generateChar();
+            cout << endl << "MADE :" << enemy[i]->getName()  << endl; //
+        }
+    }
+}
+
+void GameController::randomEnemy(Enemy*& newEnemy){
+    //INCREASE THIS MOD VALUE AS YOU ADD ENEMY TYPES TO FUNCTION
+    int temp = rand() % 1;
+
+    //BE SURE TO USE INT VALUES AND NOT CHAR
+    switch(temp){
+    case 0:
+        newEnemy = new Slime();
+        break;
+    }
+}
+
+void GameController::cleanUp(){
+
+    delete hero;
+    if(enemy.size() != 0){
+        for( int i = 0; i < enemy.size(); i++)
+        {
+            delete enemy[i];
+        }
+    }
+
+    enemy.resize(0);
+}
+
 /*
 
     GameController();
@@ -83,3 +122,11 @@ Character* GameController::getHero(){
     Character* hero;
 
     */
+
+void GameController::moveHero(){
+    hero->setYPos(0);
+    hero->setXPos(0);
+
+
+
+}

@@ -43,8 +43,6 @@ void characterTestDriver(){
 void gameControllerDriver(){
     GameController ourGame;
 
-    cout << "MY NAME IS : " << ourGame.getHero()->getName();
-
 }
 
 
