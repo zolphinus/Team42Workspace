@@ -1,22 +1,23 @@
 # depslib dependency file v1.0
-1396770393 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\main.cpp
+1396938049 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\main.cpp
 	<iostream>
 	"Character.h"
 	"GameController.h"
 	"MapReader.h"
 	"MessageWindow.h"
 
-1396766122 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\character.h
+1396932164 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\character.h
 	<iostream>
 	<string>
 	<ctime>
 	<algorithm>
 
-1396770371 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.h
+1396986082 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.h
 	"Character.h"
 	"MapReader.h"
 	<vector>
 	"MessageWindow.h"
+	<string>
 
 1396567722 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\mapread.h
 
@@ -37,7 +38,7 @@
 
 1396227523 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\mapread.h
 
-1396745798 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\mapreader.cpp
+1396931847 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\mapreader.cpp
 	"MapReader.h"
 
 1396567722 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\mapreader.h
@@ -47,15 +48,16 @@
 	<cstring>
 	<curses.h>
 
-1396567722 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\messagewindow.cpp
+1396985957 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\messagewindow.cpp
 	"MessageWindow.h"
+	"curses.h"
 
-1396567722 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\messagewindow.h
+1396936343 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\messagewindow.h
 	<string>
 	<iostream>
 	<curses.h>
 	<vector>
 
-1396770043 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.cpp
+1396984990 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.cpp
 	"GameController.h"
 

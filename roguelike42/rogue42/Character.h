@@ -107,11 +107,7 @@ inline Character::Character(string enemy)
 
 inline void Character::generateChar()
 {
-    string userName;
-    cout << "Please enter your name: ";
-    cin >> userName;
 
-    setName(userName);
     setMaxHP(100);
     setCurHP(100);
     setStr(10);

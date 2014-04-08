@@ -4,10 +4,12 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-GameController::GameController() : mapReader("map0.txt")
+GameController::GameController()
 {
     makeHero();
     makeEnemies();
+    messageWindow = new MessageWindow();
+    mapReader = new MapReader("map0.txt");
 }
 
 GameController::~GameController()
@@ -31,6 +33,10 @@ void GameController::makeHero(){
         default :
             selectHero(hero);
     }
+    string userName;
+    cout << "Please enter your name: ";
+    cin >> userName;
+    hero->setName(userName);
 
 }
 
@@ -38,6 +44,7 @@ void GameController::randomHero(Character *&hero){
     hero = new Warrior();
 
     hero->generateChar();
+
 
 }
 
@@ -47,7 +54,7 @@ void GameController::selectHero(Character *&hero){
 
     while(jobSelected == false){
 
-        cout << "What job will your hero be?" << endl;
+        cout << "What job will your hero be?" << endl;;
         cout << "W - Warrior" << endl;
         cout << "H - Healer" << endl;
 
@@ -63,7 +70,11 @@ void GameController::selectHero(Character *&hero){
             hero = new Healer();
             jobSelected = true;
             break;
+        default :
+            cout << "PLEASE SELECT A JOB!!!" << endl;
         }
+
+        message("TEST");
     }
     hero->generateChar();
 }
@@ -107,6 +118,12 @@ void GameController::cleanUp(){
     }
 
     enemy.resize(0);
+
+    delete messageWindow;
+    messageWindow = NULL;
+    delete mapReader;
+    mapReader = NULL;
+
 }
 
 /*
@@ -120,8 +137,13 @@ void GameController::cleanUp(){
     //void updateGameState(character&);
     void makeHero();
     Character* hero;
-
     */
+
+void GameController::message(std::string newMessage){
+    messageWindow->AddMessage(newMessage);
+    messageWindow->PrintMessageWindow();
+}
+
 
 void GameController::moveHero(){
     hero->setYPos(0);
@@ -130,3 +152,6 @@ void GameController::moveHero(){
 
 
 }
+
+
+

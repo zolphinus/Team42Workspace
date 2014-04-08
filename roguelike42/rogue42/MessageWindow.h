@@ -12,12 +12,17 @@ class MessageWindow
 {
 public:
     MessageWindow();
+    ~MessageWindow();
     void AddMessage(string);
     void PrintMessageWindow();
+    WINDOW* getMessageWindow();
+
+
     #define MESSAGE_WINDOW_HEIGHT 8
     #define MESSAGE_WINDOW_WIDTH 80
 private:
     string MessageArray[8];
+    WINDOW* messageWindow;
 };
 
 

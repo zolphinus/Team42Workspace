@@ -5,6 +5,7 @@
 #include "MapReader.h"
 #include <vector>
 #include "MessageWindow.h"
+#include <string>
 
 class Character;
 
@@ -24,6 +25,7 @@ public:
     void randomHero(Character*&);
     void selectHero(Character*&);
 
+    void message(std::string);
     void moveHero(); //conceptual
     void cleanUp();
     Character* getHero();
@@ -31,8 +33,8 @@ public:
 private:
     Character* hero;
     std::vector <Enemy*> enemy;
-    MapReader mapReader;
-    MessageWindow messageWindow;
+    MapReader* mapReader;
+    MessageWindow* messageWindow;
 
     bool playingGame;
     int floorsCleared;

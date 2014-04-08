@@ -41,7 +41,10 @@ void characterTestDriver(){
 
 
 void gameControllerDriver(){
+    int temp;
     GameController ourGame;
+    cin >> temp;
+
 
 }
 
