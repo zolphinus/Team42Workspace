@@ -17,7 +17,6 @@ MessageWindow::MessageWindow()
 }
 
 MessageWindow::~MessageWindow(){
-    endwin();
 }
 
 void MessageWindow::AddMessage(string stringToAdd)
@@ -36,7 +35,7 @@ void MessageWindow::PrintMessageWindow()
 {
     //Displays the window with all blank spaces so when we print messages, it cleans up the trash automatically
     werase(messageWindow);
-    refresh();
+    wrefresh(messageWindow);
 
     init_pair(2,COLOR_WHITE,COLOR_BLUE);
 

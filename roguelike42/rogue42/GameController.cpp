@@ -10,6 +10,8 @@ GameController::GameController()
     makeEnemies();
     messageWindow = new MessageWindow();
     mapReader = new MapReader("map0.txt");
+    mapReader->PrintWindow(0, 0);
+    message("TEST");
 }
 
 GameController::~GameController()
@@ -63,7 +65,6 @@ void GameController::selectHero(Character *&hero){
         switch(menuSelector){
 
         case 'W':
-            hero = new Warrior();
             jobSelected = true;
             break;
         case 'H':
@@ -73,8 +74,6 @@ void GameController::selectHero(Character *&hero){
         default :
             cout << "PLEASE SELECT A JOB!!!" << endl;
         }
-
-        message("TEST");
     }
     hero->generateChar();
 }
@@ -123,7 +122,7 @@ void GameController::cleanUp(){
     messageWindow = NULL;
     delete mapReader;
     mapReader = NULL;
-
+    endwin();
 }
 
 /*

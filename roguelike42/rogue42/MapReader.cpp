@@ -28,6 +28,17 @@ MapReader::MapReader(string FileName)
     mapIn.close();
     delete cstr;
     cstr = NULL;
+
+    initscr();//-------------------------curses stuff
+    cbreak();//--------------------------disables the buffer
+    curs_set(0);//-----------------------makes cursor invisible
+    start_color();//---------------------must be run before using color
+    mapWindow = newwin(MAP_WINDOW_HEIGHT,MAP_WINDOW_WIDTH,0,0);//creates the window
+
+}
+
+MapReader::~MapReader(){
+    delwin(mapWindow);
 }
 
 void MapReader::PrintWindow(int CharacterPosY, int CharacterPosX)
@@ -48,25 +59,18 @@ void MapReader::PrintWindow(int CharacterPosY, int CharacterPosX)
         startPrintX=CharacterPosX;
     }
 
-
-
-    initscr();//-------------------------curses stuff
-    cbreak();//--------------------------disables the buffer
-    curs_set(0);//-----------------------makes cursor invisible
-    start_color();//---------------------must be run before using color
     init_pair(1,COLOR_RED,COLOR_WHITE);//----Initialize color pair
-    WINDOW *MapWindow = newwin(MAP_WINDOW_HEIGHT,MAP_WINDOW_WIDTH,0,0);//creates the window
-    wbkgd(MapWindow, COLOR_PAIR(1));
+    wbkgd(mapWindow, COLOR_PAIR(1));
 
     for(int column=0; column<MAP_WINDOW_WIDTH; column++)
     {
         for(int row=0; row<MAP_WINDOW_HEIGHT; row++)
         {
-            wmove(MapWindow, row, column);//------moves the cursor and prints the character in the floormap
-            waddch(MapWindow, floorMap[row+startPrintY][column+startPrintX-19]);
+            wmove(mapWindow, row, column);//------moves the cursor and prints the character in the floormap
+            waddch(mapWindow, floorMap[row+startPrintY][column+startPrintX-19]);
         }// END ROW FORLOOP
     }// END COLUMN FORLOOP
-    wrefresh(MapWindow);//Pushes changes to the screen
+    wrefresh(mapWindow);//Pushes changes to the screen
 }
 
 char MapReader::atPosition(int yToCheck, int xToCheck)
