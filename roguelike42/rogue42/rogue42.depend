@@ -18,22 +18,24 @@
 
 1396567722 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\mapread.h
 
-1396560077 source:c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\main.cpp
+1396925058 source:c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\main.cpp
 	<iostream>
 	"Character.h"
 	"GameController.h"
+	"MapReader.h"
+	"MessageWindow.h"
 
-1396560543 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\character.h
+1396997998 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\character.h
 	<iostream>
 	<string>
 	<ctime>
 	<algorithm>
 
-1396372770 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.h
+1396925058 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.h
 	"Character.h"
 	"MapRead.h"
 
-1396227523 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\mapread.h
+1396564221 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\mapread.h
 
 1396672048 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\mapreader.cpp
 	"MapReader.h"
@@ -56,4 +58,26 @@
 
 1396671148 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.cpp
 	"GameController.h"
+
+1396564221 source:c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\messagewindow.cpp
+	"MessageWindow.h"
+
+1396564221 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\messagewindow.h
+	<string>
+	<iostream>
+	<curses.h>
+	<vector>
+
+1396992985 source:c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.cpp
+	"GameController.h"
+
+1396564221 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\mapreader.h
+	<string>
+	<iostream>
+	<fstream>
+	<cstring>
+	<curses.h>
+
+1396925058 source:c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\mapreader.cpp
+	"MapReader.h"
 
