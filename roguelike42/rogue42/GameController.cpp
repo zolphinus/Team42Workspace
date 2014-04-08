@@ -6,12 +6,17 @@ using std::endl;
 
 GameController::GameController()
 {
+
     makeHero();
     makeEnemies();
+
+    startCurseStuff();
     messageWindow = new MessageWindow();
     mapReader = new MapReader("map0.txt");
     mapReader->PrintWindow(0, 0);
     message("TEST");
+    moveHero();
+
 }
 
 GameController::~GameController()
@@ -65,6 +70,7 @@ void GameController::selectHero(Character *&hero){
         switch(menuSelector){
 
         case 'W':
+            hero = new Warrior();
             jobSelected = true;
             break;
         case 'H':
@@ -144,13 +150,69 @@ void GameController::message(std::string newMessage){
 }
 
 
-void GameController::moveHero(){
-    hero->setYPos(0);
-    hero->setXPos(0);
 
-
+void GameController::startCurseStuff(){
+    initscr();//-------------------------curses stuff
+    cbreak();//--------------------------disables the buffer
+    curs_set(0);//-----------------------makes cursor invisible
+    start_color();//---------------------must be run before using color
+    noecho();
 
 }
 
 
+void GameController::moveHero(){
+    int ch;
+    keypad(mapReader->getMapReader(), true);
+    while(true){
+    wmove(mapReader->getMapReader(), hero->getYPos(), hero->getXPos());
+    waddch(mapReader->getMapReader(), 'P');
+    ch = wgetch(mapReader->getMapReader());
 
+    if( ch == KEY_DOWN){
+        hero->setYPos(hero->getYPos() + 1);
+        wclear(mapReader->getMapReader());
+    }
+
+    if( ch == KEY_UP){
+        hero->setYPos(hero->getYPos() -1);
+        wclear(mapReader->getMapReader());
+    }
+
+    if( ch == KEY_LEFT){
+        hero->setXPos(hero->getXPos() - 1);
+        wclear(mapReader->getMapReader());
+    }
+
+    if( ch == KEY_RIGHT){
+        hero->setXPos(hero->getXPos() + 1);
+        wclear(mapReader->getMapReader());
+    }
+
+    /*
+    if( ch == KEY_UP){
+        hero->setYPos(hero->getYPos() -1);
+        wclear(mapReader->getMapReader());
+    }
+
+    if( ch == KEY_LEFT){
+        hero->setXPos(hero->getXPos() - 1);
+        wclear(mapReader->getMapReader());
+    }
+
+    if( ch == KEY_RIGHT){
+        hero->setXPos(hero->getXPos() + 1);
+        wclear(mapReader->getMapReader());
+    }
+    */
+
+
+
+    mapReader->PrintWindow(hero->getYPos(), hero->getXPos());
+    message("TEST");
+    wrefresh(mapReader->getMapReader());
+    }
+
+
+
+}

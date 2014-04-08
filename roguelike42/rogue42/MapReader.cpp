@@ -29,10 +29,7 @@ MapReader::MapReader(string FileName)
     delete cstr;
     cstr = NULL;
 
-    initscr();//-------------------------curses stuff
-    cbreak();//--------------------------disables the buffer
-    curs_set(0);//-----------------------makes cursor invisible
-    start_color();//---------------------must be run before using color
+
     mapWindow = newwin(MAP_WINDOW_HEIGHT,MAP_WINDOW_WIDTH,0,0);//creates the window
 
 }
@@ -47,11 +44,11 @@ void MapReader::PrintWindow(int CharacterPosY, int CharacterPosX)
 
     if(CharacterPosY<9)
     {
-        startPrintY = 0;         //Keeps from printing junk
+        startPrintY = 9;         //Keeps from printing junk
     }
     else if(CharacterPosX<19)
     {
-        startPrintX = 0;
+        startPrintX = 19;
     }
     else
     {
@@ -76,4 +73,9 @@ void MapReader::PrintWindow(int CharacterPosY, int CharacterPosX)
 char MapReader::atPosition(int yToCheck, int xToCheck)
 {
     return floorMap[yToCheck][xToCheck];
+}
+
+
+WINDOW* MapReader::getMapReader(){
+    return mapWindow;
 }

@@ -112,6 +112,8 @@ inline void Character::generateChar()
     setCurHP(100);
     setStr(10);
     setSpd(10);
+    setXPos(0);
+    setYPos(0);
 
     return;
 }
