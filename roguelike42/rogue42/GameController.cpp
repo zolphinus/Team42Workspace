@@ -15,6 +15,9 @@ GameController::GameController()
     mapReader = new MapReader("map0.txt");
     mapReader->PrintWindow(0, 0);
     message("TEST");
+
+    hero->setYPos(4);
+    hero->setXPos(8);
     moveHero();
 
 }
@@ -168,48 +171,37 @@ void GameController::moveHero(){
     wmove(mapReader->getMapReader(), hero->getYPos(), hero->getXPos());
     waddch(mapReader->getMapReader(), 'P');
     ch = wgetch(mapReader->getMapReader());
+    string temp = "";
 
     if( ch == KEY_DOWN){
-        hero->setYPos(hero->getYPos() + 1);
-        wclear(mapReader->getMapReader());
+
+        if(mapReader->atPosition(hero->getYPos()+1, hero->getXPos()) != '#')
+        {
+            hero->setYPos(hero->getYPos() + 1);
+            wclear(mapReader->getMapReader());
+        }
     }
 
     if( ch == KEY_UP){
         hero->setYPos(hero->getYPos() -1);
         wclear(mapReader->getMapReader());
+        message("UP");
     }
 
     if( ch == KEY_LEFT){
         hero->setXPos(hero->getXPos() - 1);
         wclear(mapReader->getMapReader());
+        message("LEFT");
     }
 
     if( ch == KEY_RIGHT){
         hero->setXPos(hero->getXPos() + 1);
         wclear(mapReader->getMapReader());
+        message("RIGHT");
     }
 
-    /*
-    if( ch == KEY_UP){
-        hero->setYPos(hero->getYPos() -1);
-        wclear(mapReader->getMapReader());
-    }
 
-    if( ch == KEY_LEFT){
-        hero->setXPos(hero->getXPos() - 1);
-        wclear(mapReader->getMapReader());
-    }
-
-    if( ch == KEY_RIGHT){
-        hero->setXPos(hero->getXPos() + 1);
-        wclear(mapReader->getMapReader());
-    }
-    */
-
-
-
-    mapReader->PrintWindow(hero->getYPos(), hero->getXPos());
-    message("TEST");
+    mapReader->PrintWindow(0, 0);
     wrefresh(mapReader->getMapReader());
     }
 

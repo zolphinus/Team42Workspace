@@ -44,11 +44,11 @@ void MapReader::PrintWindow(int CharacterPosY, int CharacterPosX)
 
     if(CharacterPosY<9)
     {
-        startPrintY = 9;         //Keeps from printing junk
+        startPrintY = 0;         //Keeps from printing junk
     }
     else if(CharacterPosX<19)
     {
-        startPrintX = 19;
+        startPrintX = 0;
     }
     else
     {
@@ -65,6 +65,7 @@ void MapReader::PrintWindow(int CharacterPosY, int CharacterPosX)
         {
             wmove(mapWindow, row, column);//------moves the cursor and prints the character in the floormap
             waddch(mapWindow, floorMap[row+startPrintY][column+startPrintX-19]);
+
         }// END ROW FORLOOP
     }// END COLUMN FORLOOP
     wrefresh(mapWindow);//Pushes changes to the screen
