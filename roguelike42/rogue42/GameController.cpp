@@ -183,21 +183,46 @@ void GameController::moveHero(){
     }
 
     if( ch == KEY_UP){
-        hero->setYPos(hero->getYPos() -1);
-        wclear(mapReader->getMapReader());
-        message("UP");
+        if(mapReader->atPosition(hero->getYPos()-1, hero->getXPos()) != '#'){
+            hero->setYPos(hero->getYPos() -1);
+            wclear(mapReader->getMapReader());
+        }
     }
 
     if( ch == KEY_LEFT){
-        hero->setXPos(hero->getXPos() - 1);
-        wclear(mapReader->getMapReader());
-        message("LEFT");
+        if(mapReader->atPosition(hero->getYPos(), hero->getXPos() - 1) != '#'){
+            hero->setXPos(hero->getXPos() - 1);
+            wclear(mapReader->getMapReader());
+        }
     }
 
     if( ch == KEY_RIGHT){
-        hero->setXPos(hero->getXPos() + 1);
-        wclear(mapReader->getMapReader());
-        message("RIGHT");
+        if(mapReader->atPosition(hero->getYPos(), hero->getXPos() + 1) != '#'){
+            hero->setXPos(hero->getXPos() + 1);
+            wclear(mapReader->getMapReader());
+        }
+    }
+
+    if ( ch == '<'){
+        message("TRY TO GO DOWNSTAIRS");
+    }
+
+    if ( ch == '>'){
+        message("TRY TO GO UPSTAIRS");
+    }
+
+    if ( ch == 'p' || ch == 'P')
+    {
+        message("PICKUP ITEM");
+    }
+
+    if ( ch == 'e' || ch == 'E')
+    {
+        message("EQUIP STUFF");
+    }
+
+    if ( ch == 's' || ch == 'S'){
+        message("SPECIAL ATTACK");
     }
 
 
