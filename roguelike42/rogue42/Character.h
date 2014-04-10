@@ -45,19 +45,14 @@ public:
 
 protected:
     int level;
-    int currentHP;
-    int maxHP;
-    int strength;
-    int defense;
-    int speed; //who attacks first
+    int currentHP, maxHP;
+    int strength, defense, speed;
     int expPoints;
     int vision;
     string name;
-    int maxSP;
-    int currentSP;
-    int yPos;
-    int xPos;
-
+    int maxSP, currentSP;
+    int yPos, xPos;
+    int maxPossibleHP;
 };
 
 class Player: public Character
@@ -103,6 +98,7 @@ inline Character::Character()
     currentSP = maxSP;
     vision = 2;
     expPoints = 0;
+    maxPossibleHP = 999;
 }
 
 inline Character::Character(string enemy)
@@ -116,6 +112,10 @@ inline void Character::generateChar()
     string userName;
     cout << "Please enter your name: ";
     cin >> userName;
+    if (userName.length() > 10)
+    {
+        userName.resize(10);
+    }
 
     setName(userName);
     setMaxHP(100);
@@ -180,33 +180,47 @@ inline void Character::levelUp()
         level = level + 1;
         expPoints = expPoints - 100;
 
+        if (maxHP > maxPossibleHP)
+        {
+            maxHP = maxPossibleHP;
+        }
+
     }//end if 100 EXP loop
 }
 
 void Character::attack(Character& opponent)
 {
+    int damage;
+
     if (speed > opponent.getSpd())//do damage to opponent before they do any to you
     {
+        if (currentHP > 0)
         int oppHP = opponent.getCurHP();
         int myStr = strength;
-        int damage = myStr - opponent.getDef();
+        damage = myStr - opponent.getDef();
         oppHP = oppHP - damage;
         opponent.setCurHP(oppHP);
 
-        int myHP = currentHP;
-        int oppStr = opponent.getStr();
-        damage = oppStr - defense;
-        myHP = myHP - damage;
-        currentHP = myHP;
+        if (opponent.getCurHP() > 0)
+        {
+            int myHP = currentHP;
+            int oppStr = opponent.getStr();
+            damage = oppStr - defense;
+            myHP = myHP - damage;
+            currentHP = myHP;
+        }
     }
 
-    else//opponent does damage first, then the player
+    else//opponent does damage first
     {
-        int myHP = currentHP;
-        int oppStr = opponent.getStr();
-        int damage = oppStr - defense;
-        myHP = myHP - damage;
-        currentHP = myHP;
+        if (opponent.getCurHP() > 0)
+        {
+            int myHP = currentHP;
+            int oppStr = opponent.getStr();
+            damage = oppStr - defense;
+            myHP = myHP - damage;
+            currentHP = myHP;
+        }
 
         int oppHP = opponent.getCurHP();
         int myStr = strength;
@@ -220,6 +234,10 @@ void Character::attack(Character& opponent)
 inline void Character::setMaxHP(int newHP)
 {
     maxHP = newHP;
+    if (maxHP > maxPossibleHP)
+    {
+        maxHP = maxPossibleHP;
+    }
 }
 
 inline int Character::getMaxHP()
@@ -240,6 +258,10 @@ inline int Character::getEXP()
 inline void Character::setCurHP(int newHP)
 {
     currentHP = newHP;
+    if (currentHP > maxPossibleHP)
+    {
+        currentHP = maxPossibleHP;
+    }
 }
 
 inline int Character::getCurHP()
@@ -376,18 +398,22 @@ inline void Warrior::specialMove()
 
 inline void Healer::specialMove()
 {
-    currentHP = currentHP + 60;
 
-    if (currentHP > maxHP)
+    if (currentSP > 10)
     {
-        currentHP = maxHP;
-    }
+        currentHP = currentHP + 60;
 
-    currentSP = currentSP - 10;
+        if (currentHP > maxHP)
+        {
+            currentHP = maxHP;
+        }
 
-    if (currentSP < 0)
-    {
-        currentSP = 0;
+        currentSP = currentSP - 10;
+
+        if (currentSP < 0)
+        {
+            currentSP = 0;
+        }
     }
 }
 
