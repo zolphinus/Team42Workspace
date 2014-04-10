@@ -5,11 +5,15 @@
 #include <string>
 #include <ctime>
 #include <algorithm>
+#include <vector>
 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::string;
+using std::vector;
+
+#include "Item.h"
 
 
 class Character{
@@ -42,6 +46,8 @@ public:
     int getYPos();
     void setXPos(int newX);
     int getXPos();
+    void equipGear(Gear piece);
+    void unequipGear(Gear piece);
 
 protected:
     int level;
@@ -53,6 +59,8 @@ protected:
     int maxSP, currentSP;
     int yPos, xPos;
     int maxPossibleHP;
+    vector <Gear> heldGear;
+    vector <Item> inventory;
 };
 
 class Player: public Character
@@ -195,11 +203,13 @@ void Character::attack(Character& opponent)
     if (speed > opponent.getSpd())//do damage to opponent before they do any to you
     {
         if (currentHP > 0)
-        int oppHP = opponent.getCurHP();
-        int myStr = strength;
-        damage = myStr - opponent.getDef();
-        oppHP = oppHP - damage;
-        opponent.setCurHP(oppHP);
+        {
+            int oppHP = opponent.getCurHP();
+            int myStr = strength;
+            damage = myStr - opponent.getDef();
+            oppHP = oppHP - damage;
+            opponent.setCurHP(oppHP);
+        }
 
         if (opponent.getCurHP() > 0)
         {
@@ -222,13 +232,15 @@ void Character::attack(Character& opponent)
             currentHP = myHP;
         }
 
-        int oppHP = opponent.getCurHP();
-        int myStr = strength;
-        damage = myStr - opponent.getDef();
-        oppHP = oppHP - damage;
-        opponent.setCurHP(oppHP);
+        if (currentHP > 0)
+        {
+            int oppHP = opponent.getCurHP();
+            int myStr = strength;
+            damage = myStr - opponent.getDef();
+            oppHP = oppHP - damage;
+            opponent.setCurHP(oppHP);
+        }
     }
-
 }
 
 inline void Character::setMaxHP(int newHP)
@@ -347,6 +359,29 @@ inline void Character::setXPos(int newX)
 inline int Character::getXPos()
 {
     return xPos;
+}
+
+inline void Character::equipGear(Gear piece)
+{
+    maxHP = maxHP + piece.getHPBuff();
+    maxSP = maxSP + piece.getSPBuff();
+    strength = strength + piece.getStrBuff();
+    defense = defense + piece.getDefBuff();
+    speed = speed + piece.getSpdBuff();
+
+    if (maxHP > 999)
+    {
+        maxHP = 999;
+    }
+}
+
+inline void Character::unequipGear(Gear piece)
+{
+    maxHP = maxHP - piece.getHPBuff();
+    maxSP = maxSP - piece.getSPBuff();
+    strength = strength - piece.getStrBuff();
+    defense = defense - piece.getDefBuff();
+    speed = speed - piece.getSpdBuff();
 }
 
 inline Warrior::Warrior()
