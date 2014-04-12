@@ -6,6 +6,7 @@
 #include <vector>
 #include "MessageWindow.h"
 #include <string>
+#include "StatsWindow.h"
 
 class Character;
 
@@ -35,6 +36,7 @@ private:
     std::vector <Enemy*> enemy;
     MapReader* mapReader;
     MessageWindow* messageWindow;
+    //StatsWindow* statusWindow;
     void startCurseStuff();
 
     bool playingGame;

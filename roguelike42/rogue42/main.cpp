@@ -3,6 +3,7 @@
 #include "GameController.h"
 #include "MapReader.h"
 #include "MessageWindow.h"
+#include "StatsWindow.h"
 
 using std::cout;
 using std::cin;
@@ -13,6 +14,7 @@ using std::endl;
 void characterTestDriver();
 void gameControllerDriver();
 void screenTestDriver();
+void statusTestDriver();
 
 int main()
 {
@@ -43,7 +45,10 @@ void characterTestDriver(){
 void gameControllerDriver(){
     int temp;
     GameController ourGame;
-    cin >> temp; // placeholder input for wait testing
+    ourGame.message("BOOOOOOOOOOOOOOO");
+    ourGame.message("asdf");
+    ourGame.message("mediocraty");
+    cin >> temp;
 
 
 }
@@ -55,4 +60,11 @@ void screenTestDriver(){
     messageWindow.AddMessage("compatability testing");
     mapReader.PrintWindow(0,0);
     messageWindow.PrintMessageWindow();
+}
+
+void statusTestDriver()
+{
+    Character *Hero=new Character;
+    Hero->generateChar();
+    StatsWindow statusWindow(Hero);
 }

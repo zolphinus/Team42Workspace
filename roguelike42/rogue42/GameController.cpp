@@ -16,9 +16,14 @@ GameController::GameController()
     mapReader->PrintWindow(0, 0);
     message("TEST");
 
+    //statusWindow = new StatsWindow(hero);
+    //statusWindow->PrintStatsWindow(hero);
+
+
     hero->setYPos(4);
     hero->setXPos(8);
     moveHero();
+
 
 }
 

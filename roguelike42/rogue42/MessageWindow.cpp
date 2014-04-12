@@ -12,7 +12,8 @@ MessageWindow::MessageWindow()
 
 }
 
-MessageWindow::~MessageWindow(){
+MessageWindow::~MessageWindow()
+{
     delwin(messageWindow);
 }
 
