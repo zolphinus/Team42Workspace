@@ -1,10 +1,11 @@
 # depslib dependency file v1.0
-1397341419 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\main.cpp
+1397343518 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\main.cpp
 	<iostream>
 	"Character.h"
 	"GameController.h"
 	"MapReader.h"
 	"MessageWindow.h"
+	"StatsWindow.h"
 
 1397342750 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\character.h
 	<iostream>
@@ -14,12 +15,13 @@
 	<vector>
 	"Item.h"
 
-1397341419 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.h
+1397345779 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.h
 	"Character.h"
 	"MapReader.h"
 	<vector>
 	"MessageWindow.h"
 	<string>
+	"StatsWindow.h"
 
 1396567722 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\mapread.h
 
@@ -54,7 +56,7 @@
 	<cstring>
 	<curses.h>
 
-1397341419 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\messagewindow.cpp
+1397343518 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\messagewindow.cpp
 	"MessageWindow.h"
 	"curses.h"
 
@@ -64,7 +66,7 @@
 	<curses.h>
 	<vector>
 
-1397342596 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.cpp
+1397345789 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.cpp
 	"GameController.h"
 
 1396564221 source:c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\messagewindow.cpp
@@ -102,4 +104,16 @@
 	<ctime>
 	<algorithm>
 	"Character.h"
+
+1397343518 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\statswindow.h
+	<string>
+	<iostream>
+	<curses.h>
+	<vector>
+
+1397343518 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\statswindow.cpp
+	"StatsWindow.h"
+	"curses.h"
+	"Character.h"
+	<sstream>
 
