@@ -45,9 +45,17 @@ void GameController::makeHero(){
     }
     string userName;
     cout << "Please enter your name: ";
+    if (userName.length() > 10)
+    {
+        userName.resize(10);
+    }
     cin >> userName;
+    cout << userName << endl;
+    if (userName.length() > 10)
+    {
+        userName.resize(10);
+    }
     hero->setName(userName);
-
 }
 
 void GameController::randomHero(Character *&hero){

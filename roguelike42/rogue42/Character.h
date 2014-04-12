@@ -6,7 +6,7 @@
 #include <ctime>
 #include <algorithm>
 #include <vector>
-#include "Item.h"
+
 
 using std::cout;
 using std::cin;
@@ -14,7 +14,7 @@ using std::endl;
 using std::string;
 using std::vector;
 
-
+#include "Item.h"
 
 class Character{
 public:
@@ -25,29 +25,29 @@ public:
     void levelUp();
     void attack(Character& opponent);
     void setMaxHP(int newHP);
-    int getMaxHP();
     void setCurHP(int newHP);
-    int getCurHP();
     void setEXP(int newEXPAmount);
-    int getEXP();
     void setStr(int newStr);
-    int getStr();
     void setDef(int newDef);
-    int getDef();
     void setSpd(int newSpd);
-    int getSpd();
     void setName(string playerName);
-    string getName();
     void setMaxSP(int newSP);
-    int getMaxSP();
     void setCurSP(int newSP);
-    int getCurSP();
     void setYPos(int newY);
-    int getYPos();
     void setXPos(int newX);
-    int getXPos();
     void equipGear(Gear piece);
     void unequipGear(Gear piece);
+    int getMaxHP();
+    int getCurHP();
+    int getEXP();
+    int getStr();
+    int getDef();
+    int getSpd();
+    int getMaxSP();
+    int getCurSP();
+    int getYPos();
+    int getXPos();
+    string getName();
 
 protected:
     int level;
@@ -117,14 +117,6 @@ inline Character::Character(string enemy)
 
 inline void Character::generateChar()
 {
-    string userName;
-    cout << "Please enter your name: ";
-    cin >> userName;
-    if (userName.length() > 10)
-    {
-        userName.resize(10);
-    }
-
     setMaxHP(100);
     setCurHP(100);
     setStr(10);
@@ -196,7 +188,7 @@ inline void Character::levelUp()
     }//end if 100 EXP loop
 }
 
-void Character::attack(Character& opponent)
+inline void Character::attack(Character& opponent)
 {
     int damage;
 
