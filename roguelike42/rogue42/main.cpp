@@ -12,18 +12,16 @@ using std::endl;
 
 void characterTestDriver();
 void gameControllerDriver();
+void screenTestDriver();
 
 int main()
 {
     //srand(time(NULL)); // random seed for randomization of stats, when it matters
     //characterTestDriver();
-    //gameControllerDriver();
+    gameControllerDriver();
+    //screenTestDriver();
 
-    MapReader mapReader("map0.txt");
-    MessageWindow messageWindow;
-    messageWindow.AddMessage("compatability testing");
-    mapReader.PrintWindow(0,0);
-    messageWindow.PrintMessageWindow();
+
 
     return 0;
 }
@@ -39,11 +37,21 @@ void characterTestDriver(){
     cout << "Strength is " << hero.getStr() << endl;
     cout << "Defense is " << hero.getDef() << endl;
     cout << "Speed is " << hero.getSpd() << endl;
-
 }
 
 
 void gameControllerDriver(){
     GameController ourGame;
-    cout << ourGame.hero->getStr() << endl;
+
+    cout << "MY NAME IS : " << ourGame.getHero()->getName();
+
+}
+
+
+void screenTestDriver(){
+    MapReader mapReader("map0.txt");
+    MessageWindow messageWindow;
+    messageWindow.AddMessage("compatability testing");
+    mapReader.PrintWindow(0,0);
+    messageWindow.PrintMessageWindow();
 }
