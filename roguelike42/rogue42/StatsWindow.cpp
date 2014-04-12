@@ -11,25 +11,27 @@ template <typename T>
         return ss.str();
     }
 
-StatsWindow::StatsWindow(Character* Hero)
+StatsWindow::StatsWindow()
 {
     for(int arrayInitializer = 0; arrayInitializer<STATUS_WINDOW_HEIGHT; arrayInitializer++)
     {
         StatusArray[arrayInitializer] = "";
     }
-    StatusArray[0]="Name: "+Hero->getName();
-    StatusArray[1]="HP  : "+NumberToString(Hero->getCurHP())+"/"+NumberToString(Hero->getMaxHP());
     statusWindow = newwin(STATUS_WINDOW_HEIGHT,STATUS_WINDOW_WIDTH,0,35);
 
 }
 
 StatsWindow::~StatsWindow()
 {
-
+    delwin(statusWindow);
 }
 
 void StatsWindow::PrintStatsWindow(Character* Hero)
 {
+    StatusArray[0]="Name: "+Hero->getName();
+    StatusArray[1]="HP  : "+NumberToString(Hero->getCurHP())+"/"+NumberToString(Hero->getMaxHP());
+
+
     string xPos, yPos, outString;
     werase(statusWindow);
 

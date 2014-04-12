@@ -103,3 +103,69 @@
 	<algorithm>
 	"Character.h"
 
+1397342135 source:c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\main.cpp
+	<iostream>
+	"Character.h"
+	"GameController.h"
+	"MapReader.h"
+	"MessageWindow.h"
+	"StatsWindow.h"
+
+1397339959 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\character.h
+	<iostream>
+	<string>
+	<ctime>
+	<algorithm>
+	<vector>
+	"Item.h"
+
+1397339959 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\item.h
+	<iostream>
+	<string>
+	<ctime>
+	<algorithm>
+	"Character.h"
+
+1397342416 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.h
+	"Character.h"
+	"MapReader.h"
+	<vector>
+	"MessageWindow.h"
+	<string>
+	"StatsWindow.h"
+
+1397339570 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\mapreader.h
+	<string>
+	<iostream>
+	<fstream>
+	<cstring>
+	<curses.h>
+
+1396986076 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\messagewindow.h
+	<string>
+	<iostream>
+	<curses.h>
+	<vector>
+
+1397341689 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\statswindow.h
+	<string>
+	<iostream>
+	<curses.h>
+	<vector>
+
+1397339570 source:c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\mapreader.cpp
+	"MapReader.h"
+
+1397339693 source:c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\messagewindow.cpp
+	"MessageWindow.h"
+	"curses.h"
+
+1397342145 source:c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\statswindow.cpp
+	"StatsWindow.h"
+	"curses.h"
+	"Character.h"
+	<sstream>
+
+1397340074 source:c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.cpp
+	"GameController.h"
+

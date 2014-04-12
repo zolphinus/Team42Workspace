@@ -22,7 +22,7 @@ int main()
     //characterTestDriver();
     gameControllerDriver();
     //screenTestDriver();
-
+    statusTestDriver();
 
 
     return 0;
@@ -66,5 +66,6 @@ void statusTestDriver()
 {
     Character *Hero=new Character;
     Hero->generateChar();
-    StatsWindow statusWindow(Hero);
+    StatsWindow statusWindow;
+    statusWindow.PrintStatsWindow(Hero);
 }

@@ -13,7 +13,7 @@ class Character;
 class StatsWindow
 {
 public:
-    StatsWindow(Character*);
+    StatsWindow();
     ~StatsWindow();
     void PrintStatsWindow(Character*);
 
