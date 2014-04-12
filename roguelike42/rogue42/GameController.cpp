@@ -15,9 +15,8 @@ GameController::GameController()
     mapReader = new MapReader("map0.txt");
     mapReader->PrintWindow(0, 0);
     message("TEST");
-
-    //statusWindow = new StatsWindow(hero);
-    //statusWindow->PrintStatsWindow(hero);
+    statusWindow = new StatsWindow(hero);
+    statusWindow->PrintStatsWindow(hero);
 
 
     hero->setYPos(4);
@@ -50,10 +49,6 @@ void GameController::makeHero(){
     }
     string userName;
     cout << "Please enter your name: ";
-    if (userName.length() > 10)
-    {
-        userName.resize(10);
-    }
     cin >> userName;
     cout << userName << endl;
     if (userName.length() > 10)
