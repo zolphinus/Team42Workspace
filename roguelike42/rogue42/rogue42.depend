@@ -21,22 +21,26 @@
 
 1396567722 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\mapread.h
 
-1396560077 source:c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\main.cpp
+1396925058 source:c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\main.cpp
 	<iostream>
 	"Character.h"
 	"GameController.h"
+	"MapReader.h"
+	"MessageWindow.h"
 
-1396560543 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\character.h
+1397156202 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\character.h
 	<iostream>
 	<string>
 	<ctime>
 	<algorithm>
+	<vector>
+	"Item.h"
 
-1396372770 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.h
+1396925058 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.h
 	"Character.h"
 	"MapRead.h"
 
-1396227523 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\mapread.h
+1396564221 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\mapread.h
 
 1397003996 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\mapreader.cpp
 	"MapReader.h"
@@ -60,4 +64,33 @@
 
 1397007390 source:c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.cpp
 	"GameController.h"
+
+1396564221 source:c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\messagewindow.cpp
+	"MessageWindow.h"
+
+1396564221 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\messagewindow.h
+	<string>
+	<iostream>
+	<curses.h>
+	<vector>
+
+1396992985 source:c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.cpp
+	"GameController.h"
+
+1396564221 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\mapreader.h
+	<string>
+	<iostream>
+	<fstream>
+	<cstring>
+	<curses.h>
+
+1396925058 source:c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\mapreader.cpp
+	"MapReader.h"
+
+1397157008 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\item.h
+	<iostream>
+	<string>
+	<ctime>
+	<algorithm>
+	"Character.h"
 

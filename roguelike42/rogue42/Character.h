@@ -5,11 +5,15 @@
 #include <string>
 #include <ctime>
 #include <algorithm>
+#include <vector>
+#include "Item.h"
 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::string;
+using std::vector;
+
 
 
 class Character{
@@ -18,12 +22,14 @@ public:
     Character(string enemy); //used only when creating enemies
     virtual void specialMove();
     void generateChar();
+    void levelUp();
+    void attack(Character& opponent);
     void setMaxHP(int newHP);
     int getMaxHP();
-    void setEXP(int newEXPAmount);
-    int getEXP();
     void setCurHP(int newHP);
     int getCurHP();
+    void setEXP(int newEXPAmount);
+    int getEXP();
     void setStr(int newStr);
     int getStr();
     void setDef(int newDef);
@@ -31,31 +37,34 @@ public:
     void setSpd(int newSpd);
     int getSpd();
     void setName(string playerName);
-    void levelUp();
     string getName();
+    void setMaxSP(int newSP);
+    int getMaxSP();
+    void setCurSP(int newSP);
+    int getCurSP();
     void setYPos(int newY);
     int getYPos();
     void setXPos(int newX);
     int getXPos();
+    void equipGear(Gear piece);
+    void unequipGear(Gear piece);
 
 protected:
     int level;
-    int currentHP;
-    int maxHP;
-    int strength;
-    int defense;
-    int speed; //who attacks first
+    int currentHP, maxHP;
+    int strength, defense, speed;
     int expPoints;
     int vision;
     string name;
-    int yPos;
-    int xPos;
+    int maxSP, currentSP;
+    int yPos, xPos;
+    int maxPossibleHP;
+    vector <Gear> heldGear;
+    vector <Item> inventory;
 };
-
 
 class Player: public Character
 {
-
 };
 
 class Warrior: public Player
@@ -69,9 +78,8 @@ class Healer: public Player
 {
 public:
     Healer();
-    void specialMove();
+    void specialMove();//heals player
 };
-
 
 class Enemy: public Character
 {
@@ -85,7 +93,6 @@ public:
     Slime();
 };
 
-
 inline Character::Character()
 {
 
@@ -94,9 +101,12 @@ inline Character::Character()
     currentHP = maxHP;
     strength = rand() % 5 + 5;
     defense = rand() % 5 + 5;
-    speed = rand() % 1 + 2;
+    speed = rand() % 5 + 5;
+    maxSP = 50;
+    currentSP = maxSP;
     vision = 2;
     expPoints = 0;
+    maxPossibleHP = 999;
 }
 
 inline Character::Character(string enemy)
@@ -107,20 +117,139 @@ inline Character::Character(string enemy)
 
 inline void Character::generateChar()
 {
+    string userName;
+    cout << "Please enter your name: ";
+    cin >> userName;
+    if (userName.length() > 10)
+    {
+        userName.resize(10);
+    }
 
     setMaxHP(100);
     setCurHP(100);
     setStr(10);
+    setDef(10);
     setSpd(10);
-    setXPos(0);
+
+    setMaxSP(50);
+    setCurSP(50);
     setYPos(0);
+    setXPos(0);
 
     return;
+}
+
+inline void Character::levelUp()
+{
+    if (expPoints >= 100)//might not need this loop if we only call the function when we know the character will level up
+    {
+        maxHP = maxHP + rand() % 5 + 10;
+
+        int statUp = rand() % 3 + 1;//decides what stat goes up randomly
+
+        //Randomly raise a stat by one point
+        if (statUp == 1) //may change to switch statement later
+        {
+            strength = strength + 1;
+        }
+        else if (statUp == 2)
+        {
+            defense = defense + 1;
+        }
+        else if (statUp == 3)
+        {
+            speed = speed + 1;
+        }
+
+        //After the first random stat increase, each stat has a chance of going up by one
+        int statIncrease;
+
+        for (int i = 1; i < 4; i++)
+        {
+            statIncrease = rand() % 1;
+            if (i == 1 && statIncrease == 1)
+            {
+                strength = strength + 1;
+            }
+            else if (i == 2 && statIncrease == 1)
+            {
+                defense = defense + 1;
+            }
+            else if (i == 3 && statIncrease == 1)
+            {
+                speed = speed + 1;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        level = level + 1;
+        expPoints = expPoints - 100;
+
+        if (maxHP > maxPossibleHP)
+        {
+            maxHP = maxPossibleHP;
+        }
+
+    }//end if 100 EXP loop
+}
+
+void Character::attack(Character& opponent)
+{
+    int damage;
+
+    if (speed > opponent.getSpd())//do damage to opponent before they do any to you
+    {
+        if (currentHP > 0)
+        {
+            int oppHP = opponent.getCurHP();
+            int myStr = strength;
+            damage = myStr - opponent.getDef();
+            oppHP = oppHP - damage;
+            opponent.setCurHP(oppHP);
+        }
+
+        if (opponent.getCurHP() > 0)
+        {
+            int myHP = currentHP;
+            int oppStr = opponent.getStr();
+            damage = oppStr - defense;
+            myHP = myHP - damage;
+            currentHP = myHP;
+        }
+    }
+
+    else//opponent does damage first
+    {
+        if (opponent.getCurHP() > 0)
+        {
+            int myHP = currentHP;
+            int oppStr = opponent.getStr();
+            damage = oppStr - defense;
+            myHP = myHP - damage;
+            currentHP = myHP;
+        }
+
+        if (currentHP > 0)
+        {
+            int oppHP = opponent.getCurHP();
+            int myStr = strength;
+            damage = myStr - opponent.getDef();
+            oppHP = oppHP - damage;
+            opponent.setCurHP(oppHP);
+        }
+    }
 }
 
 inline void Character::setMaxHP(int newHP)
 {
     maxHP = newHP;
+    if (maxHP > maxPossibleHP)
+    {
+        maxHP = maxPossibleHP;
+    }
 }
 
 inline int Character::getMaxHP()
@@ -141,6 +270,10 @@ inline int Character::getEXP()
 inline void Character::setCurHP(int newHP)
 {
     currentHP = newHP;
+    if (currentHP > maxPossibleHP)
+    {
+        currentHP = maxPossibleHP;
+    }
 }
 
 inline int Character::getCurHP()
@@ -188,6 +321,26 @@ inline string Character::getName()
     return name;
 }
 
+inline void Character::setCurSP(int newSP)
+{
+    currentSP = newSP;
+}
+
+inline int Character::getCurSP()
+{
+    return currentSP;
+}
+
+inline void Character::setMaxSP(int newSP)
+{
+    maxSP = newSP;
+}
+
+inline int Character::getMaxSP()
+{
+    return maxSP;
+}
+
 inline void Character::setYPos(int newY)
 {
     yPos = newY;
@@ -208,56 +361,27 @@ inline int Character::getXPos()
     return xPos;
 }
 
-inline void Character::levelUp()
+inline void Character::equipGear(Gear piece)
 {
-    if (expPoints >= 100)//might not need this loop if we only call the function when we know the character will level up
+    maxHP = maxHP + piece.getHPBuff();
+    maxSP = maxSP + piece.getSPBuff();
+    strength = strength + piece.getStrBuff();
+    defense = defense + piece.getDefBuff();
+    speed = speed + piece.getSpdBuff();
+
+    if (maxHP > 999)
     {
-        maxHP = maxHP + rand() % 5 + 10;
+        maxHP = 999;
+    }
+}
 
-        int statUp = rand() % 3 + 1;//decides what stat goes up randomly
-
-        //Randomly raise a stat by one point
-        if (statUp == 1) //may change to switch statement later
-        {
-            strength = strength + 1;
-        }
-        else if (statUp == 2)
-        {
-            defense = defense + 1;
-        }
-        else if (statUp == 3)
-        {
-            speed = speed + 1;
-        }
-        else
-        {
-            cout << "Error occurred!" << endl;
-        }
-
-        //After the first random stat increase, each stat has a chance of going up by one
-        int statIncrease;
-
-        for (int i = 1; i < 4; i++)
-        {
-            statIncrease = rand() % 1;
-            if (i == 1 && statIncrease == 1)
-            {
-                strength = strength + 1;
-            }
-            if (i == 2 && statIncrease == 1)
-            {
-                defense = defense + 1;
-            }
-            if (i == 3 && statIncrease == 1)
-            {
-                speed = speed + 1;
-            }
-        }
-
-        level = level + 1;
-        expPoints = expPoints - 100;
-
-    }//end if 100 EXP loop
+inline void Character::unequipGear(Gear piece)
+{
+    maxHP = maxHP - piece.getHPBuff();
+    maxSP = maxSP - piece.getSPBuff();
+    strength = strength - piece.getStrBuff();
+    defense = defense - piece.getDefBuff();
+    speed = speed - piece.getSpdBuff();
 }
 
 inline Warrior::Warrior()
@@ -269,6 +393,7 @@ inline Warrior::Warrior()
 inline Healer::Healer()
 {
     strength = strength - 3;
+    defense = defense - 2;
     maxHP = maxHP - 20;
     currentHP = maxHP;
     //will add more stat adjustments as we add more stats
@@ -308,7 +433,23 @@ inline void Warrior::specialMove()
 
 inline void Healer::specialMove()
 {
-//will add more to special move when we know what the special moves should do
+
+    if (currentSP > 10)
+    {
+        currentHP = currentHP + 60;
+
+        if (currentHP > maxHP)
+        {
+            currentHP = maxHP;
+        }
+
+        currentSP = currentSP - 10;
+
+        if (currentSP < 0)
+        {
+            currentSP = 0;
+        }
+    }
 }
 
 #endif
