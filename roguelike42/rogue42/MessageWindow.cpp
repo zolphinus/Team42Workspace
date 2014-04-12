@@ -7,16 +7,14 @@ MessageWindow::MessageWindow()
     {
         MessageArray[arrayInitializer] = "";
     }
-    initscr();//-------------------------curses stuff
-    cbreak();//--------------------------disables the buffer
-    curs_set(0);//-----------------------makes cursor invisible
-    start_color();//---------------------must be run before using color
-    noecho();
+
     messageWindow = newwin(MESSAGE_WINDOW_HEIGHT,MESSAGE_WINDOW_WIDTH,17,0);
 
 }
 
-MessageWindow::~MessageWindow(){
+MessageWindow::~MessageWindow()
+{
+    delwin(messageWindow);
 }
 
 void MessageWindow::AddMessage(string stringToAdd)
@@ -35,7 +33,6 @@ void MessageWindow::PrintMessageWindow()
 {
     //Displays the window with all blank spaces so when we print messages, it cleans up the trash automatically
     werase(messageWindow);
-    wrefresh(messageWindow);
 
     init_pair(2,COLOR_WHITE,COLOR_BLUE);
 

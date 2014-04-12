@@ -8,10 +8,17 @@ GameController::GameController()
 {
     makeHero();
     makeEnemies();
+    initscr();
+    cbreak();
+    curs_set(0);
+    start_color();
+    noecho();
     messageWindow = new MessageWindow();
     mapReader = new MapReader("map0.txt");
     mapReader->PrintWindow(0, 0);
     message("TEST");
+    statusWindow = new StatsWindow(hero);
+    statusWindow->PrintStatsWindow(hero);
 }
 
 GameController::~GameController()
