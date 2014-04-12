@@ -140,6 +140,8 @@ void GameController::cleanUp(){
     messageWindow = NULL;
     delete mapReader;
     mapReader = NULL;
+    delete statusWindow;
+    statusWindow = NULL;
     endwin();
 }
 
@@ -234,6 +236,9 @@ void GameController::moveHero(){
         message("SPECIAL ATTACK");
     }
 
+    int stupidHealth = 99;
+
+    hero->setCurHP(stupidHealth);
 
     mapReader->PrintWindow(0, 0);
     wrefresh(mapReader->getMapReader());
