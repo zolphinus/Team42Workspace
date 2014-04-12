@@ -36,7 +36,8 @@ private:
     std::vector <Enemy*> enemy;
     MapReader* mapReader;
     MessageWindow* messageWindow;
-    StatsWindow* statusWindow;
+    //StatsWindow* statusWindow;
+    void startCurseStuff();
 
     bool playingGame;
     int floorsCleared;

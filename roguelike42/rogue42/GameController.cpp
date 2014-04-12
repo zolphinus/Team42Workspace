@@ -6,19 +6,25 @@ using std::endl;
 
 GameController::GameController()
 {
+
     makeHero();
     makeEnemies();
-    initscr();
-    cbreak();
-    curs_set(0);
-    start_color();
-    noecho();
+
+    startCurseStuff();
     messageWindow = new MessageWindow();
     mapReader = new MapReader("map0.txt");
     mapReader->PrintWindow(0, 0);
     message("TEST");
-    statusWindow = new StatsWindow(hero);
-    statusWindow->PrintStatsWindow(hero);
+
+    //statusWindow = new StatsWindow(hero);
+    //statusWindow->PrintStatsWindow(hero);
+
+
+    hero->setYPos(4);
+    hero->setXPos(8);
+    moveHero();
+
+
 }
 
 GameController::~GameController()
@@ -72,6 +78,7 @@ void GameController::selectHero(Character *&hero){
         switch(menuSelector){
 
         case 'W':
+            hero = new Warrior();
             jobSelected = true;
             break;
         case 'H':
@@ -151,13 +158,83 @@ void GameController::message(std::string newMessage){
 }
 
 
-void GameController::moveHero(){
-    hero->setYPos(0);
-    hero->setXPos(0);
 
-
+void GameController::startCurseStuff(){
+    initscr();//-------------------------curses stuff
+    cbreak();//--------------------------disables the buffer
+    curs_set(0);//-----------------------makes cursor invisible
+    start_color();//---------------------must be run before using color
+    noecho();
 
 }
 
 
+void GameController::moveHero(){
+    int ch;
+    keypad(mapReader->getMapReader(), true);
+    while(true){
+    wmove(mapReader->getMapReader(), hero->getYPos(), hero->getXPos());
+    waddch(mapReader->getMapReader(), 'P');
+    ch = wgetch(mapReader->getMapReader());
+    string temp = "";
 
+    if( ch == KEY_DOWN){
+
+        if(mapReader->atPosition(hero->getYPos()+1, hero->getXPos()) != '#')
+        {
+            hero->setYPos(hero->getYPos() + 1);
+            wclear(mapReader->getMapReader());
+        }
+    }
+
+    if( ch == KEY_UP){
+        if(mapReader->atPosition(hero->getYPos()-1, hero->getXPos()) != '#'){
+            hero->setYPos(hero->getYPos() -1);
+            wclear(mapReader->getMapReader());
+        }
+    }
+
+    if( ch == KEY_LEFT){
+        if(mapReader->atPosition(hero->getYPos(), hero->getXPos() - 1) != '#'){
+            hero->setXPos(hero->getXPos() - 1);
+            wclear(mapReader->getMapReader());
+        }
+    }
+
+    if( ch == KEY_RIGHT){
+        if(mapReader->atPosition(hero->getYPos(), hero->getXPos() + 1) != '#'){
+            hero->setXPos(hero->getXPos() + 1);
+            wclear(mapReader->getMapReader());
+        }
+    }
+
+    if ( ch == '<'){
+        message("TRY TO GO DOWNSTAIRS");
+    }
+
+    if ( ch == '>'){
+        message("TRY TO GO UPSTAIRS");
+    }
+
+    if ( ch == 'p' || ch == 'P')
+    {
+        message("PICKUP ITEM");
+    }
+
+    if ( ch == 'e' || ch == 'E')
+    {
+        message("EQUIP STUFF");
+    }
+
+    if ( ch == 's' || ch == 'S'){
+        message("SPECIAL ATTACK");
+    }
+
+
+    mapReader->PrintWindow(0, 0);
+    wrefresh(mapReader->getMapReader());
+    }
+
+
+
+}
