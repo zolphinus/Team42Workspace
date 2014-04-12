@@ -196,7 +196,7 @@ inline void Character::levelUp()
     }//end if 100 EXP loop
 }
 
-void Character::attack(Character& opponent)
+inline void Character::attack(Character& opponent)
 {
     int damage;
 
@@ -399,7 +399,7 @@ inline Healer::Healer()
     //will add more stat adjustments as we add more stats
 }
 
-void Enemy::generateChar()
+inline void Enemy::generateChar()
 {
     setMaxHP(50);
     setCurHP(maxHP);
@@ -410,7 +410,7 @@ void Enemy::generateChar()
     return;
 }
 
-Slime::Slime()
+inline Slime::Slime()
 {
     name = "Slime";
     strength = strength - 3;

@@ -59,7 +59,7 @@ class Weapon: public Gear
 {
 };
 
-Gear::Gear(string name)
+inline Gear::Gear(string name)
 {
     itemName = name;
     hpBonus = 0;
@@ -69,62 +69,62 @@ Gear::Gear(string name)
     spdBonus = 0;
 }
 
-void Item::setName(string name)
+inline void Item::setName(string name)
 {
     itemName = name;
 }
 
-string Item::getName()
+inline string Item::getName()
 {
     return itemName;
 }
 
-int Gear::getHPBuff()
+inline int Gear::getHPBuff()
 {
     return hpBonus;
 }
 
-int Gear::getSPBuff()
+inline int Gear::getSPBuff()
 {
     return spBonus;
 }
 
-int Gear::getStrBuff()
+inline int Gear::getStrBuff()
 {
     return strBonus;
 }
 
-int Gear::getDefBuff()
+inline int Gear::getDefBuff()
 {
     return defBonus;
 }
 
-int Gear::getSpdBuff()
+inline int Gear::getSpdBuff()
 {
     return spdBonus;
 }
 
-void Gear::setHPBuff(int newValue)
+inline void Gear::setHPBuff(int newValue)
 {
     hpBonus = newValue;
 }
 
-void Gear::setSPBuff(int newValue)
+inline void Gear::setSPBuff(int newValue)
 {
     spBonus = newValue;
 }
 
-void Gear::setStrBuff(int newValue)
+inline void Gear::setStrBuff(int newValue)
 {
     strBonus = newValue;
 }
 
-void Gear::setDefBuff(int newValue)
+inline void Gear::setDefBuff(int newValue)
 {
     defBonus = newValue;
 }
 
-void Gear::setSpdBuff(int newValue)
+inline void Gear::setSpdBuff(int newValue)
 {
     spdBonus = newValue;
 }
