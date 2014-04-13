@@ -19,6 +19,7 @@ GameController::GameController()
     statusWindow = new StatsWindow();
     statusWindow->PrintStatsWindow(hero);
     isPlaying = true;
+    floorsCleared = 0;
 
     hero->setYPos(3);
     hero->setXPos(8);
@@ -267,9 +268,19 @@ void GameController::updateGameState(){
         heroDead();
     }
 
+    if(floorsCleared >= 10)
+    {
+        winGame();
+    }
+
 }
 
 void GameController::heroDead(){
     //isPlaying = false;
     message("So yeah, you kinda died, how lame...");
+}
+
+void GameController::winGame(){
+    //isPlaying = false;
+    message("You beat the game");
 }

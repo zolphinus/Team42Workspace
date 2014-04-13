@@ -45,6 +45,8 @@ private:
     void cleanUp();
     void updateMap(int y, int x);
     void heroDead();
+    void winGame();
+
 
     int floorsCleared;
 
