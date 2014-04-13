@@ -43,12 +43,16 @@ void characterTestDriver(){
 
 
 void gameControllerDriver(){
-    int temp;
+    char temp;
     GameController ourGame;
-    ourGame.message("BOOOOOOOOOOOOOOO");
-    ourGame.message("asdf");
-    ourGame.message("mediocraty");
-    cin >> temp;
+
+    ourGame.message("TESTING MESSAGE WINDOW");
+    ourGame.message("TESTING SCROLL");
+    ourGame.message("HELLO WORLD 2.0!");
+    ourGame.message("LET'S BEGIN!");
+    ourGame.message("[DISPLAY STORY STUFFS HERE]");
+
+    ourGame.runGame();
 
 
 }

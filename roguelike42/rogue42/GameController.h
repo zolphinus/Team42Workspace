@@ -19,9 +19,10 @@ public:
     void enemyTurns();
     void makeMoves();
     void fight();
-    //void updateGameState(character&);
+    void updateGameState();
     void randomEnemy(Enemy*&);
     void assignRandomLocation(Character*&);
+    void runGame();
 
     void message(std::string);
     void moveHero(); //conceptual
@@ -43,8 +44,8 @@ private:
     void selectHero(Character*&);
     void cleanUp();
     void updateMap(int y, int x);
+    void heroDead();
 
-    bool playingGame;
     int floorsCleared;
 
 };

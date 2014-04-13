@@ -6,18 +6,19 @@ using std::endl;
 
 GameController::GameController()
 {
-    isPlaying = true;
     makeHero();
     makeEnemies();
 
     startCurseStuff();
     messageWindow = new MessageWindow();
     mapReader = new MapReader("map0.txt");
-    message("TEST");
+
+    //Prepares the message window for display
+    message("");
 
     statusWindow = new StatsWindow();
     statusWindow->PrintStatsWindow(hero);
-
+    isPlaying = true;
 
     hero->setYPos(3);
     hero->setXPos(8);
@@ -179,11 +180,9 @@ void GameController::startCurseStuff(){
 void GameController::moveHero(){
     int ch;
     keypad(mapReader->getMapReader(), true);
-    while(true){
 
-    //if(hero->getYPos() < 9 || hero->getXPos() < 32){
+    //Fixed Position to display character in window.
     wmove(mapReader->getMapReader(), 8, 25);
-    //}
     waddch(mapReader->getMapReader(), 'P');
 
 
@@ -242,16 +241,35 @@ void GameController::moveHero(){
         message("SPECIAL ATTACK");
     }
 
-    updateMap(hero->getYPos(), hero->getXPos());
-
-    }
-
-
-
 }
 
 
 void GameController::updateMap(int y, int x){
     mapReader->PrintWindow(y, x);
     wrefresh(mapReader->getMapReader());
+}
+
+void GameController::runGame(){
+    while(isPlaying == true)
+    {
+        moveHero();
+        updateGameState();
+    }
+}
+
+void GameController::updateGameState(){
+    updateMap(hero->getYPos(), hero->getXPos());
+    statusWindow->PrintStatsWindow(hero);
+
+    hero->setCurHP(hero->getCurHP() - 1);
+    if(hero->getCurHP() < 0)
+    {
+        heroDead();
+    }
+
+}
+
+void GameController::heroDead(){
+    //isPlaying = false;
+    message("So yeah, you kinda died, how lame...");
 }
