@@ -1,12 +1,17 @@
 #include "GameController.h"
+#include <string>
 
 using std::cout;
 using std::cin;
 using std::endl;
 
+
+
+
 GameController::GameController()
 {
     makeHero();
+    enemy.resize(10);
     makeEnemies();
 
     startCurseStuff();
@@ -24,7 +29,7 @@ GameController::GameController()
     hero->setYPos(3);
     hero->setXPos(8);
     wmove(mapReader->getMapReader(), hero->getYPos(), hero->getXPos());
-    mapReader->PrintWindow(hero->getYPos(), hero->getXPos());
+    mapReader->PrintWindow(hero->getYPos(), hero->getXPos(), enemy, item);
     moveHero();
 
 
@@ -110,7 +115,8 @@ void GameController::makeEnemies(){
         {
             randomEnemy(enemy[i]);
             enemy[i]->generateChar();
-            cout << endl << "MADE :" << enemy[i]->getName()  << endl; //
+            enemy[i]->setYPos(7);
+            enemy[i]->setXPos(7);
         }
     }
 }
@@ -189,64 +195,60 @@ void GameController::moveHero(){
 
     ch = wgetch(mapReader->getMapReader());
     string temp = "";
-
-    if( ch == KEY_DOWN){
-
+    switch(ch)
+    {
+    case KEY_DOWN :
         if(mapReader->atPosition(hero->getYPos()+1, hero->getXPos()) != '#')
         {
             hero->setYPos(hero->getYPos() + 1);
             wclear(mapReader->getMapReader());
         }
-    }
-
-    if( ch == KEY_UP){
+        break;
+    case KEY_UP :
         if(mapReader->atPosition(hero->getYPos()-1, hero->getXPos()) != '#'){
             hero->setYPos(hero->getYPos() -1);
             wclear(mapReader->getMapReader());
         }
-    }
-
-    if( ch == KEY_LEFT){
+        break;
+    case KEY_LEFT :
         if(mapReader->atPosition(hero->getYPos(), hero->getXPos() - 1) != '#'){
             hero->setXPos(hero->getXPos() - 1);
             wclear(mapReader->getMapReader());
         }
-    }
-
-    if( ch == KEY_RIGHT){
+        break;
+    case KEY_RIGHT :
         if(mapReader->atPosition(hero->getYPos(), hero->getXPos() + 1) != '#'){
             hero->setXPos(hero->getXPos() + 1);
             wclear(mapReader->getMapReader());
         }
-    }
-
-    if ( ch == '<'){
+        break;
+    case '<' :
         message("TRY TO GO DOWNSTAIRS");
-    }
-
-    if ( ch == '>'){
+        break;
+    case '>' :
         message("TRY TO GO UPSTAIRS");
-    }
-
-    if ( ch == 'p' || ch == 'P')
-    {
+        break;
+    case 'p':
+    case 'P' :
         message("PICKUP ITEM");
-    }
-
-    if ( ch == 'e' || ch == 'E')
-    {
+        break;
+    case 'e' :
+    case 'E' :
         message("EQUIP STUFF");
+        break;
+    case 's' :
+    case 'S' :
+        message("SPECIAL ATTACK");
+        break;
+
     }
 
-    if ( ch == 's' || ch == 'S'){
-        message("SPECIAL ATTACK");
-    }
 
 }
 
 
 void GameController::updateMap(int y, int x){
-    mapReader->PrintWindow(y, x);
+    mapReader->PrintWindow(y, x, enemy, item);
     wrefresh(mapReader->getMapReader());
 }
 
@@ -261,12 +263,24 @@ void GameController::runGame(){
 void GameController::updateGameState(){
     updateMap(hero->getYPos(), hero->getXPos());
     statusWindow->PrintStatsWindow(hero);
+    std::string temp;
 
-    hero->setCurHP(hero->getCurHP() - 1);
+
     if(hero->getCurHP() < 0)
     {
         heroDead();
     }
+
+    if(enemy.size() > 0)
+    {
+        for(int i = 0; i < enemy.size(); i++)
+        {
+            if(enemy[i]->getCurHP() < 0){
+                message("Enemy cur HP check DELETE");
+            }
+        }
+    }
+
 
     if(floorsCleared >= 10)
     {
@@ -276,11 +290,20 @@ void GameController::updateGameState(){
 }
 
 void GameController::heroDead(){
-    //isPlaying = false;
+    isPlaying = false;
     message("So yeah, you kinda died, how lame...");
 }
 
 void GameController::winGame(){
-    //isPlaying = false;
+    isPlaying = false;
     message("You beat the game");
+}
+
+
+void GameController::screenTestDriver(){
+    MapReader mapReader("map0.txt");
+    MessageWindow messageWindow;
+    messageWindow.AddMessage("compatability testing");
+    mapReader.PrintWindow(0,0, enemy, item);
+    messageWindow.PrintMessageWindow();
 }

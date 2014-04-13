@@ -38,39 +38,14 @@ MapReader::~MapReader(){
     delwin(mapWindow);
 }
 
-void MapReader::PrintWindow(int characterPosY, int characterPosX)
+void MapReader::PrintWindow(int characterPosY, int characterPosX, std::vector <Enemy*> enemy, std::vector <Item*> item)
 {
+    bool enemyLocated = false;
     int startPrintY=4, startPrintX=6, xShift, yShift;
     int YHolder, XHolder;
 
-    /*if(characterPosX<6)
-    {
-        startPrintX=6;
-    }
-    else if(characterPosX+32>139)
-    {
-        startPrintX=76;
-    }
-    else
-    {
-        startPrintX=characterPosX;
-    }*/
-
     startPrintX = characterPosX;
     startPrintX -= 25;
-
-    /*if(characterPosY<4)
-    {
-        startPrintY=4;
-    }
-    else if(characterPosY+9>32)
-    {
-        startPrintY=15;
-    }
-    else
-    {
-        startPrintY=characterPosY;
-    }*/
 
     startPrintY=characterPosY;
     startPrintY -= 8;
@@ -90,9 +65,6 @@ void MapReader::PrintWindow(int characterPosY, int characterPosX)
                 YHolder = 0;
             }
 
-
-
-
             XHolder = startPrintX + column;
             if (XHolder > 139){
                 XHolder = 139;
@@ -106,13 +78,46 @@ void MapReader::PrintWindow(int characterPosY, int characterPosX)
 
             if(floorMap[YHolder][XHolder] == '#')
             {
-                waddch(mapWindow, ' ');
+                waddch(mapWindow, '#');
             }
             else{
+
                 waddch(mapWindow, floorMap[YHolder][XHolder]);
+
             }
+
+            //updates enemies within fog
+                if(enemy.size() > 0){
+                for(int i = 0; i < enemy.size(); i++){
+                    if(enemy[i]->getYPos() == YHolder
+                       && enemy[i]->getXPos() == XHolder)
+                    {
+                        wmove(mapWindow, row,column);
+                        waddch(mapWindow, 'E');
+                    }
+                }
+                }
+
+                //displays items on map within fog
+
+
+                //ITEMS NEED GET POSITION FUNCTIONS
+                /*
+                if(item.size() > 0){
+                for(int i = 0; i < enemy.size(); i++){
+                    if(item[i]->getYPos() == YHolder
+                       && item[i]->getXPos() == XHolder)
+                    {
+                        wmove(mapWindow, row,column);
+                        waddch(mapWindow, 'I');
+                    }
+                }
+                }
+                */
+
         }
     }
+
     wrefresh(mapWindow);//Pushes changes to the screen
 }
 

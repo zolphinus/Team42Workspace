@@ -6,6 +6,9 @@
 #include <fstream>
 #include <cstring>
 #include <curses.h>
+#include <vector>
+#include "Character.h"
+
 using namespace std;
 
 #define MAP_WINDOW_HEIGHT 17
@@ -16,7 +19,8 @@ class MapReader
 public:
     MapReader(string);
     ~MapReader();
-    void PrintWindow(int,int);
+    void PrintWindow(int,int, std::vector <Enemy*>, std::vector <Item*>);
+
     char floorMap[32][139];
     char atPosition(int,int);//(y,x) like all of curse
     WINDOW* getMapReader();

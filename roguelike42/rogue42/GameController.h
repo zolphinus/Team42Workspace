@@ -23,6 +23,7 @@ public:
     void randomEnemy(Enemy*&);
     void assignRandomLocation(Character*&);
     void runGame();
+    void screenTestDriver();
 
     void message(std::string);
     void moveHero(); //conceptual

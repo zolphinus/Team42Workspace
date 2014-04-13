@@ -57,15 +57,15 @@ void gameControllerDriver(){
 
 }
 
-
-void screenTestDriver(){
+/*
+void GameController::screenTestDriver(){
     MapReader mapReader("map0.txt");
     MessageWindow messageWindow;
     messageWindow.AddMessage("compatability testing");
-    mapReader.PrintWindow(0,0);
+    mapReader.PrintWindow(0,0, enemy);
     messageWindow.PrintMessageWindow();
 }
-
+*/
 void statusTestDriver()
 {
     Character *Hero=new Character;
