@@ -20,24 +20,29 @@ public:
     void makeMoves();
     void fight();
     //void updateGameState(character&);
-    void makeHero();
-    void makeEnemies();
     void randomEnemy(Enemy*&);
-    void randomHero(Character*&);
-    void selectHero(Character*&);
+    void assignRandomLocation(Character*&);
 
     void message(std::string);
     void moveHero(); //conceptual
-    void cleanUp();
     Character* getHero();
 
 private:
+    bool isPlaying;
     Character* hero;
     std::vector <Enemy*> enemy;
+    std::vector <Item*> item;
     MapReader* mapReader;
     MessageWindow* messageWindow;
     StatsWindow* statusWindow;
+
+    void makeHero();
+    void makeEnemies();
     void startCurseStuff();
+    void randomHero(Character*&);
+    void selectHero(Character*&);
+    void cleanUp();
+    void updateMap(int y, int x);
 
     bool playingGame;
     int floorsCleared;

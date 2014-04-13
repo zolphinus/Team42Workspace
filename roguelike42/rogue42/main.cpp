@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Character.h"
+
 #include "GameController.h"
 #include "MapReader.h"
 #include "MessageWindow.h"

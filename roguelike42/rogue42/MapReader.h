@@ -8,6 +8,9 @@
 #include <curses.h>
 using namespace std;
 
+#define MAP_WINDOW_HEIGHT 17
+#define MAP_WINDOW_WIDTH  63
+
 class MapReader
 {
 public:
@@ -18,8 +21,7 @@ public:
     char atPosition(int,int);//(y,x) like all of curse
     WINDOW* getMapReader();
 
-    #define MAP_WINDOW_HEIGHT 17
-    #define MAP_WINDOW_WIDTH  35
+
 private:
     WINDOW *mapWindow;
     ifstream mapFile;

@@ -6,7 +6,7 @@ using std::endl;
 
 GameController::GameController()
 {
-
+    isPlaying = true;
     makeHero();
     makeEnemies();
 
@@ -236,14 +236,17 @@ void GameController::moveHero(){
         message("SPECIAL ATTACK");
     }
 
-    int stupidHealth = 99;
+    updateMap(0, 0));
+    //MOVE THIS INTO A FUNCTION
 
-    hero->setCurHP(stupidHealth);
-
-    mapReader->PrintWindow(0, 0);
-    wrefresh(mapReader->getMapReader());
     }
 
 
 
+}
+
+
+void GameController::updateMap(int y, int x){
+    mapReader->PrintWindow(y, x);
+    wrefresh(mapReader->getMapReader());
 }

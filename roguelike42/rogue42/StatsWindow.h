@@ -8,6 +8,9 @@
 
 using namespace std;
 
+#define STATUS_WINDOW_HEIGHT 17
+#define STATUS_WINDOW_WIDTH 17
+
 class Character;
 
 class StatsWindow
@@ -18,8 +21,6 @@ public:
     void PrintStatsWindow(Character*);
 
 
-    #define STATUS_WINDOW_HEIGHT 17
-    #define STATUS_WINDOW_WIDTH 45
 private:
     string StatusArray[STATUS_WINDOW_HEIGHT];
     WINDOW* statusWindow;

@@ -17,7 +17,7 @@ StatsWindow::StatsWindow()
     {
         StatusArray[arrayInitializer] = "";
     }
-    statusWindow = newwin(STATUS_WINDOW_HEIGHT,STATUS_WINDOW_WIDTH,0,35);
+    statusWindow = newwin(STATUS_WINDOW_HEIGHT,STATUS_WINDOW_WIDTH,0,63);
 
 }
 
