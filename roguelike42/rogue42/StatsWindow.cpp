@@ -17,7 +17,7 @@ StatsWindow::StatsWindow()
     {
         StatusArray[arrayInitializer] = "";
     }
-    statusWindow = newwin(STATUS_WINDOW_HEIGHT,STATUS_WINDOW_WIDTH,0,35);
+    statusWindow = newwin(STATUS_WINDOW_HEIGHT,STATUS_WINDOW_WIDTH,0,63);
 
 }
 
@@ -30,7 +30,8 @@ void StatsWindow::PrintStatsWindow(Character* Hero)
 {
     StatusArray[0]="Name: "+Hero->getName();
     StatusArray[1]="HP  : "+NumberToString(Hero->getCurHP())+"/"+NumberToString(Hero->getMaxHP());
-
+    StatusArray[2] = "Y Position: " + NumberToString(Hero->getYPos());
+    StatusArray[3] = "X Position: " + NumberToString(Hero->getXPos());
 
     string xPos, yPos, outString;
     werase(statusWindow);

@@ -22,7 +22,6 @@ int main()
     //characterTestDriver();
     gameControllerDriver();
     //screenTestDriver();
-    statusTestDriver();
 
 
     return 0;

@@ -19,7 +19,7 @@ public:
 
 
     #define STATUS_WINDOW_HEIGHT 17
-    #define STATUS_WINDOW_WIDTH 45
+    #define STATUS_WINDOW_WIDTH 17
 private:
     string StatusArray[STATUS_WINDOW_HEIGHT];
     WINDOW* statusWindow;

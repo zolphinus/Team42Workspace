@@ -38,36 +38,74 @@ MapReader::~MapReader(){
     delwin(mapWindow);
 }
 
-void MapReader::PrintWindow(int CharacterPosY, int CharacterPosX)
+void MapReader::PrintWindow(int characterPosY, int characterPosX)
 {
-    int startPrintY=9, startPrintX=19;
+    int startPrintY=4, startPrintX=6, xShift, yShift;
+    int YHolder, XHolder;
 
-    if(CharacterPosY<9)
+    /*if(characterPosX<6)
     {
-        startPrintY = 0;         //Keeps from printing junk
+        startPrintX=6;
     }
-    else if(CharacterPosX<19)
+    else if(characterPosX+32>139)
     {
-        startPrintX = 0;
+        startPrintX=76;
     }
     else
     {
-        startPrintY=CharacterPosY;
-        startPrintX=CharacterPosX;
+        startPrintX=characterPosX;
+    }*/
+
+    startPrintX = characterPosX;
+    startPrintX -= 25;
+
+    /*if(characterPosY<4)
+    {
+        startPrintY=4;
     }
+    else if(characterPosY+9>32)
+    {
+        startPrintY=15;
+    }
+    else
+    {
+        startPrintY=characterPosY;
+    }*/
+
+    startPrintY=characterPosY;
+    startPrintY -= 8;
 
     init_pair(1,COLOR_RED,COLOR_WHITE);//----Initialize color pair
     wbkgd(mapWindow, COLOR_PAIR(1));
 
-    for(int column=0; column<MAP_WINDOW_WIDTH; column++)
+    for(int column=0; column<63; column ++)
     {
-        for(int row=0; row<MAP_WINDOW_HEIGHT; row++)
+        for(int row=0; row<17; row++)
         {
-            wmove(mapWindow, row, column);//------moves the cursor and prints the character in the floormap
-            waddch(mapWindow, floorMap[row+startPrintY][column+startPrintX-19]);
+            YHolder = startPrintY + row;
+            if (YHolder > 31){
+                YHolder = 31;
+            }
+            if (YHolder < 0){
+                YHolder = 0;
+            }
 
-        }// END ROW FORLOOP
-    }// END COLUMN FORLOOP
+
+
+
+            XHolder = startPrintX + column;
+            if (XHolder > 139){
+                XHolder = 139;
+            }
+
+            if (XHolder < 0){
+                XHolder = 0;
+            }
+
+            wmove(mapWindow, row,column);
+            waddch(mapWindow, floorMap[YHolder][XHolder]);
+        }
+    }
     wrefresh(mapWindow);//Pushes changes to the screen
 }
 

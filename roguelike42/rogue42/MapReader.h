@@ -14,12 +14,12 @@ public:
     MapReader(string);
     ~MapReader();
     void PrintWindow(int,int);
-    char floorMap[500][500];
+    char floorMap[32][139];
     char atPosition(int,int);//(y,x) like all of curse
     WINDOW* getMapReader();
 
     #define MAP_WINDOW_HEIGHT 17
-    #define MAP_WINDOW_WIDTH  35
+    #define MAP_WINDOW_WIDTH  63
 private:
     WINDOW *mapWindow;
     ifstream mapFile;
