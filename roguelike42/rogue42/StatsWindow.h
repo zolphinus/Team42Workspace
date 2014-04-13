@@ -20,7 +20,6 @@ public:
     ~StatsWindow();
     void PrintStatsWindow(Character*);
 
-
 private:
     string StatusArray[STATUS_WINDOW_HEIGHT];
     WINDOW* statusWindow;

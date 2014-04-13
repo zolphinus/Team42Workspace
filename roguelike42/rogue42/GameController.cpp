@@ -13,15 +13,16 @@ GameController::GameController()
     startCurseStuff();
     messageWindow = new MessageWindow();
     mapReader = new MapReader("map0.txt");
-    mapReader->PrintWindow(0, 0);
     message("TEST");
 
     statusWindow = new StatsWindow();
     statusWindow->PrintStatsWindow(hero);
 
 
-    hero->setYPos(4);
+    hero->setYPos(3);
     hero->setXPos(8);
+    wmove(mapReader->getMapReader(), hero->getYPos(), hero->getXPos());
+    mapReader->PrintWindow(hero->getYPos(), hero->getXPos());
     moveHero();
 
 
@@ -179,8 +180,13 @@ void GameController::moveHero(){
     int ch;
     keypad(mapReader->getMapReader(), true);
     while(true){
-    wmove(mapReader->getMapReader(), hero->getYPos(), hero->getXPos());
+
+    //if(hero->getYPos() < 9 || hero->getXPos() < 32){
+    wmove(mapReader->getMapReader(), 8, 25);
+    //}
     waddch(mapReader->getMapReader(), 'P');
+
+
     ch = wgetch(mapReader->getMapReader());
     string temp = "";
 
@@ -237,7 +243,6 @@ void GameController::moveHero(){
     }
 
     updateMap(0, 0));
-    //MOVE THIS INTO A FUNCTION
 
     }
 

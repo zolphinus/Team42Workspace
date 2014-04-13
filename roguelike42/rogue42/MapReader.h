@@ -17,10 +17,9 @@ public:
     MapReader(string);
     ~MapReader();
     void PrintWindow(int,int);
-    char floorMap[500][500];
+    char floorMap[32][139];
     char atPosition(int,int);//(y,x) like all of curse
     WINDOW* getMapReader();
-
 
 private:
     WINDOW *mapWindow;
