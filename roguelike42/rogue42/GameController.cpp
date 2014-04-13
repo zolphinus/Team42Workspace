@@ -242,7 +242,7 @@ void GameController::moveHero(){
         message("SPECIAL ATTACK");
     }
 
-    updateMap(0, 0));
+    updateMap(hero->getYPos(), hero->getXPos());
 
     }
 

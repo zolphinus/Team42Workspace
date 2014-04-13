@@ -78,9 +78,9 @@ void MapReader::PrintWindow(int characterPosY, int characterPosX)
     init_pair(1,COLOR_RED,COLOR_WHITE);//----Initialize color pair
     wbkgd(mapWindow, COLOR_PAIR(1));
 
-    for(int column=0; column<63; column ++)
+    for(int column=20; column<31; column ++)
     {
-        for(int row=0; row<17; row++)
+        for(int row=4; row<13; row++)
         {
             YHolder = startPrintY + row;
             if (YHolder > 31){
@@ -103,7 +103,14 @@ void MapReader::PrintWindow(int characterPosY, int characterPosX)
             }
 
             wmove(mapWindow, row,column);
-            waddch(mapWindow, floorMap[YHolder][XHolder]);
+
+            if(floorMap[YHolder][XHolder] == '#')
+            {
+                waddch(mapWindow, ' ');
+            }
+            else{
+                waddch(mapWindow, floorMap[YHolder][XHolder]);
+            }
         }
     }
     wrefresh(mapWindow);//Pushes changes to the screen
