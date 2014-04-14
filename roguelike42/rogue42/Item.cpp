@@ -1,68 +1,4 @@
-#ifndef ITEM_H
-#define ITEM_H
-
-#include <iostream>
-#include <string>
-#include <ctime>
-#include <algorithm>
-
-#include "Character.h"
-
-using std::cout;
-using std::cin;
-using std::endl;
-using std::string;
-
-
-class Item
-{
-public:
-    Item();
-    void setName(string name);
-    string getName();
-    void setType(char gearType);
-    char getType();
-
-protected:
-    string itemName;
-    char type;
-};
-
-class HealItem: public Item
-{
-public:
-    HealItem(string name);
-    void setHPAmount(int pointsToHeal);
-    int getHPAmount();
-    void setSPAmount(int pointsToHeal);
-    int getSPAmount();
-protected:
-    int HPAmount;
-    int SPAmount;
-};
-
-class Gear: public Item
-{
-public:
-    Gear(string name);
-    int getHPBuff();
-    int getSPBuff();
-    int getStrBuff();
-    int getDefBuff();
-    int getSpdBuff();
-    void setHPBuff(int newValue);
-    void setSPBuff(int newValue);
-    void setStrBuff(int newValue);
-    void setDefBuff(int newValue);
-    void setSpdBuff(int newValue);
-
-protected:
-    int hpBonus;
-    int spBonus;
-    int strBonus;
-    int defBonus;
-    int spdBonus;
-};
+#include "Item.h"
 
 HealItem::HealItem(string name)
 {
@@ -168,5 +104,3 @@ void HealItem::setSPAmount(int pointsToHeal)
 {
     SPAmount = pointsToHeal;
 }
-
-#endif
