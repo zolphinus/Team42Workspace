@@ -26,11 +26,11 @@ GameController::GameController()
     isPlaying = true;
     floorsCleared = 0;
 
-    hero->setYPos(3);
-    hero->setXPos(8);
+    hero->setYPos(6);
+    hero->setXPos(9);
     wmove(mapReader->getMapReader(), hero->getYPos(), hero->getXPos());
     mapReader->PrintWindow(hero->getYPos(), hero->getXPos(), enemy, item);
-    moveHero();
+    move(hero);
 
 
 }
@@ -184,42 +184,67 @@ void GameController::startCurseStuff(){
 }
 
 
-void GameController::moveHero(){
+void GameController::move(Character* activeChar){
+
+    //Char doesn't register arrow keys, but int does?
     int ch;
+    int enemyDirection;
+
+
     keypad(mapReader->getMapReader(), true);
 
     //Fixed Position to display character in window.
     wmove(mapReader->getMapReader(), 8, 25);
     waddch(mapReader->getMapReader(), 'P');
 
+    if(activeChar == hero){
+        ch = wgetch(mapReader->getMapReader());
+    }
+    else
+    {
+        enemyDirection = rand() % 4;
+        switch(enemyDirection)
+        {
+        case 1:
+            ch = KEY_RIGHT;
+            break;
+        case 2:
+            ch = KEY_LEFT;
+            break;
+        case 3:
+            ch = KEY_UP;
+            break;
+        case 4:
+            ch = KEY_DOWN;
+            break;
+        default :
+            ch = ' ';
+        }
+    }
 
-    ch = wgetch(mapReader->getMapReader());
     string temp = "";
     switch(ch)
     {
     case KEY_DOWN :
-        if(mapReader->atPosition(hero->getYPos()+1, hero->getXPos()) != '#')
+        if(mapReader->atPosition(activeChar->getYPos()+1, activeChar->getXPos()) != '#')
         {
-            hero->setYPos(hero->getYPos() + 1);
-            wclear(mapReader->getMapReader());
+            activeChar->setYPos(activeChar->getYPos() + 1);
+
         }
         break;
     case KEY_UP :
-        if(mapReader->atPosition(hero->getYPos()-1, hero->getXPos()) != '#'){
-            hero->setYPos(hero->getYPos() -1);
-            wclear(mapReader->getMapReader());
+        if(mapReader->atPosition(activeChar->getYPos()-1, activeChar->getXPos()) != '#'){
+            activeChar->setYPos(activeChar->getYPos() -1);
         }
         break;
     case KEY_LEFT :
-        if(mapReader->atPosition(hero->getYPos(), hero->getXPos() - 1) != '#'){
-            hero->setXPos(hero->getXPos() - 1);
-            wclear(mapReader->getMapReader());
+        if(mapReader->atPosition(activeChar->getYPos(), activeChar->getXPos() - 1) != '#'){
+            activeChar->setXPos(activeChar->getXPos() - 1);
         }
         break;
     case KEY_RIGHT :
-        if(mapReader->atPosition(hero->getYPos(), hero->getXPos() + 1) != '#'){
-            hero->setXPos(hero->getXPos() + 1);
-            wclear(mapReader->getMapReader());
+        if(mapReader->atPosition(activeChar->getYPos(), activeChar->getXPos() + 1) != '#'){
+            activeChar->setXPos(activeChar->getXPos() + 1);
         }
         break;
     case '<' :
@@ -255,8 +280,9 @@ void GameController::updateMap(int y, int x){
 void GameController::runGame(){
     while(isPlaying == true)
     {
-        moveHero();
-        updateGameState();
+        heroTurn();
+        enemyTurns();
+
     }
 }
 
@@ -297,6 +323,19 @@ void GameController::heroDead(){
 void GameController::winGame(){
     isPlaying = false;
     message("You beat the game");
+}
+
+void GameController::heroTurn(){
+    move(hero);
+    updateGameState();
+}
+
+
+void GameController::enemyTurns(){
+    if(enemy.size() > 0){
+    for(int i = 0; i < enemy.size(); i++)
+        move(enemy[i]);
+    }
 }
 
 

@@ -26,7 +26,7 @@ public:
     void screenTestDriver();
 
     void message(std::string);
-    void moveHero(); //conceptual
+    void move(Character*); //conceptual
     Character* getHero();
 
 private:
