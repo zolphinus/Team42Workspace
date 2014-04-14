@@ -226,26 +226,16 @@ void GameController::move(Character* activeChar){
     switch(ch)
     {
     case KEY_DOWN :
-        if(mapReader->atPosition(activeChar->getYPos()+1, activeChar->getXPos()) != '#')
-        {
-            activeChar->setYPos(activeChar->getYPos() + 1);
-
-        }
+        makeMoves(activeChar, ch);
         break;
     case KEY_UP :
-        if(mapReader->atPosition(activeChar->getYPos()-1, activeChar->getXPos()) != '#'){
-            activeChar->setYPos(activeChar->getYPos() -1);
-        }
+        makeMoves(activeChar, ch);
         break;
     case KEY_LEFT :
-        if(mapReader->atPosition(activeChar->getYPos(), activeChar->getXPos() - 1) != '#'){
-            activeChar->setXPos(activeChar->getXPos() - 1);
-        }
+        makeMoves(activeChar, ch);
         break;
     case KEY_RIGHT :
-        if(mapReader->atPosition(activeChar->getYPos(), activeChar->getXPos() + 1) != '#'){
-            activeChar->setXPos(activeChar->getXPos() + 1);
-        }
+        makeMoves(activeChar, ch);
         break;
     case '<' :
         message("TRY TO GO DOWNSTAIRS");
@@ -336,6 +326,112 @@ void GameController::enemyTurns(){
     for(int i = 0; i < enemy.size(); i++)
         move(enemy[i]);
     }
+}
+
+
+void GameController::moveBoulder(int yPos, int xPos, int direction){
+    Character* charInWay = NULL;
+    charInWay = findCharacter(yPos, xPos);
+    int y = yPos;
+    int x = xPos;
+    char upStairs = '<';
+    char downStair = '>';
+
+    switch(direction){
+    case KEY_DOWN :
+        y++;
+        break;
+    case KEY_UP :
+        y--;
+        break;
+    case KEY_RIGHT :
+        x++;
+        break;
+    case KEY_LEFT :
+        x--;
+        break;
+    }
+
+    if(mapReader->atPosition(y,x) != '#'){
+        if(mapReader->atPosition(y,x) != '@'){
+            if(mapReader->atPosition(y,x) != upStairs){
+                if(mapReader->atPosition(y,x) != upStairs){
+                    if(charInWay == NULL){
+                        mapReader->setPosition(yPos, xPos, '.');
+                        mapReader->setPosition(y, x, '@');
+                    }
+                }
+
+            }
+
+        }
+    }
+
+}
+
+void GameController::generateLocation(Character* tempChar){
+    //logic for picking a random spot on map here
+
+}
+
+
+void GameController::makeMoves(Character* currentChar, int direction){
+    int y = currentChar->getYPos();
+    int x = currentChar->getXPos();
+    std::string messageInput = "";
+
+    switch(direction){
+    case KEY_DOWN :
+        y++;
+        break;
+    case KEY_UP :
+        y--;
+        break;
+    case KEY_RIGHT :
+        x++;
+        break;
+    case KEY_LEFT :
+        x--;
+        break;
+    }
+
+    //Searches for either the Hero or Enemies. If nothing is found, this will be NULL and skipped later
+    Character* tempChar = NULL;
+    tempChar = findCharacter(y, x);
+
+
+
+    if(mapReader->atPosition(y,x) != '#'){
+        if(mapReader->atPosition(y,x) == '@'){
+            moveBoulder(y, x, direction);
+        }
+        else if(tempChar != NULL){
+            messageInput = currentChar->getName() + " is fighting " + tempChar->getName();
+            message(messageInput);
+            //FIGHT FUNCTION GOES HERE
+
+        }
+        else
+        {
+            currentChar->setYPos(y);
+            currentChar->setXPos(x);
+        }
+    }
+
+}
+
+Character* GameController::findCharacter(int y, int x){
+    if (x == hero->getXPos() && y == hero->getYPos()){
+        return hero;
+    }
+
+    for(int i = 0; i < enemy.size(); i++){
+        if (x == enemy[i]->getXPos() && y == enemy[i]->getYPos()){
+            return enemy[i];
+        }
+    }
+
+    return NULL;
 }
 
 

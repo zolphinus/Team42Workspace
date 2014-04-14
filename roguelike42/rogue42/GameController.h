@@ -15,16 +15,14 @@ class GameController{
 public:
     GameController();
     ~GameController();
+    void runGame();
     void heroTurn();
     void enemyTurns();
-    void makeMoves();
     void fight();
     void updateGameState();
     void randomEnemy(Enemy*&);
     void assignRandomLocation(Character*&);
-    void runGame();
     void screenTestDriver();
-
     void message(std::string);
     void move(Character*); //conceptual
     Character* getHero();
@@ -47,7 +45,11 @@ private:
     void updateMap(int y, int x);
     void heroDead();
     void winGame();
+    void generateLocation(Character*);
+    void makeMoves(Character*, int);
+    Character* findCharacter(int y, int x);
 
+    void moveBoulder(int yPos, int xPos, int direction);
 
     int floorsCleared;
 

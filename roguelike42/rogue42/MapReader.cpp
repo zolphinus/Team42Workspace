@@ -126,6 +126,10 @@ char MapReader::atPosition(int yToCheck, int xToCheck)
     return floorMap[yToCheck][xToCheck];
 }
 
+void MapReader::setPosition(int yToSet, int xToSet, char newChar){
+    floorMap[yToSet][xToSet] = newChar;
+}
+
 
 WINDOW* MapReader::getMapReader(){
     return mapWindow;

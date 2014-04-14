@@ -23,6 +23,7 @@ public:
 
     char floorMap[32][139];
     char atPosition(int,int);//(y,x) like all of curse
+    void setPosition(int,int, char);
     WINDOW* getMapReader();
 
 private:
