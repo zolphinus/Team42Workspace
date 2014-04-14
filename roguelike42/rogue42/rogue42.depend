@@ -25,7 +25,7 @@
 	"MapReader.h"
 	"MessageWindow.h"
 
-1397444660 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\character.h
+1397512641 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\character.h
 	<iostream>
 	<string>
 	<ctime>
@@ -83,7 +83,7 @@
 1396925058 source:c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\mapreader.cpp
 	"MapReader.h"
 
-1397441696 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\item.h
+1397512136 c:\users\jacob\documents\github\team42workspace\roguelike42\rogue42\item.h
 	<iostream>
 	<string>
 	<ctime>

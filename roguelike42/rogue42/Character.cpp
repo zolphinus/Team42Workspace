@@ -246,17 +246,39 @@ inline int Character::getXPos()
     return xPos;
 }
 
-inline void Character::equipGear(int inventoryLoc) //need to redo
+inline void Character::equipGear(Item newGear) //need to redo
 {
     //first check if the item in inventory is gear
-    if (inventory[inventoryLoc].getType() == 'H' || inventory[inventoryLoc].getType() == 'R'
-        || inventory[inventoryLoc].getType() == 'W' || inventory[inventoryLoc].getType() == 'A')
+    if (newGear.getType() != 'D' && newGear.getType() != 'P')
     {
         //if you have no held gear, push the piece into gear vector
         if (heldGear.size() == 0)
         {
-            heldGear.push_back(inventory[inventoryLoc]);
-            statIncrease(inventory[inventoryLoc]);
+            heldGear.push_back(newGear);
+        }
+
+        /*
+        if you have gear equipped, check to see if you already
+        have that type of gear equipped.  If you do, you can't equip the new piece
+        */
+        else
+        {
+            //True when you already have the type of equipment on
+            bool alreadyEquipped = false;
+
+            for (int i= 0; i < heldGear.size()-1; i++)
+            {
+                if (newGear.getType() == heldGear[i].getType())
+                {
+                    alreadyEquipped = true;
+                }
+            }
+
+            if (alreadyEquipped == false)
+            {
+                heldGear.push_back(newGear);
+            }
+
         }
 
     }
@@ -273,7 +295,7 @@ inline void Character::equipGear(int inventoryLoc) //need to redo
     }
 }
 
-inline void Character::unequipGear(Gear piece)
+inline void Character::unequipGear(Item piece)
 {
     maxHP = maxHP - piece.getHPBuff();
     maxSP = maxSP - piece.getSPBuff();
@@ -282,7 +304,7 @@ inline void Character::unequipGear(Gear piece)
     speed = speed - piece.getSpdBuff();
 }
 
-inline void Character::statIncrease(Gear piece)
+inline void Character::statIncrease(Item piece)
 {
     maxHP = maxHP + piece.getHPBuff();
     maxSP = maxSP + piece.getSPBuff();
@@ -291,7 +313,7 @@ inline void Character::statIncrease(Gear piece)
     speed = speed + piece.getSpdBuff();
 }
 
-inline void Character::addInventory(Item newItem)
+inline void Character::pickUp(Item newItem)
 {
     if (inventory.size() < 6)//check if inventory is full
     {
@@ -306,14 +328,6 @@ inline void Character::useItem()
 
 Player::Player()
 {
-    //makes placeholder item for later use
-    /*Gear emptyItem("Empty");
-    emptyItem.setType('E');
-    for (int i = 0; i < heldGear.size(); i++)
-    {
-        heldGear[i] = emptyItem;
-    }
-    */
 }
 
 inline Warrior::Warrior()

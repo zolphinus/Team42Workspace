@@ -46,11 +46,11 @@ public:
     int getYPos();
     void setXPos(int newX);
     int getXPos();
-    void equipGear(int inventoryLoc);
-    void unequipGear(Gear piece);
-    void addInventory(Item newItem);
+    void equipGear(Item newGear);
+    void unequipGear(Item piece);
+    void pickUp(Item newItem);
     void useItem();
-    void statIncrease(Gear piece);
+    void statIncrease(Item piece);
 
 protected:
     int level;
