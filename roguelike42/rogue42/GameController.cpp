@@ -12,6 +12,8 @@ using std::endl;
 GameController::GameController()
 {
     srand(time(NULL));
+    enemyNum = rand() % 10 + 3;
+    itemNum = rand() % 10 + 3;
     makeHero();
 
     startCurseStuff();
@@ -29,8 +31,6 @@ GameController::GameController()
     isPlaying = true;
     floorsCleared = 0;
 
-    hero->setYPos(6);
-    hero->setXPos(9);
     wmove(mapReader->getMapReader(), hero->getYPos(), hero->getXPos());
     mapReader->PrintWindow(hero->getYPos(), hero->getXPos(), enemy, item);
 
@@ -66,6 +66,7 @@ void GameController::makeHero(){
         userName.resize(10);
     }
     hero->setName(userName);
+    generateLocation(hero);
 }
 
 void GameController::randomHero(Character *&hero){
@@ -140,6 +141,9 @@ void GameController::randomEnemy(Enemy*& newEnemy){
         newEnemy = new Slime();
         break;
     }
+
+    generateLocation(newEnemy);
+
 }
 
 void GameController::cleanUp(){
@@ -389,14 +393,16 @@ void GameController::generateLocation(Character* tempChar){
     {
         pickX = rand() % FLOOR_MAP_WIDTH;
         pickY = rand() % FLOOR_MAP_HEIGHT;
-        charAtLocation = findCharacter(pickY, pickX);
+        //charAtLocation = hero; //findCharacter(pickY, pickX);
 
         if(mapReader->atPosition(pickY, pickX) != '#'){
             if(mapReader->atPosition(pickY, pickX) != '@'){
                 if(mapReader->atPosition(pickY, pickX) != '<'){
                     if(mapReader->atPosition(pickY, pickX) != '>'){
                         if(charAtLocation == NULL){
-
+                            tempChar->setYPos(pickY);
+                            tempChar->setXPos(pickX);
+                            legalSpot = true;
                         }
                     }
                 }
@@ -458,11 +464,16 @@ Character* GameController::findCharacter(int y, int x){
         return hero;
     }
 
-    for(int i = 0; i < enemy.size(); i++){
+    if(enemy.size() > 0){
+        for(int i = 0; i < enemy.size(); i++){
         if (x == enemy[i]->getXPos() && y == enemy[i]->getYPos()){
             return enemy[i];
         }
     }
+
+    }
+
+
 
     return NULL;
 }

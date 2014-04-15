@@ -29,7 +29,8 @@ public:
     Character* getHero();
 
 private:
-    int itemNum=0, enemyNum=0;
+    int itemNum;
+    int enemyNum;
     bool isPlaying;
     Character* hero;
     std::vector <Enemy*> enemy;
