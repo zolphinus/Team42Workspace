@@ -7,6 +7,7 @@
 #include "MessageWindow.h"
 #include <string>
 #include "StatsWindow.h"
+#include "GameConfig.h"
 
 class Character;
 

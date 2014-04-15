@@ -109,10 +109,10 @@ inline Character::Character()
 {
 
     level = 1;
-    maxHP = rand() % 51 + 100;
+    maxHP = rand() % 51 + 110;
     currentHP = maxHP;
-    strength = rand() % 5 + 5;
-    defense = rand() % 5 + 5;
+    strength = rand() % 4 + 5;
+    defense = rand() % 3 + 5;
     speed = rand() % 5 + 5;
     maxSP = 50;
     currentSP = maxSP;

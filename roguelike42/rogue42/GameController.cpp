@@ -11,6 +11,7 @@ using std::endl;
 
 GameController::GameController()
 {
+    srand(time(NULL));
     makeHero();
     enemy.resize(10);
     makeEnemies();
@@ -69,10 +70,19 @@ void GameController::makeHero(){
 }
 
 void GameController::randomHero(Character *&hero){
-    hero = new Warrior();
+    //Should use enumerated types here
 
-    hero->generateChar();
 
+    int pickRandom = rand() % 2;
+
+    switch(pickRandom)
+    {
+    case 0:
+        hero = new Warrior();
+        break;
+    case 1:
+        hero = new Healer();
+    }
 
 }
 
@@ -102,7 +112,6 @@ void GameController::selectHero(Character *&hero){
             cout << "PLEASE SELECT A JOB!!!" << endl;
         }
     }
-    hero->generateChar();
 }
 
 Character* GameController::getHero(){
@@ -372,7 +381,14 @@ void GameController::moveBoulder(int yPos, int xPos, int direction){
 
 void GameController::generateLocation(Character* tempChar){
     //logic for picking a random spot on map here
+    bool legalSpot = false;
+    //    int pickX = rand() 0;
+    /*
+    while(legalSpot == false)
+    {
 
+    }
+    */
 }
 
 
@@ -410,7 +426,6 @@ void GameController::makeMoves(Character* currentChar, int direction){
             messageInput = currentChar->getName() + " is fighting " + tempChar->getName();
             message(messageInput);
             currentChar->attack(tempChar);
-            //FIGHT FUNCTION GOES HERE
 
         }
         else

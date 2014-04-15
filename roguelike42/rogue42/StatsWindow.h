@@ -5,11 +5,11 @@
 #include <iostream>
 #include <curses.h>
 #include <vector>
+#include "GameConfig.h"
 
 using namespace std;
 
-#define STATUS_WINDOW_HEIGHT 17
-#define STATUS_WINDOW_WIDTH 17
+
 
 class Character;
 

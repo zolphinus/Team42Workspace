@@ -8,11 +8,12 @@
 #include <curses.h>
 #include <vector>
 #include "Character.h"
+#include "GameConfig.h"
 
 using namespace std;
 
-#define MAP_WINDOW_HEIGHT 17
-#define MAP_WINDOW_WIDTH  63
+
+
 
 class MapReader
 {
@@ -21,7 +22,7 @@ public:
     ~MapReader();
     void PrintWindow(int,int, std::vector <Enemy*>, std::vector <Item*>);
 
-    char floorMap[32][139];
+    char floorMap[FLOOR_MAP_HEIGHT][FLOOR_MAP_WIDTH];
     char atPosition(int,int);//(y,x) like all of curse
     void setPosition(int,int, char);
     WINDOW* getMapReader();

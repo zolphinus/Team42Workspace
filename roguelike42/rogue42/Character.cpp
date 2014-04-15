@@ -75,48 +75,70 @@
 
 void Character::attack(Character* opponent)
 {
+    //NOTE: Refactor to return damage done so we can print message after fight
     int damage;
+    int priority;
 
-    if (speed > opponent->getSpd())//do damage to opponent before they do any to you
+    if(this->speed > opponent->getSpd())
     {
+        priority = 0;
+
+    }
+    else if(this->speed < opponent->getSpd())
+    {
+        priority = 1;
+    }
+    else
+    {
+        priority = rand() % 2;
+    }
+
+    switch(priority){
+        //Hit opponent first
+    case 0:
         if (currentHP > 0)
         {
-            int oppHP = opponent->getCurHP();
-            int myStr = strength;
-            damage = myStr - opponent->getDef();
-            oppHP = oppHP - damage;
-            opponent->setCurHP(oppHP);
+            damage = this->strength; - opponent->getDef();
+            if(damage <= 0)
+                damage = 1;
+
+            opponent->setCurHP(opponent->getCurHP() - damage);
         }
         if (opponent->getCurHP() > 0)
         {
-            int myHP = currentHP;
-            int oppStr = opponent->getStr();
-            damage = oppStr - defense;
-            myHP = myHP - damage;
-            currentHP = myHP;
-        }
-    }
+            damage = opponent->getStr() - defense;
+            if(damage <= 0)
+                damage = 1;
 
-    else//opponent does damage first
-    {
+            this->currentHP = this->currentHP - damage;
+        }
+        break;
+    case 1:
         if (opponent->getCurHP() > 0)
         {
-            int myHP = currentHP;
-            int oppStr = opponent->getStr();
-            damage = oppStr - defense;
-            myHP = myHP - damage;
-            currentHP = myHP;
+            damage = opponent->getStr() - this->defense;
+            if(damage <= 0)
+                damage = 1;
+
+            this->currentHP = this->currentHP - damage;
         }
 
-        if (currentHP > 0)
+        if (this->currentHP > 0)
         {
-            int oppHP = opponent->getCurHP();
-            int myStr = strength;
-            damage = myStr - opponent->getDef();
-            oppHP = oppHP - damage;
-            opponent->setCurHP(oppHP);
+            damage = this->strength; - opponent->getDef();
+            if(damage <= 0)
+                damage = 1;
+
+            opponent->setCurHP(opponent->getCurHP() - damage);
         }
+        break;
+    default :
+        break;
     }
+
+
+
+
 }
 
  void Character::setMaxHP(int newHP)
@@ -341,6 +363,7 @@ Player::Player()
 
  Warrior::Warrior()
 {
+    Character::setMaxHP(this->maxHP + 100);
     strength = strength + 5;
     defense = defense + 5;
 }
@@ -368,7 +391,7 @@ void Enemy::generateChar()
 Slime::Slime()
 {
     name = "Slime";
-    strength = strength - 3;
+    setStr(this->getStr() );
     defense = defense - 3;
     speed = speed - 1;
 
