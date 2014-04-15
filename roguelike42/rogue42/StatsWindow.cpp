@@ -1,15 +1,8 @@
 #include "StatsWindow.h"
 #include "curses.h"
 #include "Character.h"
-#include <sstream>
+#include "GlobalFunctions.h"
 
-template <typename T>
-    string NumberToString(T Number)
-    {
-        ostringstream ss;
-        ss<<Number;
-        return ss.str();
-    }
 
 StatsWindow::StatsWindow()
 {
