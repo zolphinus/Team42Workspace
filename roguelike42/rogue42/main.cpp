@@ -28,6 +28,12 @@ int main()
     return 0;
 }
 
+void screenTestDriver()
+{
+    GameController test;
+    test.screenTestDriver();
+
+}
 
 void characterTestDriver(){
     //Testing the classes

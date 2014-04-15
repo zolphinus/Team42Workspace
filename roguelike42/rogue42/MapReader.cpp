@@ -1,6 +1,16 @@
 #include "MapReader.h"
 
-MapReader::MapReader(string FileName)
+MapReader::MapReader(string FileName,int& items, int&enemies)
+{
+    mapWindow = newwin(MAP_WINDOW_HEIGHT,MAP_WINDOW_WIDTH,0,0);//creates the window
+    ReadMap(FileName, items,enemies);
+}
+
+MapReader::~MapReader(){
+    delwin(mapWindow);
+}
+
+void MapReader::ReadMap(string FileName, int& items, int& enemies)
 {
     ifstream mapIn;
     string getlineHolder;
@@ -25,23 +35,17 @@ MapReader::MapReader(string FileName)
         }
         rowMarker++;
     }
+    mapIn>>items;
+    mapIn>>enemies;
     mapIn.close();
     delete cstr;
     cstr = NULL;
-
-
-    mapWindow = newwin(MAP_WINDOW_HEIGHT,MAP_WINDOW_WIDTH,0,0);//creates the window
-
-}
-
-MapReader::~MapReader(){
-    delwin(mapWindow);
 }
 
 void MapReader::PrintWindow(int characterPosY, int characterPosX, std::vector <Enemy*> enemy, std::vector <Item*> item)
 {
     bool enemyLocated = false;
-    int startPrintY=4, startPrintX=6, xShift, yShift;
+    int startPrintY=8, startPrintX=25, xShift, yShift;
     int YHolder, XHolder;
 
     startPrintX = characterPosX;
@@ -104,7 +108,7 @@ void MapReader::PrintWindow(int characterPosY, int characterPosX, std::vector <E
                 //ITEMS NEED GET POSITION FUNCTIONS
                 /*
                 if(item.size() > 0){
-                for(int i = 0; i < enemy.size(); i++){
+                for(int i = 0; i < item.size(); i++){
                     if(item[i]->getYPos() == YHolder
                        && item[i]->getXPos() == XHolder)
                     {

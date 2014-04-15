@@ -13,12 +13,13 @@ GameController::GameController()
 {
     srand(time(NULL));
     makeHero();
-    enemy.resize(10);
-    makeEnemies();
 
     startCurseStuff();
     messageWindow = new MessageWindow();
-    mapReader = new MapReader("map0.txt");
+    mapReader = new MapReader("map0.txt",itemNum,enemyNum);
+    enemy.resize(enemyNum);
+    item.resize(itemNum);
+    makeEnemies();
 
     //Prepares the message window for display
     message("");
@@ -360,7 +361,6 @@ void GameController::moveBoulder(int yPos, int xPos, int direction){
         break;
     }
 
-    if(mapReader->atPosition(y,x) != '#'){
         if(mapReader->atPosition(y,x) != '@'){
             if(mapReader->atPosition(y,x) != upStairs){
                 if(mapReader->atPosition(y,x) != upStairs){
@@ -375,7 +375,7 @@ void GameController::moveBoulder(int yPos, int xPos, int direction){
         }
     }
 
-}
+
 
 void GameController::generateLocation(Character* tempChar){
     //logic for picking a random spot on map here
@@ -469,7 +469,8 @@ Character* GameController::findCharacter(int y, int x){
 
 
 void GameController::screenTestDriver(){
-    MapReader mapReader("map0.txt");
+    int items, enemies;
+    MapReader mapReader("map0.txt",items,enemies);
     MessageWindow messageWindow;
     messageWindow.AddMessage("compatability testing");
     mapReader.PrintWindow(0,0, enemy, item);
