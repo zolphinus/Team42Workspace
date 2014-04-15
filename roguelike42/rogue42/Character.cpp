@@ -321,9 +321,23 @@ inline void Character::pickUp(Item newItem)
     }
 }
 
-inline void Character::useItem()
+inline void Character::useItem(Item potion)
 {
+    if (potion.getType() == 'P')//only works if the item is a healing item
+    {
+        currentHP = currentHP + potion.getHPHeal();
+        currentSP = currentSP + potion.getSPHeal();
 
+        if(currentHP > maxHP)
+        {
+            currentHP = maxHP;
+        }
+
+        if(currentSP > maxSP)
+        {
+            currentSP = maxSP;
+        }
+    }
 }
 
 Player::Player()

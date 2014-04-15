@@ -49,7 +49,7 @@ public:
     void equipGear(Item newGear);
     void unequipGear(Item piece);
     void pickUp(Item newItem);
-    void useItem();
+    void useItem(Item potion);
     void statIncrease(Item piece);
 
 protected:
