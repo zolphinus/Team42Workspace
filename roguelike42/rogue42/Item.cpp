@@ -1,28 +1,18 @@
 #include "Item.h"
 
-/*
-HealItem::HealItem(string name)
+//Item Functions
+Item::Item()
 {
-    name = itemName;
-    HPAmount = 0;
-    SPAmount = 0;
-}
-
-Gear::Gear(string name)
-{
-    itemName = name;
+    type = 'D';//D = default type
+    yPos = 0;
+    xPos = 0;
     hpBonus = 0;
     spBonus = 0;
     strBonus = 0;
     defBonus = 0;
     spdBonus = 0;
-}
-*/
-
-//Item Functions
-Item::Item()
-{
-    type = 'N';
+    hpHealAmount = 0;
+    spHealAmount = 0;
 }
 
 void Item::setName(string name)
@@ -30,84 +20,123 @@ void Item::setName(string name)
     itemName = name;
 }
 
+
 string Item::getName()
 {
     return itemName;
 }
 
-void Item::setType(char gearType)
+
+void Item::setType(char itemType)
 {
-    type = gearType;
+    type = itemType;
 }
+
 
 char Item::getType()
 {
     return type;
 }
 
-/*
+
+void Item::setYPos(int newY)
+{
+    yPos = newY;
+}
+
+
+int Item::getYPos()
+{
+    return yPos;
+}
+
+
+void Item::setXPos(int newX)
+{
+    xPos = newX;
+}
+
+
+int Item::getXPos()
+{
+    return xPos;
+}
+
 //Gear Functions
-int Gear::getHPBuff()
+int Item::getHPBuff()
 {
     return hpBonus;
 }
 
-int Gear::getSPBuff()
+
+int Item::getSPBuff()
 {
     return spBonus;
 }
 
-int Gear::getStrBuff()
+
+int Item::getStrBuff()
 {
     return strBonus;
 }
 
-int Gear::getDefBuff()
+int Item::getDefBuff()
 {
     return defBonus;
 }
 
-int Gear::getSpdBuff()
+
+int Item::getSpdBuff()
 {
     return spdBonus;
 }
 
-void Gear::setHPBuff(int newValue)
+
+void Item::setHPBuff(int newValue)
 {
     hpBonus = newValue;
 }
 
-void Gear::setSPBuff(int newValue)
+
+void Item::setSPBuff(int newValue)
 {
     spBonus = newValue;
 }
 
-void Gear::setStrBuff(int newValue)
+
+void Item::setStrBuff(int newValue)
 {
     strBonus = newValue;
 }
 
-void Gear::setDefBuff(int newValue)
+
+void Item::setDefBuff(int newValue)
 {
     defBonus = newValue;
 }
 
-void Gear::setSpdBuff(int newValue)
+void Item::setSpdBuff(int newValue)
 {
     spdBonus = newValue;
 }
 
-
-
 //Healing Item functions
-void HealItem::setHPAmount(int pointsToHeal)
+void Item::setHPHeal(int pointsToHeal)
 {
-    HPAmount = pointsToHeal;
+    hpHealAmount = pointsToHeal;
 }
 
-void HealItem::setSPAmount(int pointsToHeal)
+void Item::setSPHeal(int pointsToHeal)
 {
-    SPAmount = pointsToHeal;
+    spHealAmount = pointsToHeal;
 }
 
-*/
+int Item::getHPHeal()
+{
+    return hpHealAmount;
+}
+
+int Item::getSPHeal()
+{
+    return spHealAmount;
+}
