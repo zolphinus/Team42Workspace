@@ -20,8 +20,8 @@ void statusTestDriver();
 int main()
 {
     //srand(time(NULL)); // random seed for randomization of stats, when it matters
-    characterTestDriver();
-    //gameControllerDriver();
+    //characterTestDriver();
+    gameControllerDriver();
     //screenTestDriver();
 
 

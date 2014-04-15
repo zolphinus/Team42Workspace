@@ -257,7 +257,7 @@ void GameController::move(Character* activeChar){
         break;
     case 'e' :
     case 'E' :
-        message("EQUIP STUFF");
+        //equipItem(activeChar);
         break;
     case 's' :
     case 'S' :
@@ -380,13 +380,31 @@ void GameController::moveBoulder(int yPos, int xPos, int direction){
 void GameController::generateLocation(Character* tempChar){
     //logic for picking a random spot on map here
     bool legalSpot = false;
-    //    int pickX = rand() 0;
-    /*
+    int pickX;
+    int pickY;
+
+    Character* charAtLocation = NULL;
+
     while(legalSpot == false)
     {
+        pickX = rand() % FLOOR_MAP_WIDTH;
+        pickY = rand() % FLOOR_MAP_HEIGHT;
+        charAtLocation = findCharacter(pickY, pickX);
+
+        if(mapReader->atPosition(pickY, pickX) != '#'){
+            if(mapReader->atPosition(pickY, pickX) != '@'){
+                if(mapReader->atPosition(pickY, pickX) != '<'){
+                    if(mapReader->atPosition(pickY, pickX) != '>'){
+                        if(charAtLocation == NULL){
+
+                        }
+                    }
+                }
+
+            }
+        }
 
     }
-    */
 }
 
 
