@@ -53,23 +53,6 @@ void Character::levelUp()
             strength = strength + strIncrease;
             defense = defense + defIncrease;
             speed = speed + spdIncrease;
-
-            /*if (i == 1 && statIncrease == 1)
-            {
-                strength = strength + 1;
-            }
-            else if (i == 2 && statIncrease == 1)
-            {
-                defense = defense + 1;
-            }
-            else if (i == 3 && statIncrease == 1)
-            {
-                speed = speed + 1;
-            }
-            else
-            {
-                break;
-            }*/
         }
 
         level = level + 1;
