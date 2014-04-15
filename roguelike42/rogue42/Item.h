@@ -6,12 +6,20 @@
 #include <ctime>
 #include <algorithm>
 
-#include "Character.h"
-
 using std::cout;
 using std::cin;
 using std::endl;
 using std::string;
+
+/*
+Items have a char to represent what type of item they are:
+H = helm
+R = armor
+W = weapon
+A = accessory
+P = potion
+D = default
+*/
 
 
 class Item
@@ -20,7 +28,7 @@ public:
     Item();
     void setName(string name);
     string getName();
-    void setType(char gearType);
+    void setType(char itemType);
     char getType();
     void setYPos(int newY);
     int getYPos();
@@ -58,17 +66,27 @@ protected:
     int spHealAmount;
 };
 
-/*
+
+//Item Functions
 inline Item::Item()
 {
-    type = 'D';
+    type = 'D';//D = default type
+    yPos = 0;
+    xPos = 0;
+    hpBonus = 0;
+    spBonus = 0;
+    strBonus = 0;
+    defBonus = 0;
+    spdBonus = 0;
+    hpHealAmount = 0;
+    spHealAmount = 0;
 }
-
 
 inline void Item::setName(string name)
 {
     itemName = name;
 }
+
 
 inline string Item::getName()
 {
@@ -76,11 +94,16 @@ inline string Item::getName()
 }
 
 
-inline void Item::setType(char gearType)
+inline void Item::setType(char itemType)
 {
-    type = gearType;
+    type = itemType;
 }
 
+
+inline char Item::getType()
+{
+    return type;
+}
 
 
 inline void Item::setYPos(int newY)
@@ -88,15 +111,18 @@ inline void Item::setYPos(int newY)
     yPos = newY;
 }
 
+
 inline int Item::getYPos()
 {
     return yPos;
 }
 
+
 inline void Item::setXPos(int newX)
 {
     xPos = newX;
 }
+
 
 inline int Item::getXPos()
 {
@@ -156,23 +182,30 @@ inline void Item::setDefBuff(int newValue)
     defBonus = newValue;
 }
 
-
 inline void Item::setSpdBuff(int newValue)
 {
     spdBonus = newValue;
 }
 
 //Healing Item functions
-void Item::setHPHeal(int pointsToHeal)
+inline void Item::setHPHeal(int pointsToHeal)
 {
     hpHealAmount = pointsToHeal;
 }
 
-void Item::setSPHeal(int pointsToHeal)
+inline void Item::setSPHeal(int pointsToHeal)
 {
     spHealAmount = pointsToHeal;
 }
 
-*/
+inline int Item::getHPHeal()
+{
+    return hpHealAmount;
+}
 
-#endif
+inline int Item::getSPHeal()
+{
+    return spHealAmount;
+}
+
+#endif //ITEM_H

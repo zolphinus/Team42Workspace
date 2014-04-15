@@ -20,8 +20,8 @@ void statusTestDriver();
 int main()
 {
     //srand(time(NULL)); // random seed for randomization of stats, when it matters
-    //characterTestDriver();
-    gameControllerDriver();
+    characterTestDriver();
+    //gameControllerDriver();
     //screenTestDriver();
 
 
@@ -31,6 +31,8 @@ int main()
 
 void characterTestDriver(){
     //Testing the classes
+    srand(time(NULL));
+
     Character hero;
     hero.generateChar();
     cout << "Character name is " <<hero.getName() << endl;
@@ -39,6 +41,31 @@ void characterTestDriver(){
     cout << "Strength is " << hero.getStr() << endl;
     cout << "Defense is " << hero.getDef() << endl;
     cout << "Speed is " << hero.getSpd() << endl;
+
+    cout << endl;
+
+    hero.setEXP(100);
+    hero.levelUp();
+
+    cout << "You leveled up! Here are your new stats" << endl;
+    cout << "Current HP is " << hero.getCurHP() << endl;
+    cout << "Max HP is " << hero.getMaxHP() << endl;
+    cout << "Strength is " << hero.getStr() << endl;
+    cout << "Defense is " << hero.getDef() << endl;
+    cout << "Speed is " << hero.getSpd() << endl;
+
+    Item testItem;
+    testItem.setName("Grass Sword");
+    testItem.setStrBuff(100);
+    testItem.setType('W');
+    hero.equipGear(testItem);
+    cout << "New strength after equipping " << testItem.getName() << " is " << hero.getStr() + testItem.getStrBuff() << endl;
+
+    Slime evilSlime;
+    cout << "An evil Slime appeared! It has " << evilSlime.getCurHP() << " HP!" << endl;
+    hero.attack(evilSlime);
+    cout << "After attacking it, it only has " << evilSlime.getCurHP() << " HP!" << endl;
+
 }
 
 

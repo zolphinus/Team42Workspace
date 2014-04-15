@@ -1,6 +1,7 @@
 #include "Character.h"
 
- void Character::generateChar()
+
+void Character::generateChar()
 {
 
     setMaxHP(100);
@@ -16,11 +17,13 @@
     return;
 }
 
- void Character::levelUp()
+void Character::levelUp()
 {
-    if (expPoints >= 100)//might not need this loop if we only call the function when we know the character will level up
+    if (expPoints >= 100)
     {
-        maxHP = maxHP + rand() % 5 + 10;
+        int hpIncrease = rand() % 15 + 5;
+
+        maxHP = maxHP + hpIncrease;
 
         int statUp = rand() % 3 + 1;//decides what stat goes up randomly
 
@@ -43,8 +46,15 @@
 
         for (int i = 1; i < 4; i++)
         {
-            statIncrease = rand() % 1;
-            if (i == 1 && statIncrease == 1)
+            int strIncrease = rand() % 1;
+            int defIncrease = rand() % 1;
+            int spdIncrease = rand() % 1;
+
+            strength = strength + strIncrease;
+            defense = defense + defIncrease;
+            speed = speed + spdIncrease;
+
+            /*if (i == 1 && statIncrease == 1)
             {
                 strength = strength + 1;
             }
@@ -59,7 +69,7 @@
             else
             {
                 break;
-            }
+            }*/
         }
 
         level = level + 1;
@@ -89,6 +99,7 @@ void Character::attack(Character* opponent)
         priority = 1;
     }
     else
+
     {
         priority = rand() % 2;
     }
@@ -121,6 +132,7 @@ void Character::attack(Character* opponent)
                 damage = 1;
 
             this->currentHP = this->currentHP - damage;
+
         }
 
         if (this->currentHP > 0)
@@ -130,6 +142,7 @@ void Character::attack(Character* opponent)
                 damage = 1;
 
             opponent->setCurHP(opponent->getCurHP() - damage);
+
         }
         break;
     default :
@@ -141,7 +154,7 @@ void Character::attack(Character* opponent)
 
 }
 
- void Character::setMaxHP(int newHP)
+void Character::setMaxHP(int newHP)
 {
     maxHP = newHP;
     if (maxHP > maxPossibleHP)
@@ -150,91 +163,104 @@ void Character::attack(Character* opponent)
     }
 }
 
- int Character::getMaxHP()
+int Character::getMaxHP()
 {
     return maxHP;
 }
 
- void Character::setEXP(int newEXPAmount)
+void Character::setEXP(int newEXPAmount)
 {
     expPoints = newEXPAmount;
 }
 
- int Character::getEXP()
+int Character::getEXP()
 {
     return expPoints;
 }
 
- void Character::setCurHP(int newHP)
+void Character::setCurHP(int newHP)
 {
     currentHP = newHP;
+
     if (currentHP > maxPossibleHP)
     {
         currentHP = maxPossibleHP;
     }
 }
 
- int Character::getCurHP()
+int Character::getCurHP()
 {
     return currentHP;
 }
 
- void Character::setStr(int newStr)
+
+void Character::setStr(int newStr)
 {
     strength = newStr;
 }
 
- int Character::getStr()
+
+int Character::getStr()
 {
     return strength;
 }
 
- void Character::setDef(int newDef)
+
+void Character::setDef(int newDef)
 {
     defense = newDef;
 }
 
- int Character::getDef()
+
+int Character::getDef()
 {
     return defense;
 }
 
- void Character::setSpd(int newSpd)
+
+void Character::setSpd(int newSpd)
 {
     speed = newSpd;
 }
 
- int Character::getSpd()
+
+int Character::getSpd()
 {
     return speed;
 }
 
- void Character::setName(string playerName)
+
+void Character::setName(string playerName)
 {
     name = playerName;
 }
 
- string Character::getName()
+
+string Character::getName()
 {
     return name;
 }
 
- void Character::setCurSP(int newSP)
+
+void Character::setCurSP(int newSP)
 {
     currentSP = newSP;
 }
 
- int Character::getCurSP()
+
+int Character::getCurSP()
 {
     return currentSP;
 }
 
- void Character::setMaxSP(int newSP)
+
+void Character::setMaxSP(int newSP)
 {
     maxSP = newSP;
 }
 
- int Character::getMaxSP()
+
+int Character::getMaxSP()
 {
     return maxSP;
 }
@@ -244,7 +270,8 @@ void Character::setYPos(int newY)
     yPos = newY;
 }
 
- int Character::getYPos()
+
+int Character::getYPos()
 {
     return yPos;
 }
@@ -254,32 +281,34 @@ void Character::setXPos(int newX)
     xPos = newX;
 }
 
- int Character::getXPos()
+int Character::getXPos()
 {
     return xPos;
 }
 
- void Character::equipGear(Item newGear) //need to redo
+void Character::equipGear(Item newGear) //need to redo
 {
     //first check if the item in inventory is gear
     if (newGear.getType() != 'D' && newGear.getType() != 'P')
     {
-        //if you have no held gear, push the piece into gear vector
+        //If you have no held gear, push the piece into gear vector
         if (heldGear.size() == 0)
         {
             heldGear.push_back(newGear);
         }
 
         /*
-        if you have gear equipped, check to see if you already
-        have that type of gear equipped.  If you do, you can't equip the new piece
+        If you have gear equipped, check to see if you already
+        have on the type of gear you're trying to equip.
+        If you do, you can't equip the new piece,
+        because you can only equip one of each type of gear
         */
         else
         {
             //True when you already have the type of equipment on
             bool alreadyEquipped = false;
 
-            for (int i= 0; i < heldGear.size()-1; i++)
+            for (int i = 0; i < heldGear.size()-1; i++)
             {
                 if (newGear.getType() == heldGear[i].getType())
                 {
@@ -287,30 +316,27 @@ void Character::setXPos(int newX)
                 }
             }
 
+            //If you don't have that kind of gear already equipped, put on the new piece!
             if (alreadyEquipped == false)
             {
                 heldGear.push_back(newGear);
+                maxHP = maxHP + newGear.getHPBuff();
+                maxSP = maxSP + newGear.getSPBuff();
             }
-
         }
-
     }
 
-    /*maxHP = maxHP + piece.getHPBuff();
-    maxSP = maxSP + piece.getSPBuff();
-    strength = strength + piece.getStrBuff();
-    defense = defense + piece.getDefBuff();
-    speed = speed + piece.getSpdBuff();*/
-
-    if (maxHP > 999)
+    if (maxHP > maxPossibleHP)
     {
-        maxHP = 999;
+        maxHP = maxPossibleHP;
     }
 }
 
-/*
- void Character::unequipGear(Item piece)
+void Character::unequipGear(Item piece)
 {
+
+
+
     maxHP = maxHP - piece.getHPBuff();
     maxSP = maxSP - piece.getSPBuff();
     strength = strength - piece.getStrBuff();
@@ -319,17 +345,8 @@ void Character::setXPos(int newX)
 }
 
 
- void Character::statIncrease(Item piece)
-{
-    maxHP = maxHP + piece.getHPBuff();
-    maxSP = maxSP + piece.getSPBuff();
-    strength = strength + piece.getStrBuff();
-    defense = defense + piece.getDefBuff();
-    speed = speed + piece.getSpdBuff();
-}
-*/
 
- void Character::pickUp(Item newItem)
+void Character::pickUp(Item newItem)
 {
     if (inventory.size() < 6)//check if inventory is full
     {
@@ -337,8 +354,8 @@ void Character::setXPos(int newX)
     }
 }
 
-/*
- void Character::useItem(Item potion)
+
+void Character::useItem(Item potion)
 {
     if (potion.getType() == 'P')//only works if the item is a healing item
     {
@@ -356,19 +373,27 @@ void Character::setXPos(int newX)
         }
     }
 }
-*/
+
+
+Character::~Character()
+{
+}
+
+
 Player::Player()
 {
 }
 
- Warrior::Warrior()
+
+Warrior::Warrior()
 {
     Character::setMaxHP(this->maxHP + 100);
     strength = strength + 5;
     defense = defense + 5;
 }
 
- Healer::Healer()
+
+Healer::Healer()
 {
     strength = strength - 3;
     defense = defense - 2;
@@ -391,7 +416,9 @@ void Enemy::generateChar()
 Slime::Slime()
 {
     name = "Slime";
-    setStr(this->getStr() );
+    maxHP = 10;
+    currentHP = maxHP;
+    strength = strength - 3;
     defense = defense - 3;
     speed = speed - 1;
 
@@ -399,22 +426,21 @@ Slime::Slime()
 
 
 //PLACEHOLDER FUNCTIONS
- void Character::specialMove()
+void Character::specialMove()
+{
+}
+
+void Warrior::specialMove()//might just make this a stronger attack
 {
 //will add more to special move when we know what the special moves should do
 }
 
- void Warrior::specialMove()
-{
-//will add more to special move when we know what the special moves should do
-}
-
- void Healer::specialMove()
+void Healer::specialMove()
 {
 
-    if (currentSP > 10)
+    if (currentSP >= 10)
     {
-        currentHP = currentHP + 60;
+        currentHP = currentHP + 80;
 
         if (currentHP > maxHP)
         {
