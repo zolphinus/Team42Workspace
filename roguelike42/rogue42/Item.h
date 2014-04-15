@@ -6,13 +6,20 @@
 #include <ctime>
 #include <algorithm>
 
-#include "Character.h"
-
 using std::cout;
 using std::cin;
 using std::endl;
 using std::string;
 
+/*
+Items have a char to represent what type of item they are:
+H = helm
+R = armor
+W = weapon
+A = accessory
+P = potion
+D = default
+*/
 
 class Item
 {
@@ -20,7 +27,7 @@ public:
     Item();
     void setName(string name);
     string getName();
-    void setType(char gearType);
+    void setType(char itemType);
     char getType();
     void setYPos(int newY);
     int getYPos();
@@ -60,27 +67,36 @@ protected:
 
 
 //Item Functions
-Item::Item()
+inline Item::Item()
 {
-    type = 'D';
+    type = 'D';//D = default type
+    yPos = 0;
+    xPos = 0;
+    hpBonus = 0;
+    spBonus = 0;
+    strBonus = 0;
+    defBonus = 0;
+    spdBonus = 0;
+    hpHealAmount = 0;
+    spHealAmount = 0;
 }
 
-void Item::setName(string name)
+inline void Item::setName(string name)
 {
     itemName = name;
 }
 
-string Item::getName()
+inline string Item::getName()
 {
     return itemName;
 }
 
-void Item::setType(char gearType)
+inline void Item::setType(char itemType)
 {
-    type = gearType;
+    type = itemType;
 }
 
-char Item::getType()
+inline char Item::getType()
 {
     return type;
 }
@@ -106,65 +122,75 @@ inline int Item::getXPos()
 }
 
 //Gear Functions
-int Item::getHPBuff()
+inline int Item::getHPBuff()
 {
     return hpBonus;
 }
 
-int Item::getSPBuff()
+inline int Item::getSPBuff()
 {
     return spBonus;
 }
 
-int Item::getStrBuff()
+inline int Item::getStrBuff()
 {
     return strBonus;
 }
 
-int Item::getDefBuff()
+inline int Item::getDefBuff()
 {
     return defBonus;
 }
 
-int Item::getSpdBuff()
+inline int Item::getSpdBuff()
 {
     return spdBonus;
 }
 
-void Item::setHPBuff(int newValue)
+inline void Item::setHPBuff(int newValue)
 {
     hpBonus = newValue;
 }
 
-void Item::setSPBuff(int newValue)
+inline void Item::setSPBuff(int newValue)
 {
     spBonus = newValue;
 }
 
-void Item::setStrBuff(int newValue)
+inline void Item::setStrBuff(int newValue)
 {
     strBonus = newValue;
 }
 
-void Item::setDefBuff(int newValue)
+inline void Item::setDefBuff(int newValue)
 {
     defBonus = newValue;
 }
 
-void Item::setSpdBuff(int newValue)
+inline void Item::setSpdBuff(int newValue)
 {
     spdBonus = newValue;
 }
 
 //Healing Item functions
-void Item::setHPHeal(int pointsToHeal)
+inline void Item::setHPHeal(int pointsToHeal)
 {
     hpHealAmount = pointsToHeal;
 }
 
-void Item::setSPHeal(int pointsToHeal)
+inline void Item::setSPHeal(int pointsToHeal)
 {
     spHealAmount = pointsToHeal;
 }
 
-#endif
+inline int Item::getHPHeal()
+{
+    return hpHealAmount;
+}
+
+inline int Item::getSPHeal()
+{
+    return spHealAmount;
+}
+
+#endif //ITEM_H

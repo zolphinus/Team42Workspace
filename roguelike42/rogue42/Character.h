@@ -20,6 +20,7 @@ class Character{
 public:
     Character(); //used when making player Character
     Character(string enemy); //used only when creating enemies
+    ~Character();
     virtual void specialMove();
     void generateChar();
     void levelUp();
@@ -50,7 +51,6 @@ public:
     void unequipGear(Item piece);
     void pickUp(Item newItem);
     void useItem(Item potion);
-    void statIncrease(Item piece);
 
 protected:
     int level;
@@ -100,7 +100,6 @@ public:
 
 inline Character::Character()
 {
-
     level = 1;
     maxHP = rand() % 51 + 100;
     currentHP = maxHP;
@@ -114,10 +113,10 @@ inline Character::Character()
     maxPossibleHP = 999;
 }
 
-inline Character::Character(string enemy)
+inline Character::Character(string enemy) //may not need
 {
     name = enemy;
     //Will the stats for enemies always be randomized?
 }
 
-#endif
+#endif //CHARACTER_H
