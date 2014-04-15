@@ -47,6 +47,8 @@ void characterTestDriver(){
     hero.setEXP(100);
     hero.levelUp();
 
+    cout << endl;
+
     cout << "You leveled up! Here are your new stats" << endl;
     cout << "Current HP is " << hero.getCurHP() << endl;
     cout << "Max HP is " << hero.getMaxHP() << endl;
@@ -61,10 +63,10 @@ void characterTestDriver(){
     hero.equipGear(testItem);
     cout << "New strength after equipping " << testItem.getName() << " is " << hero.getStr() + testItem.getStrBuff() << endl;
 
-    Slime evilSlime;
-    cout << "An evil Slime appeared! It has " << evilSlime.getCurHP() << " HP!" << endl;
+    Slime *evilSlime = new Slime;
+    cout << "An evil Slime appeared! It has " << evilSlime -> getCurHP() << " HP!" << endl;
     hero.attack(evilSlime);
-    cout << "After attacking it, it only has " << evilSlime.getCurHP() << " HP!" << endl;
+    cout << "After attacking it, it only has " << evilSlime -> getCurHP() << " HP!" << endl;
 
 }
 
