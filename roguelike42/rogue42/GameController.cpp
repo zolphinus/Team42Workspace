@@ -32,8 +32,6 @@ GameController::GameController()
     hero->setXPos(9);
     wmove(mapReader->getMapReader(), hero->getYPos(), hero->getXPos());
     mapReader->PrintWindow(hero->getYPos(), hero->getXPos(), enemy, item);
-    move(hero);
-
 
 }
 
@@ -212,7 +210,7 @@ void GameController::move(Character* activeChar){
     }
     else
     {
-        enemyDirection = rand() % 4;
+        enemyDirection = rand() % 4 + 1;
         switch(enemyDirection)
         {
         case 1:
