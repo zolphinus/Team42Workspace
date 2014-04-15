@@ -20,23 +20,13 @@ public:
     Item();
     void setName(string name);
     string getName();
-protected:
-    string itemName;
-};
+    void setType(char gearType);
+    char getType();
+    void setYPos(int newY);
+    int getYPos();
+    void setXPos(int newX);
 
-class HealItem: public Item
-{
-public:
-    HealItem(string name);
-protected:
-    int HPAmount;
-    int SPAmount;
-};
-
-class Gear: public Item
-{
-public:
-    Gear(string name);
+    int getXPos();
     int getHPBuff();
     int getSPBuff();
     int getStrBuff();
@@ -47,27 +37,31 @@ public:
     void setStrBuff(int newValue);
     void setDefBuff(int newValue);
     void setSpdBuff(int newValue);
+
+    void setHPHeal(int pointsToHeal);
+    void setSPHeal(int pointsToHeal);
+    int getHPHeal();
+    int getSPHeal();
+
 protected:
+    string itemName;
+    char type;
+    int yPos, xPos;
+    //Stat bonuses from equipment
     int hpBonus;
     int spBonus;
     int strBonus;
     int defBonus;
     int spdBonus;
+    //How much potions should heal
+    int hpHealAmount;
+    int spHealAmount;
 };
 
-class Weapon: public Gear
-{
 
-};
-
-inline Gear::Gear(string name)
+inline Item::Item()
 {
-    itemName = name;
-    hpBonus = 0;
-    spBonus = 0;
-    strBonus = 0;
-    defBonus = 0;
-    spdBonus = 0;
+    type = 'D';
 }
 
 inline void Item::setName(string name)
@@ -80,55 +74,105 @@ inline string Item::getName()
     return itemName;
 }
 
-inline int Gear::getHPBuff()
+
+inline void Item::setType(char gearType)
+{
+    type = gearType;
+}
+
+char Item::getType()
+{
+    return type;
+}
+
+inline void Item::setYPos(int newY)
+{
+    yPos = newY;
+}
+
+inline int Item::getYPos()
+{
+    return yPos;
+}
+
+inline void Item::setXPos(int newX)
+{
+    xPos = newX;
+}
+
+inline int Item::getXPos()
+{
+    return xPos;
+}
+
+//Gear Functions
+inline int Item::getHPBuff()
 {
     return hpBonus;
 }
 
-inline int Gear::getSPBuff()
+
+inline int Item::getSPBuff()
 {
     return spBonus;
 }
 
-inline int Gear::getStrBuff()
+
+inline int Item::getStrBuff()
 {
     return strBonus;
 }
 
-inline int Gear::getDefBuff()
+inline int Item::getDefBuff()
 {
     return defBonus;
 }
 
-inline int Gear::getSpdBuff()
+
+inline int Item::getSpdBuff()
 {
     return spdBonus;
 }
 
-inline void Gear::setHPBuff(int newValue)
+
+inline void Item::setHPBuff(int newValue)
 {
     hpBonus = newValue;
 }
 
-inline void Gear::setSPBuff(int newValue)
+
+inline void Item::setSPBuff(int newValue)
 {
     spBonus = newValue;
 }
 
-inline void Gear::setStrBuff(int newValue)
+
+inline void Item::setStrBuff(int newValue)
 {
     strBonus = newValue;
 }
 
-inline void Gear::setDefBuff(int newValue)
+
+inline void Item::setDefBuff(int newValue)
 {
     defBonus = newValue;
 }
 
-inline void Gear::setSpdBuff(int newValue)
+
+inline void Item::setSpdBuff(int newValue)
 {
     spdBonus = newValue;
 }
 
+//Healing Item functions
+void Item::setHPHeal(int pointsToHeal)
+{
+    hpHealAmount = pointsToHeal;
+}
+
+void Item::setSPHeal(int pointsToHeal)
+{
+    spHealAmount = pointsToHeal;
+}
 
 #endif

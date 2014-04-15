@@ -1,136 +1,21 @@
-#ifndef CHARACTER_H
-#define CHARACTER_H
+#include "Character.h"
 
-#include <iostream>
-#include <string>
-#include <ctime>
-#include <algorithm>
-#include <vector>
-
-
-using std::cout;
-using std::cin;
-using std::endl;
-using std::string;
-using std::vector;
-
-#include "Item.h"
-
-class Character{
-public:
-    Character(); //used when making player Character
-    Character(string enemy); //used only when creating enemies
-    virtual void specialMove();
-    void generateChar();
-    void levelUp();
-    void attack(Character& opponent);
-    void setMaxHP(int newHP);
-    void setCurHP(int newHP);
-    void setEXP(int newEXPAmount);
-    void setStr(int newStr);
-    void setDef(int newDef);
-    void setSpd(int newSpd);
-    void setName(string playerName);
-    void setMaxSP(int newSP);
-    void setCurSP(int newSP);
-    void setYPos(int newY);
-    void setXPos(int newX);
-
-    int getMaxHP();
-    int getCurHP();
-    int getEXP();
-    int getStr();
-    int getDef();
-    int getSpd();
-    int getMaxSP();
-    int getCurSP();
-    int getYPos();
-    int getXPos();
-    string getName();
-
-    void equipGear(Item newGear);
-    void unequipGear(Item piece);
-    void pickUp(Item newItem);
-    void useItem(Item potion);
-    void statIncrease(Item piece);
-
-protected:
-    int level;
-    int currentHP, maxHP;
-    int strength, defense, speed;
-    int expPoints;
-    int vision;
-    string name;
-    int maxSP, currentSP;
-    int yPos, xPos;
-    int maxPossibleHP;
-    vector <Item> heldGear;
-    vector <Item> inventory;
-};
-
-class Player: public Character
-{
-public:
-    Player();
-};
-
-class Warrior: public Player
-{
-public:
-    Warrior();
-    void specialMove();
-};
-
-class Healer: public Player
-{
-public:
-    Healer();
-    void specialMove();//heals player
-};
-
-class Enemy: public Character
-{
-public:
-    void generateChar();
-};
-
-class Slime: public Enemy
-{
-public:
-    Slime();
-};
-
-inline Character::Character()
-{
-
-    level = 1;
-    maxHP = rand() % 51 + 100;
-    currentHP = maxHP;
-    strength = rand() % 5 + 5;
-    defense = rand() % 5 + 5;
-    speed = rand() % 5 + 5;
-    maxSP = 50;
-    currentSP = maxSP;
-    vision = 2;
-    expPoints = 0;
-    maxPossibleHP = 999;
-}
-
-inline Character::Character(string enemy)
-{
-    name = enemy;
-    //Will the stats for enemies always be randomized?
-}
-
-<<<<<<< HEAD
 inline void Character::generateChar()
 {
+    string userName;
+    cout << "Please enter your name: ";
+    cin >> userName;
+    if (userName.length() > 10)
+    {
+        userName.resize(10);
+    }
+
+    setName(userName);
     setMaxHP(100);
     setCurHP(100);
     setStr(10);
     setDef(10);
     setSpd(10);
-
     setMaxSP(50);
     setCurSP(50);
     setYPos(0);
@@ -196,7 +81,7 @@ inline void Character::levelUp()
     }//end if 100 EXP loop
 }
 
-inline void Character::attack(Character& opponent)
+void Character::attack(Character& opponent)
 {
     int damage;
 
@@ -361,13 +246,48 @@ inline int Character::getXPos()
     return xPos;
 }
 
-inline void Character::equipGear(Gear piece)
+inline void Character::equipGear(Item newGear) //need to redo
 {
-    maxHP = maxHP + piece.getHPBuff();
+    //first check if the item in inventory is gear
+    if (newGear.getType() != 'D' && newGear.getType() != 'P')
+    {
+        //if you have no held gear, push the piece into gear vector
+        if (heldGear.size() == 0)
+        {
+            heldGear.push_back(newGear);
+        }
+
+        /*
+        if you have gear equipped, check to see if you already
+        have that type of gear equipped.  If you do, you can't equip the new piece
+        */
+        else
+        {
+            //True when you already have the type of equipment on
+            bool alreadyEquipped = false;
+
+            for (int i= 0; i < heldGear.size()-1; i++)
+            {
+                if (newGear.getType() == heldGear[i].getType())
+                {
+                    alreadyEquipped = true;
+                }
+            }
+
+            if (alreadyEquipped == false)
+            {
+                heldGear.push_back(newGear);
+            }
+
+        }
+
+    }
+
+    /*maxHP = maxHP + piece.getHPBuff();
     maxSP = maxSP + piece.getSPBuff();
     strength = strength + piece.getStrBuff();
     defense = defense + piece.getDefBuff();
-    speed = speed + piece.getSpdBuff();
+    speed = speed + piece.getSpdBuff();*/
 
     if (maxHP > 999)
     {
@@ -375,13 +295,53 @@ inline void Character::equipGear(Gear piece)
     }
 }
 
-inline void Character::unequipGear(Gear piece)
+inline void Character::unequipGear(Item piece)
 {
     maxHP = maxHP - piece.getHPBuff();
     maxSP = maxSP - piece.getSPBuff();
     strength = strength - piece.getStrBuff();
     defense = defense - piece.getDefBuff();
     speed = speed - piece.getSpdBuff();
+}
+
+inline void Character::statIncrease(Item piece)
+{
+    maxHP = maxHP + piece.getHPBuff();
+    maxSP = maxSP + piece.getSPBuff();
+    strength = strength + piece.getStrBuff();
+    defense = defense + piece.getDefBuff();
+    speed = speed + piece.getSpdBuff();
+}
+
+inline void Character::pickUp(Item newItem)
+{
+    if (inventory.size() < 6)//check if inventory is full
+    {
+        inventory.push_back(newItem);//if not, add item to inventory
+    }
+}
+
+inline void Character::useItem(Item potion)
+{
+    if (potion.getType() == 'P')//only works if the item is a healing item
+    {
+        currentHP = currentHP + potion.getHPHeal();
+        currentSP = currentSP + potion.getSPHeal();
+
+        if(currentHP > maxHP)
+        {
+            currentHP = maxHP;
+        }
+
+        if(currentSP > maxSP)
+        {
+            currentSP = maxSP;
+        }
+    }
+}
+
+Player::Player()
+{
 }
 
 inline Warrior::Warrior()
@@ -399,7 +359,7 @@ inline Healer::Healer()
     //will add more stat adjustments as we add more stats
 }
 
-inline void Enemy::generateChar()
+void Enemy::generateChar()
 {
     setMaxHP(50);
     setCurHP(maxHP);
@@ -410,7 +370,7 @@ inline void Enemy::generateChar()
     return;
 }
 
-inline Slime::Slime()
+Slime::Slime()
 {
     name = "Slime";
     strength = strength - 3;
@@ -451,7 +411,3 @@ inline void Healer::specialMove()
         }
     }
 }
-
-=======
->>>>>>> origin/character-design
-#endif
