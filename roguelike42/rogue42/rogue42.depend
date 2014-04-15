@@ -111,7 +111,7 @@
 	<algorithm>
 	"Character.h"
 
-1397343449 source:c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\main.cpp
+1397597364 source:c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\main.cpp
 	<iostream>
 	"Character.h"
 	"GameController.h"
@@ -119,7 +119,7 @@
 	"MessageWindow.h"
 	"StatsWindow.h"
 
-1397339959 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\character.h
+1397594296 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\character.h
 	<iostream>
 	<string>
 	<ctime>
@@ -127,41 +127,46 @@
 	<vector>
 	"Item.h"
 
-1397339959 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\item.h
+1397594296 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\item.h
 	<iostream>
 	<string>
 	<ctime>
 	<algorithm>
 	"Character.h"
 
-1397343036 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.h
+1397597698 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.h
 	"Character.h"
 	"MapReader.h"
 	<vector>
 	"MessageWindow.h"
 	<string>
 	"StatsWindow.h"
+	"GameConfig.h"
 
-1397345125 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\mapreader.h
+1397595548 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\mapreader.h
 	<string>
 	<iostream>
 	<fstream>
 	<cstring>
 	<curses.h>
+	<vector>
+	"Character.h"
+	"GameConfig.h"
 
-1396986076 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\messagewindow.h
+1397357363 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\messagewindow.h
 	<string>
 	<iostream>
 	<curses.h>
 	<vector>
 
-1397344106 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\statswindow.h
+1397594296 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\statswindow.h
 	<string>
 	<iostream>
 	<curses.h>
 	<vector>
+	"GameConfig.h"
 
-1397355774 source:c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\mapreader.cpp
+1397597756 source:c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\mapreader.cpp
 	"MapReader.h"
 
 1397339693 source:c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\messagewindow.cpp
@@ -174,8 +179,10 @@
 	"Character.h"
 	<sstream>
 
-1397355949 source:c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.cpp
+1397597599 source:c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.cpp
 	"GameController.h"
+	<string>
+	"Character.h"
 
 1397593430 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\statswindow.h
 	<string>
@@ -197,4 +204,12 @@
 	"Item.h"
 
 1397593673 c:\users\zolphinus\documents\github\team42workspace\roguelike42\rogue42\gameconfig.h
+
+1397594296 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\gameconfig.h
+
+1397594296 source:c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\character.cpp
+	"Character.h"
+
+1397594296 source:c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\item.cpp
+	"Item.h"
 
