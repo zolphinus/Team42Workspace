@@ -39,11 +39,9 @@
 		<Unit filename="Character.h" />
 		<Unit filename="GameController.cpp" />
 		<Unit filename="GameController.h" />
-<<<<<<< HEAD
-=======
+		<Unit filename="Item.cpp" />
 		<Unit filename="Item.h" />
 		<Unit filename="MapRead.h" />
->>>>>>> origin/character-design
 		<Unit filename="MapReader.cpp" />
 		<Unit filename="MapReader.h" />
 		<Unit filename="MessageWindow.cpp" />

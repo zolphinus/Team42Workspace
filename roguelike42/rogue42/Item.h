@@ -58,11 +58,12 @@ protected:
     int spHealAmount;
 };
 
-
+/*
 inline Item::Item()
 {
     type = 'D';
 }
+
 
 inline void Item::setName(string name)
 {
@@ -80,10 +81,7 @@ inline void Item::setType(char gearType)
     type = gearType;
 }
 
-char Item::getType()
-{
-    return type;
-}
+
 
 inline void Item::setYPos(int newY)
 {
@@ -174,5 +172,7 @@ void Item::setSPHeal(int pointsToHeal)
 {
     spHealAmount = pointsToHeal;
 }
+
+*/
 
 #endif

@@ -1,5 +1,6 @@
 #include "GameController.h"
 #include <string>
+#include "Character.h"
 
 using std::cout;
 using std::cin;
@@ -408,6 +409,7 @@ void GameController::makeMoves(Character* currentChar, int direction){
         else if(tempChar != NULL){
             messageInput = currentChar->getName() + " is fighting " + tempChar->getName();
             message(messageInput);
+            currentChar->attack(tempChar);
             //FIGHT FUNCTION GOES HERE
 
         }

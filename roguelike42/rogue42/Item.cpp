@@ -1,5 +1,6 @@
 #include "Item.h"
 
+/*
 HealItem::HealItem(string name)
 {
     name = itemName;
@@ -16,6 +17,7 @@ Gear::Gear(string name)
     defBonus = 0;
     spdBonus = 0;
 }
+*/
 
 //Item Functions
 Item::Item()
@@ -43,6 +45,7 @@ char Item::getType()
     return type;
 }
 
+/*
 //Gear Functions
 int Gear::getHPBuff()
 {
@@ -94,6 +97,8 @@ void Gear::setSpdBuff(int newValue)
     spdBonus = newValue;
 }
 
+
+
 //Healing Item functions
 void HealItem::setHPAmount(int pointsToHeal)
 {
@@ -104,3 +109,5 @@ void HealItem::setSPAmount(int pointsToHeal)
 {
     SPAmount = pointsToHeal;
 }
+
+*/

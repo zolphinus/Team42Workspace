@@ -15,6 +15,7 @@ using std::string;
 using std::vector;
 
 #include "Item.h"
+class Item;
 
 class Character{
 public:
@@ -23,7 +24,7 @@ public:
     virtual void specialMove();
     void generateChar();
     void levelUp();
-    void attack(Character& opponent);
+    void attack(Character* opponent);
     void setMaxHP(int newHP);
     void setCurHP(int newHP);
     void setEXP(int newEXPAmount);
@@ -68,11 +69,13 @@ protected:
     vector <Item> inventory;
 };
 
+
 class Player: public Character
 {
 public:
     Player();
 };
+
 
 class Warrior: public Player
 {
@@ -94,11 +97,13 @@ public:
     void generateChar();
 };
 
+
 class Slime: public Enemy
 {
 public:
     Slime();
 };
+
 
 inline Character::Character()
 {
@@ -121,8 +126,7 @@ inline Character::Character(string enemy)
     name = enemy;
     //Will the stats for enemies always be randomized?
 }
-
-<<<<<<< HEAD
+/*
 inline void Character::generateChar()
 {
     setMaxHP(100);
@@ -194,53 +198,6 @@ inline void Character::levelUp()
         }
 
     }//end if 100 EXP loop
-}
-
-inline void Character::attack(Character& opponent)
-{
-    int damage;
-
-    if (speed > opponent.getSpd())//do damage to opponent before they do any to you
-    {
-        if (currentHP > 0)
-        {
-            int oppHP = opponent.getCurHP();
-            int myStr = strength;
-            damage = myStr - opponent.getDef();
-            oppHP = oppHP - damage;
-            opponent.setCurHP(oppHP);
-        }
-
-        if (opponent.getCurHP() > 0)
-        {
-            int myHP = currentHP;
-            int oppStr = opponent.getStr();
-            damage = oppStr - defense;
-            myHP = myHP - damage;
-            currentHP = myHP;
-        }
-    }
-
-    else//opponent does damage first
-    {
-        if (opponent.getCurHP() > 0)
-        {
-            int myHP = currentHP;
-            int oppStr = opponent.getStr();
-            damage = oppStr - defense;
-            myHP = myHP - damage;
-            currentHP = myHP;
-        }
-
-        if (currentHP > 0)
-        {
-            int oppHP = opponent.getCurHP();
-            int myStr = strength;
-            damage = myStr - opponent.getDef();
-            oppHP = oppHP - damage;
-            opponent.setCurHP(oppHP);
-        }
-    }
 }
 
 inline void Character::setMaxHP(int newHP)
@@ -361,7 +318,7 @@ inline int Character::getXPos()
     return xPos;
 }
 
-inline void Character::equipGear(Gear piece)
+inline void Character::equipGear(Item piece)
 {
     maxHP = maxHP + piece.getHPBuff();
     maxSP = maxSP + piece.getSPBuff();
@@ -375,7 +332,7 @@ inline void Character::equipGear(Gear piece)
     }
 }
 
-inline void Character::unequipGear(Gear piece)
+inline void Character::unequipGear(Item piece)
 {
     maxHP = maxHP - piece.getHPBuff();
     maxSP = maxSP - piece.getSPBuff();
@@ -383,6 +340,8 @@ inline void Character::unequipGear(Gear piece)
     defense = defense - piece.getDefBuff();
     speed = speed - piece.getSpdBuff();
 }
+
+
 
 inline Warrior::Warrior()
 {
@@ -451,7 +410,6 @@ inline void Healer::specialMove()
         }
     }
 }
+*/
 
-=======
->>>>>>> origin/character-design
 #endif
