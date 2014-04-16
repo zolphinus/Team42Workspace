@@ -17,16 +17,10 @@ public:
     GameController();
     ~GameController();
     void runGame();
-    void heroTurn();
-    void enemyTurns();
-    void fight();
-    void updateGameState(Character*);
-    void randomEnemy(Enemy*&);
-    void randomItem(Item*& newItem);
-    void assignRandomLocation(Character*&);
     void screenTestDriver();
     void message(std::string);
-    void move(Character*); //conceptual
+
+
     Character* getHero();
 
 private:
@@ -47,7 +41,17 @@ private:
     void startCurseStuff();
     void randomHero(Character*&);
     void selectHero(Character*&);
-    void cleanUp();
+    void heroTurn();
+    void enemyTurns();
+
+    void itemEnemyReset();
+    void cleanUpGame();
+    void move(Character*);
+    void fight();
+    void updateGameState(Character*);
+    void randomEnemy(Enemy*&);
+    void randomItem(Item*& newItem);
+    void assignRandomLocation(Character*&);
     void updateMap(int y, int x);
     void heroDead();
     void winGame();
@@ -59,7 +63,7 @@ private:
     void genItemLocations();
     void generateLocation(Item*);
     void moveBoulder(int yPos, int xPos, int direction);
-    void goDownstairs();
+    void goDownstairs(int, int);
     int floorsCleared;
 
 };

@@ -1,6 +1,7 @@
 #include "GameController.h"
 #include <string>
 #include "Character.h"
+#include "MapFiles.h"
 
 using std::cout;
 using std::cin;
@@ -16,7 +17,7 @@ GameController::GameController()
 
 GameController::~GameController()
 {
-    cleanUp();
+    cleanUpGame();
 }
 
 
@@ -145,7 +146,7 @@ void GameController::randomItem(Item*& newItem){
 }
 
 
-void GameController::cleanUp(){
+void GameController::cleanUpGame(){
 
     delete hero;
     if(enemy.size() > 0){
@@ -155,6 +156,14 @@ void GameController::cleanUp(){
         }
     }
 
+    if(item.size() > 0){
+        for( int i = 0; i < item.size(); i++)
+        {
+            delete item[i];
+        }
+    }
+
+    item.resize(0);
     enemy.resize(0);
 
     delete messageWindow;
@@ -166,18 +175,8 @@ void GameController::cleanUp(){
     endwin();
 }
 
-/*
 
-    GameController();
-    ~GameController();
-    void heroTurn();
-    void enemyTurns();
-    void makeMoves();
-    void fight();
-    //void updateGameState(character&);
-    void makeHero();
-    Character* hero;
-    */
+
 
 void GameController::message(std::string newMessage){
     messageWindow->AddMessage(newMessage);
@@ -250,7 +249,7 @@ void GameController::move(Character* activeChar){
         makeMoves(activeChar, ch);
         break;
     case '<' :
-        message("TRY TO GO DOWNSTAIRS");
+        goDownstairs(activeChar->getYPos(), activeChar->getXPos());
         break;
     case '>' :
         message("TRY TO GO UPSTAIRS");
@@ -323,7 +322,8 @@ void GameController::updateGameState(Character* currentChar){
         hero->levelUp();
     }
 
-    if(floorsCleared >= 10)
+    int floorsToWin = rand() % 5 + 3;
+    if(floorsCleared >= floorsToWin)
     {
         winGame();
     }
@@ -582,31 +582,61 @@ void GameController::initGame(){
     mapReader->PrintWindow(hero->getYPos(), hero->getXPos(), enemy, item);
 }
 
-void GameController::goDownstairs(){
-    //Double random generation for a more even variance
+void GameController::goDownstairs(int y, int x){
+
+    if(mapReader->atPosition(y, x) == '<')
+    {
+        //Double random generation for a more even variance
     int doubleRandom = rand() % 3;
     this->itemNum = rand() % 3 + 3 + doubleRandom;
     doubleRandom = rand () % 10;
     this->enemyNum = rand() % 6 + 5 + doubleRandom;
 
     //cleanup Vectors
-
+    itemEnemyReset();
     //load new map
 
-    //generate enemies and items
 
+
+    mapReader->ReadMap(randomMap());
+
+    //generate enemies and items
+    enemy.resize(enemyNum);
+    item.resize(itemNum);
+    makeEnemies();
+    makeItems();
 
     //generate positions on new map
+    genLocations();
+    floorsCleared++;
+
+    wmove(mapReader->getMapReader(), hero->getYPos(), hero->getXPos());
+    mapReader->PrintWindow(hero->getYPos(), hero->getXPos(), enemy, item);
+    }
+
 
 
 }
 
-/*
+
 void GameController::itemEnemyReset()
 {
     //Resets the vectors for the next floor
+    if(enemy.size() > 0){
+        for( int i = 0; i < enemy.size(); i++)
+        {
+            delete enemy[i];
+        }
+    }
+
+    if(item.size() > 0){
+        for( int i = 0; i < item.size(); i++)
+        {
+            delete item[i];
+        }
+    }
 }
-*/
+
 
 void GameController::screenTestDriver(){
     int items, enemies;
