@@ -1,9 +1,9 @@
 #include "Item.h"
 
 //Item Functions
-Item::Item()
+Item::Item(itemType newType)
 {
-    type = D;//D = default type
+    type = newType;//D = default type
     yPos = 0;
     xPos = 0;
     hpBonus = 0;

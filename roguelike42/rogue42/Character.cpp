@@ -270,7 +270,7 @@ int Character::getXPos()
 bool Character::equipGear(Item* newGear)//need to finish
 {
     //first check if the item to be equipped is gear
-    if (newGear -> getType() != 'D' && newGear -> getType() != 'P')
+    if (newGear -> getType() != D && newGear -> getType() != P)
     {
         //Then check if you already have that type of gear equipped
         for(int i = 0; i < heldGear.size(); i++)
@@ -282,7 +282,7 @@ bool Character::equipGear(Item* newGear)//need to finish
         }
 
         switch(newGear -> getType()){
-        case 'H':
+        case H:
             if (heldGear[0] -> getType() == 'D')
             {
                 heldGear[0] = newGear;
@@ -292,7 +292,7 @@ bool Character::equipGear(Item* newGear)//need to finish
             {
                 return false;
             }
-        case 'W':
+        case W:
             if (heldGear[1] -> getType() == 'D')
             {
                 heldGear[1] = newGear;
@@ -301,7 +301,7 @@ bool Character::equipGear(Item* newGear)//need to finish
             {
                 return false;
             }
-        case 'R':
+        case R:
             if (heldGear[2] -> getType() == 'D')
             {
                 heldGear[2] = newGear;
@@ -310,7 +310,7 @@ bool Character::equipGear(Item* newGear)//need to finish
             {
                 return false;
             }
-        case 'A':
+        case A:
             if (heldGear[3] -> getType() == 'D')
             {
                 heldGear[3] = newGear;
@@ -367,32 +367,45 @@ bool Character::equipGear(Item* newGear)//need to finish
 void Character::unequipGear(Item piece)
 {
 
-
-
-    maxHP = maxHP - piece.getHPBuff();
-    maxSP = maxSP - piece.getSPBuff();
-    strength = strength - piece.getStrBuff();
-    defense = defense - piece.getDefBuff();
-    speed = speed - piece.getSpdBuff();
 }
 
 
 
-void Character::pickUp(Item* newItem)
+bool Character::pickUp(Item* newItem)
 {
     if (inventory.size() < 6)//check if inventory is full
     {
         inventory.push_back(newItem);//if not, add item to inventory
+
+        return true;
+    }
+
+    else
+    {
+        return false;
     }
 }
 
-
-void Character::useItem(Item potion)
+Item* Character::dropItem(int location)
 {
-    if (potion.getType() == 'P')//only works if the item is a healing item
+    Item* tempItem = NULL;
+
+    if (location < inventory.size())
     {
-        currentHP = currentHP + potion.getHPHeal();
-        currentSP = currentSP + potion.getSPHeal();
+        Item* tempItem = NULL;
+        tempItem = heldGear[location];
+    }
+
+    return tempItem;
+}
+
+
+void Character::useItem(Item* potion)
+{
+    if (potion -> getType() == P)//only works if the item is a healing item
+    {
+        currentHP = currentHP + potion -> getHPHeal();
+        currentSP = currentSP + potion -> getSPHeal();
 
         if(currentHP > maxHP)
         {
@@ -414,7 +427,7 @@ Character::~Character()
 
 Player::Player()
 {
-    Item* emptyItem = new Item();
+    Item* emptyItem = new Item(D);
     emptyItem -> setName("Empty");
 
     //Filling gear slots with placeholder gear

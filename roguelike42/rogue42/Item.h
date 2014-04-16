@@ -33,7 +33,7 @@ enum itemType{
 class Item
 {
 public:
-    Item();
+    Item(itemType newType);
     void setName(string name);
     string getName();
     void setType(itemType typeOfItem);

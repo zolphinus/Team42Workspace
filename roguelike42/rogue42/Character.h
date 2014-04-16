@@ -52,8 +52,9 @@ public:
 
     bool equipGear(Item* newGear);
     void unequipGear(Item piece);
-    void pickUp(Item* newItem);
-    void useItem(Item potion);
+    bool pickUp(Item* newItem);
+    Item* dropItem(int location);
+    void useItem(Item* potion);
 
 protected:
     int level;
