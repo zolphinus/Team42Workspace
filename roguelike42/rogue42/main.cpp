@@ -75,6 +75,8 @@ void characterTestDriver(){
     hero.attack(evilSlime);
     cout << "After attacking it, it only has " << evilSlime -> getCurHP() << " HP!" << endl;
 
+    delete testItem;
+    delete evilSlime;
 }
 
 

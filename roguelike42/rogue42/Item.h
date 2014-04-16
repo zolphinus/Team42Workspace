@@ -34,6 +34,7 @@ class Item
 {
 public:
     Item(itemType newType);
+    void generateItem();
     void setName(string name);
     string getName();
     void setType(itemType typeOfItem);

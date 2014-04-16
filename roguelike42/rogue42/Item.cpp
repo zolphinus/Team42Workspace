@@ -15,6 +15,42 @@ Item::Item(itemType newType)
     spHealAmount = 0;
 }
 
+void Item::generateItem()
+{
+    itemName = "Test"; //will add random names later
+
+    //if item does not have a type, assign it one.
+    if (type == D)
+    {
+        type = itemType(rand() % P);
+    }
+
+    //assign random stats based on item type
+    switch(type)
+    {
+    case H:
+        defBonus = rand() % 80 + 20;
+        break;
+    case W:
+        strBonus = rand() % 100 + 20;
+        break;
+    case R:
+        defBonus = rand() % 100 + 20;
+        break;
+    case A:
+        strBonus = rand() % 50 + 10;
+        defBonus = rand() % 50 + 10;
+        spdBonus = rand() % 50 + 10;
+        break;
+    case P:
+        hpHealAmount = rand() % 50 + 10;
+        spHealAmount = rand() % 30 + 10;
+        break;
+    default:
+        break;
+    }
+}
+
 void Item::setName(string name)
 {
     itemName = name;
