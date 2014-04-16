@@ -18,6 +18,8 @@ void MapReader::ReadMap(string FileName)
     char *cstr = new char[FileName.length()+1];          // converts the string into usable format for opening
     strcpy(cstr, FileName.c_str());
     mapIn.open(cstr);
+    items=rand()%4;
+    enemies=rand()%5+10;
 
     while (true)
     {
