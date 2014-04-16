@@ -3,14 +3,14 @@
 MapReader::MapReader(string FileName,int& items, int&enemies)
 {
     mapWindow = newwin(MAP_WINDOW_HEIGHT,MAP_WINDOW_WIDTH,0,0);//creates the window
-    ReadMap(FileName, items,enemies);
+    ReadMap(FileName);
 }
 
 MapReader::~MapReader(){
     delwin(mapWindow);
 }
 
-void MapReader::ReadMap(string FileName, int& items, int& enemies)
+void MapReader::ReadMap(string FileName)
 {
     ifstream mapIn;
     string getlineHolder;
@@ -35,8 +35,6 @@ void MapReader::ReadMap(string FileName, int& items, int& enemies)
         }
         rowMarker++;
     }
-    mapIn>>items;
-    mapIn>>enemies;
     mapIn.close();
     delete cstr;
     cstr = NULL;
@@ -101,6 +99,21 @@ void MapReader::PrintWindow(int characterPosY, int characterPosX, std::vector <E
                     }
                 }
                 }
+
+
+                if(item.size() > 0){
+                for(int i = 0; i < item.size(); i++){
+
+                    if(item[i]->getYPos() == YHolder
+                       && item[i]->getXPos() == XHolder)
+                    {
+                        wmove(mapWindow, row,column);
+                        waddch(mapWindow, 'I');
+                    }
+
+                }
+                }
+
 
                 //displays items on map within fog
 

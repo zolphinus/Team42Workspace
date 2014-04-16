@@ -22,6 +22,7 @@ public:
     void fight();
     void updateGameState();
     void randomEnemy(Enemy*&);
+    void randomItem(Item*& newItem);
     void assignRandomLocation(Character*&);
     void screenTestDriver();
     void message(std::string);
@@ -41,6 +42,8 @@ private:
 
     void makeHero();
     void makeEnemies();
+    void makeItems();
+    void initGame();
     void startCurseStuff();
     void randomHero(Character*&);
     void selectHero(Character*&);
@@ -49,11 +52,14 @@ private:
     void heroDead();
     void winGame();
     void generateLocation(Character*);
+    void genLocations();
     void makeMoves(Character*, int);
     Character* findCharacter(int y, int x);
-
+    Item* findItem(int y, int x);
+    void genItemLocations();
+    void generateLocation(Item*);
     void moveBoulder(int yPos, int xPos, int direction);
-
+    void goDownstairs();
     int floorsCleared;
 
 };

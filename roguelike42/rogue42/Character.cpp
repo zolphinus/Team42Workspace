@@ -404,6 +404,7 @@ Slime::Slime()
     strength = strength - 3;
     defense = defense - 3;
     speed = speed - 1;
+    expPoints = 18;
 
 }
 
