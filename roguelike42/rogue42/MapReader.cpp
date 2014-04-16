@@ -1,6 +1,6 @@
 #include "MapReader.h"
 
-MapReader::MapReader(string FileName,int& items, int&enemies)
+MapReader::MapReader(string FileName)
 {
     mapWindow = newwin(MAP_WINDOW_HEIGHT,MAP_WINDOW_WIDTH,0,0);//creates the window
     ReadMap(FileName);
@@ -18,8 +18,6 @@ void MapReader::ReadMap(string FileName)
     char *cstr = new char[FileName.length()+1];          // converts the string into usable format for opening
     strcpy(cstr, FileName.c_str());
     mapIn.open(cstr);
-    items=rand()%4;
-    enemies=rand()%5+10;
 
     while (true)
     {

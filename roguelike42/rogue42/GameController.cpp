@@ -288,7 +288,7 @@ void GameController::runGame(){
     }
 }
 
-void GameController::updateGameState(){
+void GameController::updateGameState(Character* currentChar){
     updateMap(hero->getYPos(), hero->getXPos());
     statusWindow->PrintStatsWindow(hero);
     std::string temp;
@@ -305,11 +305,11 @@ void GameController::updateGameState(){
         {
             if(enemy[i]->getEXP() > 100)
             {
-                message(enemy[i]->getName() + " has leveled up!");
+                message(enemy[i]->getName() + " grows stronger!");
                 enemy[i]->levelUp();
             }
             if(enemy[i]->getCurHP() < 0){
-                hero->setEXP(hero->getEXP() + enemy[i]->getEXP());
+                currentChar->setEXP(hero->getEXP() + enemy[i]->getEXP());
                 delete enemy[i];
                 enemy.erase(enemy.begin()+i);
                 i--;
@@ -342,14 +342,16 @@ void GameController::winGame(){
 
 void GameController::heroTurn(){
     move(hero);
-    updateGameState();
+    updateGameState(hero);
 }
 
 
 void GameController::enemyTurns(){
     if(enemy.size() > 0){
-    for(int i = 0; i < enemy.size(); i++)
-        move(enemy[i]);
+    for(int j = 0; j < enemy.size(); j++){
+        move(enemy[j]);
+        updateGameState(enemy[j]);
+    }
     }
 }
 
@@ -494,7 +496,7 @@ void GameController::makeMoves(Character* currentChar, int direction){
             moveBoulder(y, x, direction);
         }
         else if(tempChar != NULL){
-            messageInput = currentChar->getName() + " is fighting " + tempChar->getName();
+            messageInput = currentChar->getName() + " attacks " + tempChar->getName() + "!";
             message(messageInput);
             currentChar->attack(tempChar);
 
@@ -557,12 +559,12 @@ void GameController::genLocations(){
 void GameController::initGame(){
     srand(time(NULL));
     enemyNum = rand() % 10 + 3;
-    itemNum = rand() % 100 + 3;
+    itemNum = rand() % 10 + 3;
     makeHero();
 
     startCurseStuff();
     messageWindow = new MessageWindow();
-    mapReader = new MapReader("map0.txt",itemNum,enemyNum);
+    mapReader = new MapReader("map0.txt");
     enemy.resize(enemyNum);
     item.resize(itemNum);
     makeEnemies();
@@ -581,18 +583,34 @@ void GameController::initGame(){
 }
 
 void GameController::goDownstairs(){
+    //Double random generation for a more even variance
     int doubleRandom = rand() % 3;
-
     this->itemNum = rand() % 3 + 3 + doubleRandom;
     doubleRandom = rand () % 10;
     this->enemyNum = rand() % 6 + 5 + doubleRandom;
 
+    //cleanup Vectors
+
+    //load new map
+
+    //generate enemies and items
+
+
+    //generate positions on new map
+
+
 }
 
+/*
+void GameController::itemEnemyReset()
+{
+    //Resets the vectors for the next floor
+}
+*/
 
 void GameController::screenTestDriver(){
     int items, enemies;
-    MapReader mapReader("map0.txt",items,enemies);
+    MapReader mapReader("map0.txt");
     MessageWindow messageWindow;
     messageWindow.AddMessage("compatability testing");
     mapReader.PrintWindow(0,0, enemy, item);

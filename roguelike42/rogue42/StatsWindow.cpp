@@ -22,7 +22,8 @@ StatsWindow::~StatsWindow()
 void StatsWindow::PrintStatsWindow(Character* Hero)
 {
     StatusArray[0]="Name: "+Hero->getName();
-    StatusArray[1]="HP  : "+NumberToString(Hero->getCurHP())+"/"+NumberToString(Hero->getMaxHP());
+    StatusArray[1] = "Lvl. " + NumberToString(Hero->getLevel()) + "  " + Hero->getJobTitle();
+    StatusArray[2]="HP  : "+NumberToString(Hero->getCurHP())+"/"+NumberToString(Hero->getMaxHP());
     //StatusArray[2] = "Y Position: " + NumberToString(Hero->getYPos());
     //StatusArray[3] = "X Position: " + NumberToString(Hero->getXPos());
     StatusArray[4]="EXP : "+NumberToString(Hero->getEXP())+"/100";

@@ -20,7 +20,7 @@ public:
     void heroTurn();
     void enemyTurns();
     void fight();
-    void updateGameState();
+    void updateGameState(Character*);
     void randomEnemy(Enemy*&);
     void randomItem(Item*& newItem);
     void assignRandomLocation(Character*&);

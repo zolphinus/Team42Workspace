@@ -37,7 +37,9 @@ public:
     void setCurSP(int newSP);
     void setYPos(int newY);
     void setXPos(int newX);
+    void setJobTitle(string);
 
+    int getLevel();
     int getMaxHP();
     int getCurHP();
     int getEXP();
@@ -49,6 +51,7 @@ public:
     int getYPos();
     int getXPos();
     string getName();
+    string getJobTitle();
 
     void equipGear(Item newGear);
     void unequipGear(Item piece);
@@ -56,6 +59,7 @@ public:
     void useItem(Item potion);
 
 protected:
+    string jobName;
     int level;
     int currentHP, maxHP;
     int strength, defense, speed;

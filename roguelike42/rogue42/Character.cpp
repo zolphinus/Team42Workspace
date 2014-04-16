@@ -17,6 +17,18 @@ void Character::generateChar()
     return;
 }
 
+int Character::getLevel(){
+    return level;
+}
+
+void Character::setJobTitle(string newJob){
+    this->jobName = newJob;
+}
+
+string Character::getJobTitle(){
+    return jobName;
+}
+
 void Character::levelUp()
 {
     if (expPoints >= 100)
@@ -373,6 +385,7 @@ Warrior::Warrior()
     Character::setMaxHP(this->maxHP + 100);
     strength = strength + 5;
     defense = defense + 5;
+    jobName = "Warrior";
 }
 
 
@@ -382,6 +395,7 @@ Healer::Healer()
     defense = defense - 2;
     maxHP = maxHP - 20;
     currentHP = maxHP;
+    jobName = "Healer";
     //will add more stat adjustments as we add more stats
 }
 

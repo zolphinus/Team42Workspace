@@ -18,10 +18,10 @@ using namespace std;
 class MapReader
 {
 public:
-    MapReader(string,int&,int&);
+    MapReader(string);
     ~MapReader();
     void PrintWindow(int,int, std::vector <Enemy*>, std::vector <Item*>);
-    void ReadMap(string,int&,int&);
+    void ReadMap(string);
     char floorMap[FLOOR_MAP_HEIGHT][FLOOR_MAP_WIDTH];
     char atPosition(int,int);//(y,x) like all of curse
     void setPosition(int,int, char);
