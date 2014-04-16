@@ -42,8 +42,6 @@ void Character::levelUp()
         }
 
         //After the first random stat increase, each stat has a chance of going up by one
-        int statIncrease;
-
         for (int i = 1; i < 4; i++)
         {
             int strIncrease = rand() % 1;
@@ -92,7 +90,7 @@ void Character::attack(Character* opponent)
     case 0:
         if (currentHP > 0)
         {
-            damage = this->strength; - opponent->getDef();
+            damage = this->strength - opponent->getDef();
             if(damage <= 0)
                 damage = 1;
 
@@ -120,7 +118,7 @@ void Character::attack(Character* opponent)
 
         if (this->currentHP > 0)
         {
-            damage = this->strength; - opponent->getDef();
+            damage = this->strength - opponent->getDef();
             if(damage <= 0)
                 damage = 1;
 
@@ -269,24 +267,70 @@ int Character::getXPos()
     return xPos;
 }
 
-void Character::equipGear(Item newGear) //need to redo
+bool Character::equipGear(Item* newGear)//need to finish
 {
-    //first check if the item in inventory is gear
-    if (newGear.getType() != 'D' && newGear.getType() != 'P')
+    //first check if the item to be equipped is gear
+    if (newGear -> getType() != 'D' && newGear -> getType() != 'P')
     {
-        //If you have no held gear, push the piece into gear vector
-        if (heldGear.size() == 0)
+        //Then check if you already have that type of gear equipped
+        for(int i = 0; i < heldGear.size(); i++)
         {
-            heldGear.push_back(newGear);
+            if (newGear -> getType() == heldGear[i] -> getType())
+            {
+                return false;
+            }
         }
 
+        switch(newGear -> getType()){
+        case 'H':
+            if (heldGear[0] -> getType() == 'D')
+            {
+                heldGear[0] = newGear;
+
+            }
+            else
+            {
+                return false;
+            }
+        case 'W':
+            if (heldGear[1] -> getType() == 'D')
+            {
+                heldGear[1] = newGear;
+            }
+            else
+            {
+                return false;
+            }
+        case 'R':
+            if (heldGear[2] -> getType() == 'D')
+            {
+                heldGear[2] = newGear;
+            }
+            else
+            {
+                return false;
+            }
+        case 'A':
+            if (heldGear[3] -> getType() == 'D')
+            {
+                heldGear[3] = newGear;
+            }
+            else
+            {
+                return false;
+            }
+        default:
+            {
+                return false;
+            }
+        }
         /*
         If you have gear equipped, check to see if you already
         have on the type of gear you're trying to equip.
         If you do, you can't equip the new piece,
         because you can only equip one of each type of gear
         */
-        else
+        /*else
         {
             //True when you already have the type of equipment on
             bool alreadyEquipped = false;
@@ -306,13 +350,18 @@ void Character::equipGear(Item newGear) //need to redo
                 maxHP = maxHP + newGear.getHPBuff();
                 maxSP = maxSP + newGear.getSPBuff();
             }
-        }
+        }*/
     }
 
-    if (maxHP > maxPossibleHP)
+    else
+    {
+        return false;
+    }
+
+    /*if (maxHP > maxPossibleHP)
     {
         maxHP = maxPossibleHP;
-    }
+    }*/
 }
 
 void Character::unequipGear(Item piece)
@@ -329,7 +378,7 @@ void Character::unequipGear(Item piece)
 
 
 
-void Character::pickUp(Item newItem)
+void Character::pickUp(Item* newItem)
 {
     if (inventory.size() < 6)//check if inventory is full
     {
@@ -365,6 +414,15 @@ Character::~Character()
 
 Player::Player()
 {
+    Item* emptyItem = new Item();
+    emptyItem -> setName("Empty");
+
+    //Filling gear slots with placeholder gear
+    for (int i = 0; i < 4; i++)//4 is designated size of heldGear vector
+    {
+        heldGear.push_back(emptyItem);
+    }
+
 }
 
 

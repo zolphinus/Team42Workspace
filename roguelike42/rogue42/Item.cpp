@@ -3,7 +3,7 @@
 //Item Functions
 Item::Item()
 {
-    type = 'D';//D = default type
+    type = D;//D = default type
     yPos = 0;
     xPos = 0;
     hpBonus = 0;
@@ -27,13 +27,13 @@ string Item::getName()
 }
 
 
-void Item::setType(char itemType)
+void Item::setType(itemType typeOfItem)
 {
-    type = itemType;
+    type = typeOfItem;
 }
 
 
-char Item::getType()
+itemType Item::getType()
 {
     return type;
 }

@@ -50,9 +50,9 @@ public:
     int getXPos();
     string getName();
 
-    void equipGear(Item newGear);
+    bool equipGear(Item* newGear);
     void unequipGear(Item piece);
-    void pickUp(Item newItem);
+    void pickUp(Item* newItem);
     void useItem(Item potion);
 
 protected:
@@ -65,8 +65,8 @@ protected:
     int maxSP, currentSP;
     int yPos, xPos;
     int maxPossibleHP;
-    vector <Item> heldGear;
-    vector <Item> inventory;
+    vector <Item*> heldGear;
+    vector <Item*> inventory;
 };
 
 
@@ -118,6 +118,7 @@ inline Character::Character()
     vision = 2;
     expPoints = 0;
     maxPossibleHP = 999;
+    Item emptyGear();
 }
 
 inline Character::Character(string enemy) //may not need
