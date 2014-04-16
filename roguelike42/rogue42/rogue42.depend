@@ -171,11 +171,11 @@
 	"MessageWindow.h"
 	"curses.h"
 
-1397355224 source:c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\statswindow.cpp
+1397603854 source:c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\statswindow.cpp
 	"StatsWindow.h"
 	"curses.h"
 	"Character.h"
-	<sstream>
+	"GlobalFunctions.h"
 
 1397600642 source:c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\gamecontroller.cpp
 	"GameController.h"
@@ -210,4 +210,7 @@
 
 1397597857 source:c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\item.cpp
 	"Item.h"
+
+1397603872 c:\users\jeremy\documents\github\team42workspace\roguelike42\rogue42\globalfunctions.h
+	<sstream>
 
