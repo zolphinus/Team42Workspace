@@ -323,7 +323,7 @@ bool Character::equipGear(Item* newGear)
 bool Character::unequipGear(int location)
 {
     location = location - 1;
-    if (location < heldGear.size()-1)
+    if (location < heldGear.size()-1 && location > 0)
     {
         heldGear.erase(heldGear.begin() + location);
         return true;
@@ -408,7 +408,8 @@ Player::Player()
 
 Warrior::Warrior()
 {
-    Character::setMaxHP(this->maxHP + 100);
+    maxHP = maxHP + 30;
+    currentHP = maxHP;
     strength = strength + 5;
     defense = defense + 5;
 }
@@ -420,7 +421,6 @@ Healer::Healer()
     defense = defense - 2;
     maxHP = maxHP - 20;
     currentHP = maxHP;
-    //will add more stat adjustments as we add more stats
 }
 
 void Enemy::generateChar()
@@ -446,26 +446,27 @@ Slime::Slime()
 }
 
 
-//PLACEHOLDER FUNCTIONS
 void Character::specialMove()
 {
 }
 
-void Warrior::specialMove()//might just make this a stronger attack
-{
-//will add more to special move when we know what the special moves should do
-    if (currentSP > 30)
-    {
-        strength = strength + 5;
 
-        currentSP = currentSP - 30;
+void Warrior::specialMove()
+{
+    //Gives user a permanant strength buff
+    if (currentSP >= 40)
+    {
+        strength = strength + rand() % 2 + 1;
+
+        currentSP = currentSP - 40;
     }
 }
 
+
 void Healer::specialMove()
 {
-
-    if (currentSP >= 10)
+    //Heals user
+    if (currentSP >= 20)
     {
         currentHP = currentHP + 80;
 
@@ -474,11 +475,6 @@ void Healer::specialMove()
             currentHP = maxHP;
         }
 
-        currentSP = currentSP - 10;
-
-        if (currentSP < 0)
-        {
-            currentSP = 0;
-        }
+        currentSP = currentSP - 12;
     }
 }
