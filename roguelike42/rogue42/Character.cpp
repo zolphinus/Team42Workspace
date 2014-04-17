@@ -64,11 +64,17 @@ void Character::levelUp()
     }//end if 100 EXP loop
 }
 
-void Character::attack(Character* opponent)
+int Character::attack(Character* opponent)
 {
-    //NOTE: Refactor to return damage done so we can print message after fight
     int damage;
     int priority;
+
+    for (int i = 0; i < heldGear.size(); i++)//applying gear's stat bonuses
+    {
+        strength = strength + heldGear[i] -> getStrBuff();
+        defense = defense + heldGear[i] -> getDefBuff();
+        speed = speed + heldGear[i] -> getSpdBuff();
+    }
 
     if(this->speed > opponent->getSpd())
     {
@@ -130,9 +136,14 @@ void Character::attack(Character* opponent)
         break;
     }
 
+    for (int i = 0; i < heldGear.size(); i++)//unapplying gear's stat bonuses
+    {
+        strength = strength - heldGear[i] -> getStrBuff();
+        defense = defense - heldGear[i] -> getDefBuff();
+        speed = speed - heldGear[i] -> getSpdBuff();
+    }
 
-
-
+    return damage;
 }
 
 void Character::setMaxHP(int newHP)
@@ -267,7 +278,7 @@ int Character::getXPos()
     return xPos;
 }
 
-bool Character::equipGear(Item* newGear)//need to finish
+bool Character::equipGear(Item* newGear)
 {
     //first check if the item to be equipped is gear
     if (newGear -> getType() != D && newGear -> getType() != P)
@@ -283,17 +294,16 @@ bool Character::equipGear(Item* newGear)//need to finish
 
         switch(newGear -> getType()){
         case H:
-            if (heldGear[0] -> getType() == 'D')
+            if (heldGear[0] -> getType() == D)
             {
                 heldGear[0] = newGear;
-
             }
             else
             {
                 return false;
             }
         case W:
-            if (heldGear[1] -> getType() == 'D')
+            if (heldGear[1] -> getType() == D)
             {
                 heldGear[1] = newGear;
             }
@@ -302,7 +312,7 @@ bool Character::equipGear(Item* newGear)//need to finish
                 return false;
             }
         case R:
-            if (heldGear[2] -> getType() == 'D')
+            if (heldGear[2] -> getType() == D)
             {
                 heldGear[2] = newGear;
             }
@@ -311,9 +321,15 @@ bool Character::equipGear(Item* newGear)//need to finish
                 return false;
             }
         case A:
-            if (heldGear[3] -> getType() == 'D')
+            if (heldGear[3] -> getType() == D)
             {
                 heldGear[3] = newGear;
+                maxHP = maxHP + newGear -> getHPBuff();
+                maxSP = maxSP + newGear -> getSPBuff();
+                if (maxHP > maxPossibleHP);
+                {
+                    maxHP = maxPossibleHP;
+                }
             }
             else
             {
@@ -324,44 +340,13 @@ bool Character::equipGear(Item* newGear)//need to finish
                 return false;
             }
         }
-        /*
-        If you have gear equipped, check to see if you already
-        have on the type of gear you're trying to equip.
-        If you do, you can't equip the new piece,
-        because you can only equip one of each type of gear
-        */
-        /*else
-        {
-            //True when you already have the type of equipment on
-            bool alreadyEquipped = false;
 
-            for (int i = 0; i < heldGear.size()-1; i++)
-            {
-                if (newGear.getType() == heldGear[i].getType())
-                {
-                    alreadyEquipped = true;
-                }
-            }
-
-            //If you don't have that kind of gear already equipped, put on the new piece!
-            if (alreadyEquipped == false)
-            {
-                heldGear.push_back(newGear);
-                maxHP = maxHP + newGear.getHPBuff();
-                maxSP = maxSP + newGear.getSPBuff();
-            }
-        }*/
     }
 
     else
     {
         return false;
     }
-
-    /*if (maxHP > maxPossibleHP)
-    {
-        maxHP = maxPossibleHP;
-    }*/
 }
 
 void Character::unequipGear(Item piece)
@@ -393,7 +378,8 @@ Item* Character::dropItem(int location)
     if (location < inventory.size())
     {
         Item* tempItem = NULL;
-        tempItem = heldGear[location];
+        tempItem = inventory[location];
+        inventory.erase(inventory.begin() + location);
     }
 
     return tempItem;
@@ -427,7 +413,7 @@ Character::~Character()
 
 Player::Player()
 {
-    Item* emptyItem = new Item(D);
+    Item* emptyItem = new Item();
     emptyItem -> setName("Empty");
 
     //Filling gear slots with placeholder gear
@@ -487,6 +473,12 @@ void Character::specialMove()
 void Warrior::specialMove()//might just make this a stronger attack
 {
 //will add more to special move when we know what the special moves should do
+    if (currentSP > 30)
+    {
+        strength = strength + 5;
+
+        currentSP = currentSP - 30;
+    }
 }
 
 void Healer::specialMove()

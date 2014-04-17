@@ -1,9 +1,24 @@
 #include "Item.h"
 
 //Item Functions
+Item::Item()
+{
+    type = D;//D = default type
+    yPos = 0;
+    xPos = 0;
+    hpBonus = 0;
+    spBonus = 0;
+    strBonus = 0;
+    defBonus = 0;
+    spdBonus = 0;
+    hpHealAmount = 0;
+    spHealAmount = 0;
+}
+
+
 Item::Item(itemType newType)
 {
-    type = newType;//D = default type
+    type = newType;
     yPos = 0;
     xPos = 0;
     hpBonus = 0;
@@ -25,22 +40,151 @@ void Item::generateItem()
         type = itemType(rand() % P);
     }
 
-    //assign random stats based on item type
+    int itemMaterial = rand() % 4;//What the item is made of
+    int itemClass = rand() % 4;//What kind of weapon/armor/accessory is it?
+    int accType = rand() % 8;
+    int tempBonus;//bonus to add to stats based on item type
+
+    //Determine the material the item is made of (or color for potions)
+    if (type != A)
+    {
+        switch(itemMaterial){
+        case 0:
+            if (type != P)
+            {
+                itemName = "Wooden";
+            }
+            else
+            {
+                itemName = "Green Potion";
+                hpHealAmount = 20;
+            }
+            break;
+        case 1:
+            if (type != P)
+            {
+                itemName = "Copper";
+                tempBonus = 1;
+            }
+            else
+            {
+                itemName = "Blue Potion";
+                hpHealAmount = 10;
+                spHealAmount = 10;
+            }
+            break;
+        case 2:
+            if (type != P)
+            {
+                itemName = "Iron";
+                tempBonus = 2;
+            }
+            else
+            {
+                itemName = "Red Potion";
+                hpHealAmount = 25;
+                spHealAmount = 15;
+            }
+            break;
+        case 3:
+            if (type != P)
+            {
+                itemName = "Mithril";
+                tempBonus = 5;
+            }
+            else
+            {
+                itemName = "Purple Potion";
+                hpHealAmount = 40;
+                spHealAmount = 20;
+            }
+            break;
+        case 4:
+            if (type != P)
+            {
+                itemName = "Grass";
+                tempBonus = 15;
+            }
+            else
+            {
+                itemName = "Gold Potion";
+                hpHealAmount = 10;
+                spHealAmount = 10;
+            }
+            break;
+        default:
+            break;
+        }
+    }
+    else//determine what accessory it will be
+    {
+        switch (accType)
+        {
+        case 0:
+            itemName = "Feather Boots";
+            spdBonus = 5 + rand() % 5;
+            break;
+        case 1:
+            itemName = "Holy Ring";
+            hpBonus = 50;
+            defBonus = rand() % 5 + 1;
+            break;
+        case 2:
+            itemName = "Attack Charm";
+            strBonus = rand() % 5 + 1;
+            break;
+        case 3:
+            itemName = "Attack Ring";
+            strBonus = rand() % 10 + 5;
+            break;
+        case 4:
+            itemName = "Plain Ring";
+            break;
+        case 5:
+            itemName = "Cursed Ring";
+            strBonus = -2;
+            defBonus = -2;
+            spdBonus = -2;
+            break;
+        case 6:
+            itemName = "Magic Ring";
+            spBonus = rand() % 40 + 20;
+            break;
+        case 7:
+            itemName = "Life Charm";
+            hpBonus = rand() % 80 + 20;
+            break;
+        case 8:
+            itemName = "Attack Ring";
+            strBonus = rand() % 10 + 5;
+            break;
+        default:
+            break;
+        }
+    }
+
+    //accessories and potions are finished at this point
+    if (type == P || type == A)
+    {
+        return;
+    }
+
+    //assign random stats based on item type, might not need this
     switch(type)
     {
     case H:
-        defBonus = rand() % 80 + 20;
+        defBonus = rand() % 8 + 2;
         break;
     case W:
-        strBonus = rand() % 100 + 20;
+        strBonus = rand() % 10 + 2;
         break;
     case R:
-        defBonus = rand() % 100 + 20;
+        defBonus = rand() % 10 + 2;
         break;
     case A:
-        strBonus = rand() % 50 + 10;
-        defBonus = rand() % 50 + 10;
-        spdBonus = rand() % 50 + 10;
+        strBonus = rand() % 5 + 1;
+        defBonus = rand() % 5 + 1;
+        spdBonus = rand() % 5 + 1;
         break;
     case P:
         hpHealAmount = rand() % 50 + 10;
@@ -48,6 +192,56 @@ void Item::generateItem()
         break;
     default:
         break;
+    }
+
+    switch (itemClass)
+    {
+    case 0:
+        if (type == W)
+        {
+            itemName.append(" Knife");
+        }
+        else if (type == R)
+        {
+            itemName.append(" Armor");
+        }
+        else
+        {
+            itemName.append(" Helm");
+        }
+        break;
+    case 1:
+        if (type == W)
+        {
+            itemName.append(" Rod");
+            defBonus = rand() % 3 + tempBonus;
+            hpBonus = 20 + tempBonus;
+        }
+        else if (type == R)
+        {
+            itemName.append(" Mail");
+            defBonus = (rand() % 5 + 3) + tempBonus;
+        }
+        else
+        {
+            itemName.append(" Helm");
+            defBonus = (rand() % 2) + tempBonus;
+        }
+    case 2:
+        if (type == W)
+        {
+            itemName.append(" Knife");
+        }
+        else if (type == R)
+        {
+            itemName.append(" Armor");
+        }
+        else
+        {
+            itemName.append(" Helm");
+        }
+        break;
+
     }
 }
 

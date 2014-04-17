@@ -25,7 +25,7 @@ public:
     virtual void specialMove();
     void generateChar();
     void levelUp();
-    void attack(Character* opponent);
+    int attack(Character* opponent);
     void setMaxHP(int newHP);
     void setCurHP(int newHP);
     void setEXP(int newEXPAmount);
@@ -119,7 +119,12 @@ inline Character::Character()
     vision = 2;
     expPoints = 0;
     maxPossibleHP = 999;
-    Item emptyGear();
+    Item* emptyItem = new Item();
+    emptyItem -> setName("Empty");
+    for (int i = 0; i < 4; i++)
+    {
+        heldGear.push_back(emptyItem);
+    }
 }
 
 inline Character::Character(string enemy) //may not need
