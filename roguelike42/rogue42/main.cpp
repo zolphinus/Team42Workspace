@@ -50,7 +50,7 @@ void characterTestDriver(){
 
     cout << endl;
 
-    hero.setEXP(100);
+    /*hero.setEXP(100);
     hero.levelUp();
 
     cout << endl;
@@ -60,7 +60,7 @@ void characterTestDriver(){
     cout << "Max HP is " << hero.getMaxHP() << endl;
     cout << "Strength is " << hero.getStr() << endl;
     cout << "Defense is " << hero.getDef() << endl;
-    cout << "Speed is " << hero.getSpd() << endl << endl;
+    cout << "Speed is " << hero.getSpd() << endl << endl;*/
 
     Item* testItem = new Item(W);
     testItem -> setName("Grass Sword");
@@ -74,6 +74,18 @@ void characterTestDriver(){
     cout << "An evil Slime appeared! It has " << evilSlime -> getCurHP() << " HP!" << endl;
     hero.attack(evilSlime);
     cout << "After attacking it, it only has " << evilSlime -> getCurHP() << " HP!" << endl;
+
+    /*Item test;
+    test.generateItem();
+    cout << test.getName() << endl;
+    cout << "Str = " << test.getStrBuff() << endl;
+    cout << "Def = " << test.getDefBuff() << endl;
+    cout << "Spd = " << test.getSpdBuff() << endl;
+    cout << "HP = " << test.getHPBuff() << endl;
+    cout << "SP = " << test.getSPBuff() << endl;
+    cout << "HP heal = " << test.getHPHeal() << endl;
+    cout << "SP heal = " << test.getSPHeal() << endl;
+    */
 }
 
 

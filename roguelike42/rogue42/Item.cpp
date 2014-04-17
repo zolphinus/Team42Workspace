@@ -32,8 +32,6 @@ Item::Item(itemType newType)
 
 void Item::generateItem()
 {
-    itemName = "Test"; //will add random names later
-
     //if item does not have a type, assign it one.
     if (type == D)
     {
@@ -41,9 +39,9 @@ void Item::generateItem()
     }
 
     int itemMaterial = rand() % 4;//What the item is made of
-    int itemClass = rand() % 4;//What kind of weapon/armor/accessory is it?
+    int itemClass = rand() % 4;//What kind of weapon/armor is it?
     int accType = rand() % 8;
-    int tempBonus;//bonus to add to stats based on item type
+    int tempBonus = 0;//bonus to add to stats based on item type
 
     //Determine the material the item is made of (or color for potions)
     if (type != A)
@@ -63,8 +61,8 @@ void Item::generateItem()
         case 1:
             if (type != P)
             {
-                itemName = "Copper";
-                tempBonus = 1;
+                itemName = "Rusted";
+                tempBonus = -1;
             }
             else
             {
@@ -122,7 +120,7 @@ void Item::generateItem()
         {
         case 0:
             itemName = "Feather Boots";
-            spdBonus = 5 + rand() % 5;
+            spdBonus = 5 + (rand() % 5);
             break;
         case 1:
             itemName = "Holy Ring";
@@ -148,11 +146,11 @@ void Item::generateItem()
             break;
         case 6:
             itemName = "Magic Ring";
-            spBonus = rand() % 40 + 20;
+            spBonus = rand() % 20 + 20;
             break;
         case 7:
             itemName = "Life Charm";
-            hpBonus = rand() % 80 + 20;
+            hpBonus = rand() % 40 + 40;
             break;
         case 8:
             itemName = "Attack Ring";
@@ -169,79 +167,97 @@ void Item::generateItem()
         return;
     }
 
-    //assign random stats based on item type, might not need this
-    switch(type)
-    {
-    case H:
-        defBonus = rand() % 8 + 2;
-        break;
-    case W:
-        strBonus = rand() % 10 + 2;
-        break;
-    case R:
-        defBonus = rand() % 10 + 2;
-        break;
-    case A:
-        strBonus = rand() % 5 + 1;
-        defBonus = rand() % 5 + 1;
-        spdBonus = rand() % 5 + 1;
-        break;
-    case P:
-        hpHealAmount = rand() % 50 + 10;
-        spHealAmount = rand() % 30 + 10;
-        break;
-    default:
-        break;
-    }
-
+    //determines what kind of weapon/armor/helm
     switch (itemClass)
     {
     case 0:
         if (type == W)
         {
             itemName.append(" Knife");
+            strBonus = tempBonus;
         }
         else if (type == R)
         {
-            itemName.append(" Armor");
+            itemName.append(" Plate");
+            defBonus = tempBonus;
         }
         else
         {
             itemName.append(" Helm");
+            defBonus = tempBonus;
         }
         break;
     case 1:
         if (type == W)
         {
             itemName.append(" Rod");
-            defBonus = rand() % 3 + tempBonus;
+            defBonus = tempBonus + rand() % 3;
             hpBonus = 20 + tempBonus;
         }
         else if (type == R)
         {
             itemName.append(" Mail");
-            defBonus = (rand() % 5 + 3) + tempBonus;
+            defBonus = tempBonus + rand() % 3 + 5;
         }
         else
         {
             itemName.append(" Helm");
-            defBonus = (rand() % 2) + tempBonus;
+            defBonus = tempBonus + rand() % 2;
         }
+        break;
     case 2:
         if (type == W)
         {
-            itemName.append(" Knife");
+            itemName.append(" Axe");
+            strBonus = tempBonus + rand() % 15 + 5;
         }
         else if (type == R)
         {
             itemName.append(" Armor");
+            defBonus = tempBonus + rand() % 7 + 4;
         }
         else
         {
             itemName.append(" Helm");
+            defBonus = tempBonus + rand() % 5 + 1;
         }
         break;
-
+    case 3:
+        if (type == W)
+        {
+            itemName.append(" Sword");
+            strBonus = tempBonus + 10 + rand() % 2;
+        }
+        else if (type == R)
+        {
+            itemName.append(" Armor");
+            defBonus = tempBonus + rand() % 7 + 4;
+        }
+        else
+        {
+            itemName.append(" Helm");
+            defBonus = tempBonus + rand() % 5 + 1;
+        }
+        break;
+    case 4:
+        if (type == W)
+        {
+            itemName = "Beam Sword";
+            strBonus = rand() % 25 + 23;
+        }
+        else if (type == R)
+        {
+            itemName = "Battlesuit";
+            defBonus = rand() % 20 + 18;
+        }
+        else
+        {
+            itemName.append(" Helm");
+            defBonus = tempBonus + rand() % 8 + 2;
+        }
+        break;
+    default:
+        break;
     }
 }
 
