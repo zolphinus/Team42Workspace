@@ -49,9 +49,10 @@ public:
     int getYPos();
     int getXPos();
     string getName();
+    string getEquippedItem(itemType);
 
     bool equipGear(Item* newGear);
-    void unequipGear(Item piece);
+    bool unequipGear(int location);
     bool pickUp(Item* newItem);
     Item* dropItem(int location);
     void useItem(Item* potion);
@@ -119,12 +120,6 @@ inline Character::Character()
     vision = 2;
     expPoints = 0;
     maxPossibleHP = 999;
-    Item* emptyItem = new Item();
-    emptyItem -> setName("Empty");
-    for (int i = 0; i < 4; i++)
-    {
-        heldGear.push_back(emptyItem);
-    }
 }
 
 inline Character::Character(string enemy) //may not need

@@ -22,8 +22,10 @@ void Character::levelUp()
     if (expPoints >= 100)
     {
         int hpIncrease = rand() % 15 + 5;
+        int spIncrease = rand() % 5;
 
         maxHP = maxHP + hpIncrease;
+        maxSP = maxSP + spIncrease;
 
         int statUp = rand() % 3 + 1;//decides what stat goes up randomly
 
@@ -233,6 +235,21 @@ string Character::getName()
     return name;
 }
 
+string Character::getEquippedItem(itemType typeToFind)
+{
+    string tempString = "";
+
+    for (int i = 0; i < heldGear.size(); i++)
+    {
+        if (heldGear[i] -> getType() == typeToFind)
+        {
+            tempString = heldGear[i] -> getName();
+        }
+    }
+
+    return tempString;
+}
+
 
 void Character::setCurSP(int newSP)
 {
@@ -292,66 +309,30 @@ bool Character::equipGear(Item* newGear)
             }
         }
 
-        switch(newGear -> getType()){
-        case H:
-            if (heldGear[0] -> getType() == D)
-            {
-                heldGear[0] = newGear;
-            }
-            else
-            {
-                return false;
-            }
-        case W:
-            if (heldGear[1] -> getType() == D)
-            {
-                heldGear[1] = newGear;
-            }
-            else
-            {
-                return false;
-            }
-        case R:
-            if (heldGear[2] -> getType() == D)
-            {
-                heldGear[2] = newGear;
-            }
-            else
-            {
-                return false;
-            }
-        case A:
-            if (heldGear[3] -> getType() == D)
-            {
-                heldGear[3] = newGear;
-                maxHP = maxHP + newGear -> getHPBuff();
-                maxSP = maxSP + newGear -> getSPBuff();
-                if (maxHP > maxPossibleHP);
-                {
-                    maxHP = maxPossibleHP;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        default:
-            {
-                return false;
-            }
-        }
-
+        //if you don't have the type of gear equipped, equip the new gear
+        heldGear.push_back(newGear);
+        maxHP = maxHP + newGear -> getHPBuff();
+        maxSP = maxSP + newGear -> getSPBuff();
     }
-
     else
     {
         return false;
     }
 }
 
-void Character::unequipGear(Item piece)
+bool Character::unequipGear(int location)
 {
-
+    location = location - 1;
+    if (location < heldGear.size()-1)
+    {
+        heldGear.erase(heldGear.begin() + location);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    //May edit later to try and push unequipped gear into inventory
 }
 
 
