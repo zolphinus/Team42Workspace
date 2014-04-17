@@ -378,7 +378,7 @@ void GameController::moveBoulder(int yPos, int xPos, int direction){
         x--;
         break;
     }
-
+    if(mapReader->atPosition(y,x) != '#'){
         if(mapReader->atPosition(y,x) != '@'){
             if(mapReader->atPosition(y,x) != upStairs){
                 if(mapReader->atPosition(y,x) != upStairs){
@@ -389,10 +389,9 @@ void GameController::moveBoulder(int yPos, int xPos, int direction){
                 }
 
             }
-
         }
     }
-
+}
 
 
 void GameController::generateLocation(Character* tempChar){
