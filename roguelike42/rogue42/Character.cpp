@@ -323,16 +323,27 @@ bool Character::equipGear(Item* newGear)
 bool Character::unequipGear(int location)
 {
     location = location - 1;
+
     if (location < heldGear.size()-1 && location > 0)
     {
-        heldGear.erase(heldGear.begin() + location);
+        //Adds item to inventory if there is space
+        if (inventory.size() < 6)
+        {
+            inventory.push_back(heldGear[location]);
+            heldGear.erase(heldGear.begin() + location);
+        }
+        //If not, the gear is just gone
+        else
+        {
+            heldGear.erase(heldGear.begin() + location);
+        }
+
         return true;
     }
     else
     {
         return false;
     }
-    //May edit later to try and push unequipped gear into inventory
 }
 
 
@@ -354,6 +365,8 @@ bool Character::pickUp(Item* newItem)
 
 Item* Character::dropItem(int location)
 {
+    location = location - 1;
+
     Item* tempItem = NULL;
 
     if (location < inventory.size())
