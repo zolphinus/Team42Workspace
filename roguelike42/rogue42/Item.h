@@ -21,15 +21,25 @@ P = potion
 D = default
 */
 
+enum itemType{
+    H,
+    R,
+    W,
+    A,
+    P,
+    D
+};
 
 class Item
 {
 public:
     Item();
+    Item(itemType newType);
+    void generateItem();
     void setName(string name);
     string getName();
-    void setType(char itemType);
-    char getType();
+    void setType(itemType typeOfItem);
+    itemType getType();
     void setYPos(int newY);
     int getYPos();
     void setXPos(int newX);
@@ -53,7 +63,7 @@ public:
 
 protected:
     string itemName;
-    char type;
+    itemType type;
     int yPos, xPos;
     //Stat bonuses from equipment
     int hpBonus;

@@ -34,8 +34,10 @@ void Character::levelUp()
     if (expPoints >= 100)
     {
         int hpIncrease = rand() % 15 + 5;
+        int spIncrease = rand() % 5;
 
         maxHP = maxHP + hpIncrease;
+        maxSP = maxSP + spIncrease;
 
         int statUp = rand() % 3 + 1;//decides what stat goes up randomly
 
@@ -54,8 +56,6 @@ void Character::levelUp()
         }
 
         //After the first random stat increase, each stat has a chance of going up by one
-        int statIncrease;
-
         for (int i = 1; i < 4; i++)
         {
             int strIncrease = rand() % 1;
@@ -78,11 +78,17 @@ void Character::levelUp()
     }//end if 100 EXP loop
 }
 
-void Character::attack(Character* opponent)
+int Character::attack(Character* opponent)
 {
-    //NOTE: Refactor to return damage done so we can print message after fight
     int damage;
     int priority;
+
+    for (int i = 0; i < heldGear.size(); i++)//applying gear's stat bonuses
+    {
+        strength = strength + heldGear[i] -> getStrBuff();
+        defense = defense + heldGear[i] -> getDefBuff();
+        speed = speed + heldGear[i] -> getSpdBuff();
+    }
 
     if(this->speed > opponent->getSpd())
     {
@@ -104,7 +110,7 @@ void Character::attack(Character* opponent)
     case 0:
         if (currentHP > 0)
         {
-            damage = this->strength; - opponent->getDef();
+            damage = this->strength - opponent->getDef();
             if(damage <= 0)
                 damage = 1;
 
@@ -132,7 +138,7 @@ void Character::attack(Character* opponent)
 
         if (this->currentHP > 0)
         {
-            damage = this->strength; - opponent->getDef();
+            damage = this->strength - opponent->getDef();
             if(damage <= 0)
                 damage = 1;
 
@@ -144,9 +150,14 @@ void Character::attack(Character* opponent)
         break;
     }
 
+    for (int i = 0; i < heldGear.size(); i++)//unapplying gear's stat bonuses
+    {
+        strength = strength - heldGear[i] -> getStrBuff();
+        defense = defense - heldGear[i] -> getDefBuff();
+        speed = speed - heldGear[i] -> getSpdBuff();
+    }
 
-
-
+    return damage;
 }
 
 void Character::setMaxHP(int newHP)
@@ -236,6 +247,21 @@ string Character::getName()
     return name;
 }
 
+string Character::getEquippedItem(itemType typeToFind)
+{
+    string tempString = "";
+
+    for (int i = 0; i < heldGear.size(); i++)
+    {
+        if (heldGear[i] -> getType() == typeToFind)
+        {
+            tempString = heldGear[i] -> getName();
+        }
+    }
+
+    return tempString;
+}
+
 
 void Character::setCurSP(int newSP)
 {
@@ -281,81 +307,84 @@ int Character::getXPos()
     return xPos;
 }
 
-void Character::equipGear(Item newGear) //need to redo
+bool Character::equipGear(Item* newGear)
 {
-    //first check if the item in inventory is gear
-    if (newGear.getType() != 'D' && newGear.getType() != 'P')
+    //first check if the item to be equipped is gear
+    if (newGear -> getType() != D && newGear -> getType() != P)
     {
-        //If you have no held gear, push the piece into gear vector
-        if (heldGear.size() == 0)
+        //Then check if you already have that type of gear equipped
+        for(int i = 0; i < heldGear.size(); i++)
         {
-            heldGear.push_back(newGear);
-        }
-
-        /*
-        If you have gear equipped, check to see if you already
-        have on the type of gear you're trying to equip.
-        If you do, you can't equip the new piece,
-        because you can only equip one of each type of gear
-        */
-        else
-        {
-            //True when you already have the type of equipment on
-            bool alreadyEquipped = false;
-
-            for (int i = 0; i < heldGear.size()-1; i++)
+            if (newGear -> getType() == heldGear[i] -> getType())
             {
-                if (newGear.getType() == heldGear[i].getType())
-                {
-                    alreadyEquipped = true;
-                }
-            }
-
-            //If you don't have that kind of gear already equipped, put on the new piece!
-            if (alreadyEquipped == false)
-            {
-                heldGear.push_back(newGear);
-                maxHP = maxHP + newGear.getHPBuff();
-                maxSP = maxSP + newGear.getSPBuff();
+                return false;
             }
         }
+
+        //if you don't have the type of gear equipped, equip the new gear
+        heldGear.push_back(newGear);
+        maxHP = maxHP + newGear -> getHPBuff();
+        maxSP = maxSP + newGear -> getSPBuff();
     }
-
-    if (maxHP > maxPossibleHP)
+    else
     {
-        maxHP = maxPossibleHP;
+        return false;
     }
 }
 
-void Character::unequipGear(Item piece)
+bool Character::unequipGear(int location)
 {
-
-
-
-    maxHP = maxHP - piece.getHPBuff();
-    maxSP = maxSP - piece.getSPBuff();
-    strength = strength - piece.getStrBuff();
-    defense = defense - piece.getDefBuff();
-    speed = speed - piece.getSpdBuff();
+    location = location - 1;
+    if (location < heldGear.size()-1 && location > 0)
+    {
+        heldGear.erase(heldGear.begin() + location);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    //May edit later to try and push unequipped gear into inventory
 }
 
 
 
-void Character::pickUp(Item newItem)
+bool Character::pickUp(Item* newItem)
 {
     if (inventory.size() < 6)//check if inventory is full
     {
         inventory.push_back(newItem);//if not, add item to inventory
+
+        return true;
+    }
+
+    else
+    {
+        return false;
     }
 }
 
-
-void Character::useItem(Item potion)
+Item* Character::dropItem(int location)
 {
-    if (potion.getType() == 'P')//only works if the item is a healing item
+    Item* tempItem = NULL;
+
+    if (location < inventory.size())
     {
-        currentHP = currentHP + potion.getHPHeal();
-        currentSP = currentSP + potion.getSPHeal();
+        Item* tempItem = NULL;
+        tempItem = inventory[location];
+        inventory.erase(inventory.begin() + location);
+    }
+
+    return tempItem;
+}
+
+
+void Character::useItem(Item* potion)
+{
+    if (potion -> getType() == P)//only works if the item is a healing item
+    {
+        currentHP = currentHP + potion -> getHPHeal();
+        currentSP = currentSP + potion -> getSPHeal();
 
         if(currentHP > maxHP)
         {
@@ -377,12 +406,22 @@ Character::~Character()
 
 Player::Player()
 {
+    Item* emptyItem = new Item();
+    emptyItem -> setName("Empty");
+
+    //Filling gear slots with placeholder gear
+    for (int i = 0; i < 4; i++)//4 is designated size of heldGear vector
+    {
+        heldGear.push_back(emptyItem);
+    }
+
 }
 
 
 Warrior::Warrior()
 {
-    Character::setMaxHP(this->maxHP + 100);
+    maxHP = maxHP + 30;
+    currentHP = maxHP;
     strength = strength + 5;
     defense = defense + 5;
     jobName = "Warrior";
@@ -396,7 +435,6 @@ Healer::Healer()
     maxHP = maxHP - 20;
     currentHP = maxHP;
     jobName = "Healer";
-    //will add more stat adjustments as we add more stats
 }
 
 void Enemy::generateChar()
@@ -423,20 +461,27 @@ Slime::Slime()
 }
 
 
-//PLACEHOLDER FUNCTIONS
 void Character::specialMove()
 {
 }
 
-void Warrior::specialMove()//might just make this a stronger attack
+
+void Warrior::specialMove()
 {
-//will add more to special move when we know what the special moves should do
+    //Gives user a permanant strength buff
+    if (currentSP >= 40)
+    {
+        strength = strength + rand() % 2 + 1;
+
+        currentSP = currentSP - 40;
+    }
 }
+
 
 void Healer::specialMove()
 {
-
-    if (currentSP >= 10)
+    //Heals user
+    if (currentSP >= 20)
     {
         currentHP = currentHP + 80;
 
@@ -445,11 +490,6 @@ void Healer::specialMove()
             currentHP = maxHP;
         }
 
-        currentSP = currentSP - 10;
-
-        if (currentSP < 0)
-        {
-            currentSP = 0;
-        }
+        currentSP = currentSP - 12;
     }
 }
