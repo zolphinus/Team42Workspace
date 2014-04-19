@@ -64,7 +64,7 @@ public:
     bool unequipGear(int location);
     bool pickUp(Item* newItem);
     Item* dropItem(int location);
-    void useItem(Item* potion);
+    bool useItem(int location);
     void removeInventory(Item*);
 
 protected:

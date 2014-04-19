@@ -393,12 +393,14 @@ Item* Character::dropItem(int location)
 }
 
 
-void Character::useItem(Item* potion)
+bool Character::useItem(int location)
 {
-    if (potion -> getType() == P)//only works if the item is a healing item
+    if (inventory[location] -> getType() == P)//only works if the item is a healing item
     {
-        currentHP = currentHP + potion -> getHPHeal();
-        currentSP = currentSP + potion -> getSPHeal();
+        currentHP = currentHP + inventory[location] -> getHPHeal();
+        currentSP = currentSP + inventory[location] -> getSPHeal();
+
+        removeInventory(inventory[location]);
 
         if(currentHP > maxHP)
         {
@@ -409,6 +411,13 @@ void Character::useItem(Item* potion)
         {
             currentSP = maxSP;
         }
+
+        return true;
+    }
+
+    else
+    {
+        return false;
     }
 }
 
