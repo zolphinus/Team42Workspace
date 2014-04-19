@@ -4,6 +4,7 @@
 Item::Item()
 {
     type = D;//D = default type
+    itemName = "NOTHING";
     yPos = 0;
     xPos = 0;
     hpBonus = 0;
@@ -28,6 +29,7 @@ Item::Item(itemType newType)
     spdBonus = 0;
     hpHealAmount = 0;
     spHealAmount = 0;
+    generateItem();
 }
 
 void Item::generateItem()
@@ -92,7 +94,7 @@ void Item::generateItem()
             }
             else
             {
-                itemName = "Purple Potion";
+                itemName = "Purple Drank";
                 hpHealAmount = 40;
                 spHealAmount = 20;
             }
@@ -105,7 +107,7 @@ void Item::generateItem()
             }
             else
             {
-                itemName = "Gold Potion";
+                itemName = "Gold Drank";
                 hpHealAmount = 10;
                 spHealAmount = 10;
             }
@@ -257,6 +259,7 @@ void Item::generateItem()
         }
         break;
     default:
+        itemName = "NOTHING";
         break;
     }
 }

@@ -1,10 +1,12 @@
 #ifndef ITEM_H
 #define ITEM_H
 
+
 #include <iostream>
 #include <string>
 #include <ctime>
 #include <algorithm>
+#include "GameConfig.h"
 
 using std::cout;
 using std::cin;
@@ -21,14 +23,7 @@ P = potion
 D = default
 */
 
-enum itemType{
-    H,
-    R,
-    W,
-    A,
-    P,
-    D
-};
+
 
 class Item
 {

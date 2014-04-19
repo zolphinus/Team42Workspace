@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <vector>
 
+#define MAX_INVENTORY_SIZE 6
 
 using std::cout;
 using std::cin;
@@ -38,6 +39,7 @@ public:
     void setYPos(int newY);
     void setXPos(int newX);
     void setJobTitle(string);
+    int getEquipSize();
 
     int getLevel();
     int getMaxHP();
@@ -53,12 +55,17 @@ public:
     string getName();
     string getJobTitle();
     string getEquippedItem(itemType);
+    Item* getInventory(int);
+    Item* getEquipment(int);
+
+    int getMaxInventorySize();
 
     bool equipGear(Item* newGear);
     bool unequipGear(int location);
     bool pickUp(Item* newItem);
     Item* dropItem(int location);
     void useItem(Item* potion);
+    void removeInventory(Item*);
 
 protected:
     string jobName;
@@ -67,6 +74,7 @@ protected:
     int strength, defense, speed;
     int expPoints;
     int vision;
+    int maxInventorySize;
     string name;
     int maxSP, currentSP;
     int yPos, xPos;
@@ -124,6 +132,7 @@ inline Character::Character()
     vision = 2;
     expPoints = 0;
     maxPossibleHP = 999;
+    maxInventorySize = MAX_INVENTORY_SIZE;
 }
 
 inline Character::Character(string enemy)

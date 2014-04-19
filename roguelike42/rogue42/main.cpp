@@ -12,6 +12,8 @@ using std::endl;
 
 
 
+
+
 void characterTestDriver();
 void gameControllerDriver();
 void screenTestDriver();
@@ -90,7 +92,6 @@ void characterTestDriver(){
 
 
 void gameControllerDriver(){
-    char temp;
     GameController ourGame;
 
     ourGame.message("TESTING MESSAGE WINDOW");

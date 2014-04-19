@@ -19,6 +19,14 @@ public:
     void runGame();
     void screenTestDriver();
     void message(std::string);
+    void storyline();
+    void clearConsole();
+    void consoleWait();
+    void pickUpItem(Character*);
+    void removeItem(Item*);
+    void equipItem(Character*);
+    void unequipItem(Character*);
+    void generateBoulderAndSwitch();
 
 
     Character* getHero();
@@ -65,6 +73,7 @@ private:
     void moveBoulder(int yPos, int xPos, int direction);
     void goDownstairs(int, int);
     int floorsCleared;
+    int switchesOnFloor;
 
 };
 

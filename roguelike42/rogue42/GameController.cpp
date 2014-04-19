@@ -2,12 +2,13 @@
 #include <string>
 #include "Character.h"
 #include "MapFiles.h"
+#include <ctime>
 
 using std::cout;
 using std::cin;
 using std::endl;
 
-
+#define SCREEN_SIZE 40
 
 
 GameController::GameController()
@@ -39,7 +40,6 @@ void GameController::makeHero(){
     string userName;
     cout << "Please enter your name: ";
     cin >> userName;
-    cout << userName << endl;
     if (userName.length() > 10)
     {
         userName.resize(10);
@@ -133,15 +133,9 @@ void GameController::randomEnemy(Enemy*& newEnemy){
 }
 
 void GameController::randomItem(Item*& newItem){
-    //INCREASE THIS MOD VALUE AS YOU ADD ENEMY TYPES TO FUNCTION
-    int temp = rand() % 1;
+    itemType temp = itemType(rand() % P);
 
-    //BE SURE TO USE INT VALUES AND NOT CHAR
-    switch(temp){
-    case 0:
-        newItem = new Item();
-        break;
-    }
+        newItem = new Item(temp);
 
 }
 
@@ -197,10 +191,8 @@ void GameController::startCurseStuff(){
 
 void GameController::move(Character* activeChar){
 
-    //Char doesn't register arrow keys, but int does?
     int ch;
     int enemyDirection;
-
 
     keypad(mapReader->getMapReader(), true);
 
@@ -256,11 +248,16 @@ void GameController::move(Character* activeChar){
         break;
     case 'p':
     case 'P' :
-        message("PICKUP ITEM");
+        pickUpItem(activeChar);
+
         break;
     case 'e' :
     case 'E' :
-        //equipItem(activeChar);
+        equipItem(activeChar);
+        break;
+    case 'u' :
+    case 'U' :
+        unequipItem(activeChar);
         break;
     case 's' :
     case 'S' :
@@ -291,6 +288,14 @@ void GameController::updateGameState(Character* currentChar){
     updateMap(hero->getYPos(), hero->getXPos());
     statusWindow->PrintStatsWindow(hero);
     std::string temp;
+
+    if(switchesOnFloor == 0){
+        message("The Sokoban Puzzle was completed!");
+        temp = currentChar->getName() + " received 50 EXP!!!";
+        message(temp);
+        currentChar->setEXP(currentChar->getEXP() + 50);
+        switchesOnFloor = -1;
+    }
 
 
     if(hero->getCurHP() < 0)
@@ -333,11 +338,23 @@ void GameController::updateGameState(Character* currentChar){
 void GameController::heroDead(){
     isPlaying = false;
     message("So yeah, you kinda died, how lame...");
+
+    //Use WGETCH as a display stop
+    wgetch(messageWindow->getMessageWindow());
 }
 
 void GameController::winGame(){
     isPlaying = false;
-    message("You beat the game");
+    message("");
+    message("");
+    message("");
+    message("Congratulations! You somehow managed to escape Princess Adrienne's dungeon!");
+    message("");
+    message("");
+    message("But the evil princess is nowhere to be found...");
+    message("");
+    //Use WGETCH as a display stop
+    wgetch(messageWindow->getMessageWindow());
 }
 
 void GameController::heroTurn(){
@@ -383,8 +400,17 @@ void GameController::moveBoulder(int yPos, int xPos, int direction){
             if(mapReader->atPosition(y,x) != upStairs){
                 if(mapReader->atPosition(y,x) != upStairs){
                     if(charInWay == NULL){
-                        mapReader->setPosition(yPos, xPos, '.');
-                        mapReader->setPosition(y, x, '@');
+                        if(mapReader->atPosition(y,x) == '%'){
+                            mapReader->setPosition(yPos, xPos, '.');
+                            mapReader->setPosition(y, x, '&');
+                            message("*click*");
+                            message("It appears a switch has been hit!");
+                            switchesOnFloor--;
+                        }
+                        else{
+                            mapReader->setPosition(yPos, xPos, '.');
+                            mapReader->setPosition(y, x, '@');
+                        }
                     }
                 }
 
@@ -500,7 +526,7 @@ void GameController::makeMoves(Character* currentChar, int direction){
             currentChar->attack(tempChar);
 
         }
-        else
+        else if(mapReader->atPosition(y,x) != '&');
         {
             currentChar->setYPos(y);
             currentChar->setXPos(x);
@@ -558,12 +584,15 @@ void GameController::genLocations(){
 void GameController::initGame(){
     srand(time(NULL));
     enemyNum = rand() % 10 + 3;
-    itemNum = rand() % 10 + 3;
+    itemNum = rand() % 10 + 40;
     makeHero();
+    switchesOnFloor = -1;
+    storyline();
 
     startCurseStuff();
     messageWindow = new MessageWindow();
     mapReader = new MapReader("map0.txt");
+
     enemy.resize(enemyNum);
     item.resize(itemNum);
     makeEnemies();
@@ -598,6 +627,12 @@ void GameController::goDownstairs(int y, int x){
 
 
     mapReader->ReadMap(randomMap());
+
+    //Decides if a map has a Sokoban Puzzle
+    doubleRandom = rand() % 4;
+    if(doubleRandom == 2){
+        generateBoulderAndSwitch();
+    }
 
     //generate enemies and items
     enemy.resize(enemyNum);
@@ -644,4 +679,262 @@ void GameController::screenTestDriver(){
     messageWindow.AddMessage("compatability testing");
     mapReader.PrintWindow(0,0, enemy, item);
     messageWindow.PrintMessageWindow();
+}
+
+
+void GameController::storyline(){
+    string buffer;
+
+    clearConsole();
+
+    cout << hero->getName() + "," << endl;
+
+    cout << "You've arrived at the castle of Princess Adrienne in response to a frantic" << endl;
+    cout << "message for help. You burst through the doors, sword drawn and ready to fight " << endl;
+    cout << "for your princess, only to see her sitting calmly on her throne. She smiles, " << endl;
+    cout << "and you suddenly feel dizzy. You close your eyes to gather yourself..." << endl;
+    cout << "When you open them you're not standing in a grand hall, but a small," << endl;
+    cout << "dark stone room." << endl << endl << endl;
+
+    cout << "You hear a voice and realize it's Princess Adrienne..." << endl << endl << endl;
+
+    cout << "PRESS ENTER TO CONTINUE";
+    consoleWait();
+}
+
+void GameController::consoleWait(){
+    cin.sync();
+    cin.get();
+}
+
+
+void GameController::clearConsole(){
+    cout << string(SCREEN_SIZE, '\n');
+}
+
+
+void GameController::pickUpItem(Character* activeChar){
+    Item* tempItem = NULL;
+    bool pickedUp = false;
+
+    tempItem = findItem(activeChar->getYPos(), activeChar->getXPos());
+    pickedUp = activeChar->pickUp(tempItem);
+
+    if(pickedUp == true)
+    {
+        message("Picked up " + tempItem->getName());
+        removeItem(tempItem);
+    }
+    else
+    {
+        message("You cannot do that!");
+    }
+
+    tempItem = NULL;
+}
+
+
+void GameController::removeItem(Item* tempItem){
+    //scroll through items and find one to delete
+    if(item.size() > 0){
+        for( int i = 0; i < item.size(); i++)
+        {
+            if(tempItem == item[i]){
+                item.erase(item.begin() + i);
+            }
+        }
+    }
+}
+
+void GameController::equipItem(Character* tempChar){
+    int ch;
+    int itemsToDisplay = 0;
+    int inventoryIndex = -1;
+    bool didEquip = false;
+    Item* tempItem = NULL;
+    string itemDisplay;
+    keypad(messageWindow->getMessageWindow(), true);
+
+    message("Equip an item? (Y/N)");
+    ch = wgetch(messageWindow->getMessageWindow());
+
+    switch(ch){
+    case 'Y' :
+    case 'y':
+        for(int i = 0; i < tempChar->getMaxInventorySize(); i++){
+            tempItem = tempChar->getInventory(i);
+            if(tempItem != NULL){
+                itemDisplay = NumberToString(i) + ") " + tempItem->getName();
+                message(itemDisplay);
+                itemsToDisplay++;
+            }
+        }
+
+        if(itemsToDisplay == 0){
+            message("You have no items to equip!");
+        }
+        else{
+            ch = wgetch(messageWindow->getMessageWindow());
+
+        //ch needs to convert to 0 through 5
+        switch(ch){
+        case 0:
+            inventoryIndex = 0;
+            break;
+        case '1':
+            inventoryIndex = 1;
+            break;
+        case '2':
+            inventoryIndex = 2;
+            break;
+        case '3':
+            inventoryIndex = 3;
+            break;
+        case '4':
+            inventoryIndex = 4;
+            break;
+        case '5':
+            inventoryIndex = 5;
+            break;
+        default:
+            inventoryIndex = -1;
+        }
+
+            tempItem = tempChar->getInventory(inventoryIndex);
+            didEquip = tempChar->equipGear(tempItem);
+
+            if(didEquip == true){
+                itemDisplay = "You equipped " + tempItem->getName() + "!";
+                message(itemDisplay);
+            }
+            else{
+                message("You cannot do that!");
+            }
+
+
+            break;
+        }
+
+    }
+}
+
+void GameController::unequipItem(Character* tempChar){
+    int ch;
+    int itemsToDisplay = 0;
+    int inventoryIndex = -1;
+    bool didUnequip = false;
+    Item* tempItem = NULL;
+    string itemDisplay;
+    keypad(messageWindow->getMessageWindow(), true);
+
+    message("Unequip an item? (Y/N)");
+    ch = wgetch(messageWindow->getMessageWindow());
+
+    switch(ch){
+    case 'Y' :
+    case 'y':
+        for(int i = 0; i < tempChar->getEquipSize(); i++){
+            tempItem = tempChar->getEquipment(i);
+            if(tempItem != NULL){
+                itemDisplay = NumberToString(i) + ") " + tempItem->getName();
+                message(itemDisplay);
+                itemsToDisplay++;
+            }
+        }
+
+        if(itemsToDisplay == 0){
+            message("You have no items to equip!");
+        }
+        else{
+            ch = wgetch(messageWindow->getMessageWindow());
+
+        //ch needs to convert to 0 through 5
+        switch(ch){
+        case 0:
+            inventoryIndex = 0;
+            break;
+        case '1':
+            inventoryIndex = 1;
+            break;
+        case '2':
+            inventoryIndex = 2;
+            break;
+        case '3':
+            inventoryIndex = 3;
+            break;
+        case '4':
+            inventoryIndex = 4;
+            break;
+        case '5':
+            inventoryIndex = 5;
+            break;
+        default:
+            inventoryIndex = -1;
+        }
+
+            tempItem = tempChar->getEquipment(inventoryIndex);
+            didUnequip = tempChar->unequipGear(inventoryIndex);
+
+            if(didUnequip == true){
+                itemDisplay = "You unequipped " + tempItem->getName() + "!";
+                message(itemDisplay);
+            }
+            else{
+                message("You cannot do that!");
+            }
+
+
+            break;
+        }
+
+    }
+}
+
+
+
+void GameController::generateBoulderAndSwitch(){
+    int pickX;
+    int pickY;
+    bool legalSpot = false;
+    switchesOnFloor = rand() % 4 + 3;
+
+    for(int i = 0; i < switchesOnFloor; i++){
+        while(legalSpot == false){
+            pickX = rand() % FLOOR_MAP_WIDTH;
+            pickY = rand() % FLOOR_MAP_HEIGHT;
+            if(mapReader->atPosition(pickY, pickX) != '#'){
+                if(mapReader->atPosition(pickY, pickX) != '@'){
+                    if(mapReader->atPosition(pickY, pickX) != '<'){
+                        if(mapReader->atPosition(pickY, pickX) != '>'){
+                            if(mapReader->atPosition(pickY, pickX) != '%'){
+                                mapReader->setPosition(pickY, pickX, '@');
+                                legalSpot = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    legalSpot = false;
+
+    for(int j = 0; j < switchesOnFloor; j++){
+        while(legalSpot == false){
+            pickX = rand() % FLOOR_MAP_WIDTH;
+            pickY = rand() % FLOOR_MAP_HEIGHT;
+            if(mapReader->atPosition(pickY, pickX) != '#'){
+                if(mapReader->atPosition(pickY, pickX) != '@'){
+                    if(mapReader->atPosition(pickY, pickX) != '<'){
+                        if(mapReader->atPosition(pickY, pickX) != '>'){
+                            if(mapReader->atPosition(pickY, pickX) != '%'){
+                                mapReader->setPosition(pickY, pickX, '%');
+                                legalSpot = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

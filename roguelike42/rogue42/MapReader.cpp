@@ -60,16 +60,16 @@ void MapReader::PrintWindow(int characterPosY, int characterPosX, std::vector <E
         for(int row=4; row<13; row++)
         {
             YHolder = startPrintY + row;
-            if (YHolder > 31){
-                YHolder = 31;
+            if (YHolder >= 31){
+                YHolder = 0;
             }
             if (YHolder < 0){
                 YHolder = 0;
             }
 
             XHolder = startPrintX + column;
-            if (XHolder > 139){
-                XHolder = 139;
+            if (XHolder >= 139){
+                XHolder = 0;
             }
 
             if (XHolder < 0){
@@ -114,23 +114,6 @@ void MapReader::PrintWindow(int characterPosY, int characterPosX, std::vector <E
                 }
                 }
 
-
-                //displays items on map within fog
-
-
-                //ITEMS NEED GET POSITION FUNCTIONS
-                /*
-                if(item.size() > 0){
-                for(int i = 0; i < item.size(); i++){
-                    if(item[i]->getYPos() == YHolder
-                       && item[i]->getXPos() == XHolder)
-                    {
-                        wmove(mapWindow, row,column);
-                        waddch(mapWindow, 'I');
-                    }
-                }
-                }
-                */
 
         }
     }

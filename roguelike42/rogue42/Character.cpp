@@ -309,6 +309,7 @@ int Character::getXPos()
 
 bool Character::equipGear(Item* newGear)
 {
+    if(newGear != NULL){
     //first check if the item to be equipped is gear
     if (newGear -> getType() != D && newGear -> getType() != P)
     {
@@ -325,20 +326,30 @@ bool Character::equipGear(Item* newGear)
         heldGear.push_back(newGear);
         maxHP = maxHP + newGear -> getHPBuff();
         maxSP = maxSP + newGear -> getSPBuff();
+        removeInventory(newGear);
+        return true;
     }
     else
     {
         return false;
     }
+    }
+
+    return false;
 }
 
 bool Character::unequipGear(int location)
 {
-    location = location - 1;
-    if (location < heldGear.size()-1 && location > 0)
+    if (location < heldGear.size() && location > 0)
     {
-        heldGear.erase(heldGear.begin() + location);
-        return true;
+        //If inventory isn't full, moves gear to bag. Else, cannot make action.
+        if(inventory.size() < maxInventorySize){
+            inventory.push_back(heldGear[location]);
+            heldGear.erase(heldGear.begin() + location);
+            return true;
+        }
+        else
+            return false;
     }
     else
     {
@@ -347,21 +358,24 @@ bool Character::unequipGear(int location)
     //May edit later to try and push unequipped gear into inventory
 }
 
+int Character::getMaxInventorySize(){
+    return maxInventorySize;
+}
+
 
 
 bool Character::pickUp(Item* newItem)
 {
-    if (inventory.size() < 6)//check if inventory is full
-    {
-        inventory.push_back(newItem);//if not, add item to inventory
+    if(newItem != NULL){
+        if (inventory.size() < maxInventorySize)//check if inventory is full
+        {
+            inventory.push_back(newItem);//if not, add item to inventory
 
-        return true;
+            return true;
+        }
     }
 
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
 Item* Character::dropItem(int location)
@@ -406,15 +420,7 @@ Character::~Character()
 
 Player::Player()
 {
-    Item* emptyItem = new Item();
-    emptyItem -> setName("Empty");
-
-    //Filling gear slots with placeholder gear
-    for (int i = 0; i < 4; i++)//4 is designated size of heldGear vector
-    {
-        heldGear.push_back(emptyItem);
-    }
-
+    //No longer need empty items populated :)
 }
 
 
@@ -492,4 +498,37 @@ void Healer::specialMove()
 
         currentSP = currentSP - 12;
     }
+}
+
+Item* Character::getInventory(int slotValue){
+
+    if(inventory.size()> 0 && slotValue < inventory.size()){
+        return inventory[slotValue];
+    }
+    return NULL;
+}
+
+Item* Character::getEquipment(int slotValue){
+
+    if(heldGear.size()> 0 && slotValue < heldGear.size()){
+        return heldGear[slotValue];
+    }
+    return NULL;
+}
+
+
+void Character::removeInventory(Item* tempItem){
+
+    if(tempItem != NULL){
+        for(int i = 0; i < inventory.size(); i++){
+            if(tempItem == inventory[i]){
+                inventory.erase(inventory.begin() + i);
+            }
+
+        }
+    }
+}
+
+int Character::getEquipSize(){
+    return heldGear.size();
 }

@@ -12,4 +12,14 @@
 
 #define NUMBER_OF_MAPS 2
 
+enum itemType{
+    H,
+    R,
+    W,
+    A,
+    P,
+    D
+};
+
+
 #endif // GAME_CONFIG
