@@ -265,8 +265,6 @@ void GameController::move(Character* activeChar){
         break;
 
     }
-
-
 }
 
 
@@ -515,7 +513,6 @@ void GameController::makeMoves(Character* currentChar, int direction){
     tempChar = findCharacter(y, x);
 
 
-
     if(mapReader->atPosition(y,x) != '#'){
         if(mapReader->atPosition(y,x) == '@'){
             moveBoulder(y, x, direction);
@@ -525,11 +522,19 @@ void GameController::makeMoves(Character* currentChar, int direction){
             message(messageInput);
             currentChar->attack(tempChar);
 
+            if(tempChar->getCurHP() <= 0)
+            {
+                messageInput = currentChar->getName() + " has killed " + tempChar->getName() + "!";
+                message(messageInput);
+            }
+
         }
-        else if(mapReader->atPosition(y,x) != '&');
-        {
-            currentChar->setYPos(y);
-            currentChar->setXPos(x);
+        else{
+            if(mapReader->atPosition(y,x) != '&');
+            {
+                currentChar->setYPos(y);
+                currentChar->setXPos(x);
+            }
         }
     }
 
@@ -778,7 +783,7 @@ void GameController::equipItem(Character* tempChar){
 
         //ch needs to convert to 0 through 5
         switch(ch){
-        case 0:
+        case '0':
             inventoryIndex = 0;
             break;
         case '1':

@@ -34,7 +34,7 @@ void StatsWindow::PrintStatsWindow(Character* Hero)
     string xPos, yPos, outString;
     werase(statusWindow);
 
-    init_pair(3, COLOR_WHITE,COLOR_GREEN);
+    init_pair(3, COLOR_GREEN,COLOR_BLACK);
 
     wbkgd(statusWindow, COLOR_PAIR(3));
 

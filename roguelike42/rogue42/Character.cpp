@@ -392,7 +392,7 @@ Item* Character::dropItem(int location)
     return tempItem;
 }
 
-
+//Implement into button presses
 bool Character::useItem(int location)
 {
     if (inventory[location] -> getType() == P)//only works if the item is a healing item

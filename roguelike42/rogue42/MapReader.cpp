@@ -52,7 +52,7 @@ void MapReader::PrintWindow(int characterPosY, int characterPosX, std::vector <E
     startPrintY=characterPosY;
     startPrintY -= 8;
 
-    init_pair(1,COLOR_RED,COLOR_WHITE);//----Initialize color pair
+    init_pair(1,COLOR_CYAN,COLOR_BLACK);//----Initialize color pair
     wbkgd(mapWindow, COLOR_PAIR(1));
 
     for(int column=20; column<31; column ++)
@@ -89,18 +89,6 @@ void MapReader::PrintWindow(int characterPosY, int characterPosX, std::vector <E
             }
 
             //updates enemies within fog
-                if(enemy.size() > 0){
-                for(int i = 0; i < enemy.size(); i++){
-                    if(enemy[i]->getYPos() == YHolder
-                       && enemy[i]->getXPos() == XHolder)
-                    {
-                        wmove(mapWindow, row,column);
-                        waddch(mapWindow, 'E');
-                    }
-                }
-                }
-
-
                 if(item.size() > 0){
                 for(int i = 0; i < item.size(); i++){
 
@@ -114,7 +102,16 @@ void MapReader::PrintWindow(int characterPosY, int characterPosX, std::vector <E
                 }
                 }
 
-
+                if(enemy.size() > 0){
+                for(int i = 0; i < enemy.size(); i++){
+                    if(enemy[i]->getYPos() == YHolder
+                       && enemy[i]->getXPos() == XHolder)
+                    {
+                        wmove(mapWindow, row,column);
+                        waddch(mapWindow, 'E');
+                    }
+                }
+                }
         }
     }
 

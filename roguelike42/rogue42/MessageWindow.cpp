@@ -34,7 +34,7 @@ void MessageWindow::PrintMessageWindow()
     //Displays the window with all blank spaces so when we print messages, it cleans up the trash automatically
     werase(messageWindow);
 
-    init_pair(2,COLOR_WHITE,COLOR_BLUE);
+    init_pair(2,COLOR_RED,COLOR_BLACK);
 
 
     wbkgd(messageWindow, COLOR_PAIR(2));
