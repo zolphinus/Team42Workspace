@@ -2,6 +2,16 @@
 
 MapReader::MapReader(string FileName)
 {
+    mapWindow = newwin(MAP_WINDOW_HEIGHT,MAP_WINDOW_WIDTH,0,0);//creates the window
+    ReadMap(FileName);
+}
+
+MapReader::~MapReader(){
+    delwin(mapWindow);
+}
+
+void MapReader::ReadMap(string FileName)
+{
     ifstream mapIn;
     string getlineHolder;
     int rowMarker = 0;
@@ -26,48 +36,98 @@ MapReader::MapReader(string FileName)
         rowMarker++;
     }
     mapIn.close();
+    delete cstr;
+    cstr = NULL;
 }
 
-void MapReader::PrintWindow(int CharacterPosY, int CharacterPosX)
+void MapReader::PrintWindow(int characterPosY, int characterPosX, std::vector <Enemy*> enemy, std::vector <Item*> item)
 {
-    int startPrintY=9, startPrintX=19;
+    bool enemyLocated = false;
+    int startPrintY=8, startPrintX=25, xShift, yShift;
+    int YHolder, XHolder;
 
-    if(CharacterPosY<9)
+    startPrintX = characterPosX;
+    startPrintX -= 25;
+
+    startPrintY=characterPosY;
+    startPrintY -= 8;
+
+    init_pair(1,COLOR_CYAN,COLOR_BLACK);//----Initialize color pair
+    wbkgd(mapWindow, COLOR_PAIR(1));
+
+    for(int column=20; column<31; column ++)
     {
-        startPrintY = 0;         //Keeps from printing junk
-    }
-    else if(CharacterPosX<19)
-    {
-        startPrintX = 0;
-    }
-    else
-    {
-        startPrintY=CharacterPosY;
-        startPrintX=CharacterPosX;
-    }
-
-
-
-    initscr();//-------------------------curses stuff
-    cbreak();//--------------------------disables the buffer
-    curs_set(0);//-----------------------makes cursor invisible
-    start_color();//---------------------must be run before using color
-    init_pair(1,COLOR_RED,COLOR_WHITE);//----Initialize color pair
-    WINDOW *MapWindow = newwin(MAP_WINDOW_HEIGHT,MAP_WINDOW_WIDTH,0,0);//creates the window
-    wbkgd(MapWindow, COLOR_PAIR(1));
-
-    for(int column=0; column<MAP_WINDOW_WIDTH; column++)
-    {
-        for(int row=0; row<MAP_WINDOW_HEIGHT; row++)
+        for(int row=4; row<13; row++)
         {
-            wmove(MapWindow, row, column);//------moves the cursor and prints the character in the floormap
-            waddch(MapWindow, floorMap[row+startPrintY][column+startPrintX-19]);
-        }// END ROW FORLOOP
-    }// END COLUMN FORLOOP
-    wrefresh(MapWindow);//Pushes changes to the screen
+            YHolder = startPrintY + row;
+            if (YHolder >= 31){
+                YHolder = 0;
+            }
+            if (YHolder < 0){
+                YHolder = 0;
+            }
+
+            XHolder = startPrintX + column;
+            if (XHolder >= 139){
+                XHolder = 0;
+            }
+
+            if (XHolder < 0){
+                XHolder = 0;
+            }
+
+            wmove(mapWindow, row,column);
+
+            if(floorMap[YHolder][XHolder] == '#')
+            {
+                waddch(mapWindow, '#');
+            }
+            else{
+
+                waddch(mapWindow, floorMap[YHolder][XHolder]);
+
+            }
+
+            //updates enemies within fog
+                if(item.size() > 0){
+                for(int i = 0; i < item.size(); i++){
+
+                    if(item[i]->getYPos() == YHolder
+                       && item[i]->getXPos() == XHolder)
+                    {
+                        wmove(mapWindow, row,column);
+                        waddch(mapWindow, 'I');
+                    }
+
+                }
+                }
+
+                if(enemy.size() > 0){
+                for(int i = 0; i < enemy.size(); i++){
+                    if(enemy[i]->getYPos() == YHolder
+                       && enemy[i]->getXPos() == XHolder)
+                    {
+                        wmove(mapWindow, row,column);
+                        waddch(mapWindow, 'E');
+                    }
+                }
+                }
+        }
+    }
+
+    wrefresh(mapWindow);//Pushes changes to the screen
 }
 
 char MapReader::atPosition(int yToCheck, int xToCheck)
 {
     return floorMap[yToCheck][xToCheck];
+}
+
+void MapReader::setPosition(int yToSet, int xToSet, char newChar){
+    floorMap[yToSet][xToSet] = newChar;
+}
+
+
+WINDOW* MapReader::getMapReader(){
+    return mapWindow;
 }

@@ -37,13 +37,11 @@
 		</Compiler>
 		<Unit filename="Character.cpp" />
 		<Unit filename="Character.h" />
-		<Unit filename="GameConfig.h" />
 		<Unit filename="GameController.cpp" />
 		<Unit filename="GameController.h" />
 		<Unit filename="GlobalFunctions.h" />
 		<Unit filename="Item.cpp" />
 		<Unit filename="Item.h" />
-		<Unit filename="MapFiles.h" />
 		<Unit filename="MapRead.h" />
 		<Unit filename="MapReader.cpp" />
 		<Unit filename="MapReader.h" />
