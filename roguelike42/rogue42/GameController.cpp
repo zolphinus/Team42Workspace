@@ -133,7 +133,7 @@ void GameController::randomEnemy(Enemy*& newEnemy){
 }
 
 void GameController::randomItem(Item*& newItem){
-    itemType temp = itemType(rand() % P);
+    itemType temp = itemType(rand() % P +1);
 
         newItem = new Item(temp);
 
@@ -263,6 +263,14 @@ void GameController::move(Character* activeChar){
     case 'S' :
         message("SPECIAL ATTACK");
         break;
+    case 'd' :
+    case 'D' :
+        dropItem(activeChar);
+        break;
+    case 'i' :
+    case 'I' :
+        useItem(activeChar);
+        break;
 
     }
 }
@@ -310,8 +318,7 @@ void GameController::updateGameState(Character* currentChar){
                 message(enemy[i]->getName() + " grows stronger!");
                 enemy[i]->levelUp();
             }
-            if(enemy[i]->getCurHP() < 0){
-                currentChar->setEXP(hero->getEXP() + enemy[i]->getEXP());
+            if(enemy[i]->getCurHP() <= 0){
                 delete enemy[i];
                 enemy.erase(enemy.begin()+i);
                 i--;
@@ -373,7 +380,7 @@ void GameController::enemyTurns(){
 
 void GameController::moveBoulder(int yPos, int xPos, int direction){
     Character* charInWay = NULL;
-    charInWay = findCharacter(yPos, xPos);
+    Item* itemOnGround = NULL;
     int y = yPos;
     int x = xPos;
     char upStairs = '<';
@@ -393,6 +400,10 @@ void GameController::moveBoulder(int yPos, int xPos, int direction){
         x--;
         break;
     }
+    charInWay = findCharacter(y, x);
+    itemOnGround = findItem(y, x);
+
+
     if(mapReader->atPosition(y,x) != '#'){
         if(mapReader->atPosition(y,x) != '@'){
             if(mapReader->atPosition(y,x) != upStairs){
@@ -406,6 +417,11 @@ void GameController::moveBoulder(int yPos, int xPos, int direction){
                             switchesOnFloor--;
                         }
                         else{
+                            if(itemOnGround != NULL)
+                            {
+                                message(itemOnGround->getName() + " was crushed under the weight of the boulder!");
+                                removeItem(itemOnGround);
+                            }
                             mapReader->setPosition(yPos, xPos, '.');
                             mapReader->setPosition(y, x, '@');
                         }
@@ -525,6 +541,14 @@ void GameController::makeMoves(Character* currentChar, int direction){
             if(tempChar->getCurHP() <= 0)
             {
                 messageInput = currentChar->getName() + " has killed " + tempChar->getName() + "!";
+                currentChar->setEXP(currentChar->getEXP() + tempChar->getEXP());
+                message(messageInput);
+            }
+
+            if(currentChar->getCurHP() <= 0)
+            {
+                messageInput = tempChar->getName() + " has killed " + currentChar->getName() + "!";
+                tempChar->setEXP(currentChar->getEXP() + tempChar->getEXP());
                 message(messageInput);
             }
 
@@ -822,6 +846,159 @@ void GameController::equipItem(Character* tempChar){
 
     }
 }
+
+void GameController::dropItem(Character* tempChar){
+    int ch;
+    int itemsToDisplay = 0;
+    int inventoryIndex = -1;
+    bool didDrop = false;
+    Item* tempItem = NULL;
+    string itemDisplay;
+    keypad(messageWindow->getMessageWindow(), true);
+
+    message("Drop an item? (Y/N)");
+    ch = wgetch(messageWindow->getMessageWindow());
+
+    switch(ch){
+    case 'Y' :
+    case 'y':
+        for(int i = 0; i < tempChar->getMaxInventorySize(); i++){
+            tempItem = tempChar->getInventory(i);
+            if(tempItem != NULL){
+                itemDisplay = NumberToString(i) + ") " + tempItem->getName();
+                message(itemDisplay);
+                itemsToDisplay++;
+            }
+        }
+
+        if(itemsToDisplay == 0){
+            message("You have no items to drop!");
+        }
+        else{
+            ch = wgetch(messageWindow->getMessageWindow());
+
+        switch(ch){
+        case '0':
+            inventoryIndex = 0;
+            break;
+        case '1':
+            inventoryIndex = 1;
+            break;
+        case '2':
+            inventoryIndex = 2;
+            break;
+        case '3':
+            inventoryIndex = 3;
+            break;
+        case '4':
+            inventoryIndex = 4;
+            break;
+        case '5':
+            inventoryIndex = 5;
+            break;
+        default:
+            inventoryIndex = -1;
+        }
+
+            tempItem = tempChar->dropItem(inventoryIndex);
+
+
+            if(tempItem != false){
+                itemDisplay = "You dropped " + tempItem->getName() + " on the ground.";
+                tempItem->setYPos(tempChar->getYPos());
+                tempItem->setXPos(tempChar->getXPos());
+                item.push_back(tempItem);
+                message(itemDisplay);
+            }
+            else{
+                message("You cannot do that!");
+            }
+            break;
+        }
+
+    }
+}
+
+void GameController::useItem(Character* tempChar){
+    int ch;
+    int itemsToDisplay = 0;
+    int inventoryIndex = -1;
+    bool didUse = false;
+    Item* tempItem = NULL;
+    string itemDisplay;
+    keypad(messageWindow->getMessageWindow(), true);
+
+    message("Use an item? (Y/N)");
+    ch = wgetch(messageWindow->getMessageWindow());
+
+    switch(ch){
+    case 'Y' :
+    case 'y':
+        for(int i = 0; i < tempChar->getMaxInventorySize(); i++){
+            tempItem = tempChar->getInventory(i);
+            if(tempItem != NULL){
+                itemDisplay = NumberToString(i) + ") " + tempItem->getName();
+                message(itemDisplay);
+                itemsToDisplay++;
+            }
+        }
+
+        if(itemsToDisplay == 0){
+            message("You have no items to use!");
+        }
+        else{
+            ch = wgetch(messageWindow->getMessageWindow());
+
+        switch(ch){
+        case '0':
+            inventoryIndex = 0;
+            break;
+        case '1':
+            inventoryIndex = 1;
+            break;
+        case '2':
+            inventoryIndex = 2;
+            break;
+        case '3':
+            inventoryIndex = 3;
+            break;
+        case '4':
+            inventoryIndex = 4;
+            break;
+        case '5':
+            inventoryIndex = 5;
+            break;
+        default:
+            inventoryIndex = -1;
+        }
+
+            tempItem = tempChar->getInventory(inventoryIndex);
+            didUse = tempChar->useItem(inventoryIndex);
+
+            if(didUse == true){
+                itemDisplay = "You used " + tempItem->getName() + ".";
+                message(itemDisplay);
+
+                if(tempItem->getHPHeal() > 0){
+                    itemDisplay = tempChar->getName() + " healed " + NumberToString(tempItem->getHPHeal()) + " HP!";
+                    message(itemDisplay);
+                }
+                if(tempItem->getSPHeal() > 0){
+                    itemDisplay = tempChar->getName() + " restored " + NumberToString(tempItem->getSPHeal()) + " SP!";
+                    message(itemDisplay);
+                }
+
+            }
+            else{
+                message("You cannot do that!");
+            }
+            break;
+        }
+
+    }
+}
+
+
 
 void GameController::unequipItem(Character* tempChar){
     int ch;

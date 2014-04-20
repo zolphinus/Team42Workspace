@@ -382,9 +382,8 @@ Item* Character::dropItem(int location)
 {
     Item* tempItem = NULL;
 
-    if (location < inventory.size())
+    if (location < inventory.size() && location >= 0)
     {
-        Item* tempItem = NULL;
         tempItem = inventory[location];
         inventory.erase(inventory.begin() + location);
     }
@@ -395,30 +394,35 @@ Item* Character::dropItem(int location)
 //Implement into button presses
 bool Character::useItem(int location)
 {
-    if (inventory[location] -> getType() == P)//only works if the item is a healing item
+    if(inventory.size() > 0)
     {
-        currentHP = currentHP + inventory[location] -> getHPHeal();
-        currentSP = currentSP + inventory[location] -> getSPHeal();
-
-        removeInventory(inventory[location]);
-
-        if(currentHP > maxHP)
+        if (inventory[location] -> getType() == P)//only works if the item is a healing item
         {
-            currentHP = maxHP;
+            currentHP = currentHP + inventory[location] -> getHPHeal();
+            currentSP = currentSP + inventory[location] -> getSPHeal();
+
+            removeInventory(inventory[location]);
+
+            if(currentHP > maxHP)
+            {
+                currentHP = maxHP;
+            }
+
+            if(currentSP > maxSP)
+            {
+                currentSP = maxSP;
+            }
+
+            return true;
         }
 
-        if(currentSP > maxSP)
+        else
         {
-            currentSP = maxSP;
+            return false;
         }
-
-        return true;
     }
 
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
 

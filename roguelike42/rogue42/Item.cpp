@@ -37,7 +37,7 @@ void Item::generateItem()
     //if item does not have a type, assign it one.
     if (type == D)
     {
-        type = itemType(rand() % P);
+        type = itemType(rand() % P + 1);
     }
 
     int itemMaterial = rand() % 4;//What the item is made of

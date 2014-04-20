@@ -27,7 +27,8 @@ public:
     void equipItem(Character*);
     void unequipItem(Character*);
     void generateBoulderAndSwitch();
-
+    void dropItem(Character*);
+    void useItem(Character*);
 
     Character* getHero();
 
