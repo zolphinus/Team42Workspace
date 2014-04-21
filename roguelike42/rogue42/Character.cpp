@@ -350,12 +350,12 @@ bool Character::unequipGear(int location)
         }
         else
             return false;
+
     }
     else
     {
         return false;
     }
-    //May edit later to try and push unequipped gear into inventory
 }
 
 int Character::getMaxInventorySize(){
@@ -380,6 +380,8 @@ bool Character::pickUp(Item* newItem)
 
 Item* Character::dropItem(int location)
 {
+    location = location - 1;
+
     Item* tempItem = NULL;
 
     if (location < inventory.size() && location >= 0)
