@@ -6,37 +6,45 @@
 #include <ctime>
 #include <algorithm>
 
-#include "Character.h"
-
 using std::cout;
 using std::cin;
 using std::endl;
 using std::string;
 
+/*
+Items have a char to represent what type of item they are:
+H = helm
+R = armor
+W = weapon
+A = accessory
+P = potion
+D = default
+*/
+
+enum itemType{
+    H,
+    R,
+    W,
+    A,
+    P,
+    D
+};
 
 class Item
 {
 public:
     Item();
+    Item(itemType newType);
+    void generateItem();
     void setName(string name);
     string getName();
-protected:
-    string itemName;
-};
+    void setType(itemType typeOfItem);
+    itemType getType();
+    void setYPos(int newY);
+    int getYPos();
+    void setXPos(int newX);
 
-class HealItem: public Item
-{
-public:
-    HealItem(string name);
-protected:
-    int HPAmount;
-    int SPAmount;
-};
-
-class Gear: public Item
-{
-public:
-    Gear(string name);
+    int getXPos();
     int getHPBuff();
     int getSPBuff();
     int getStrBuff();
@@ -47,87 +55,26 @@ public:
     void setStrBuff(int newValue);
     void setDefBuff(int newValue);
     void setSpdBuff(int newValue);
+
+    void setHPHeal(int pointsToHeal);
+    void setSPHeal(int pointsToHeal);
+    int getHPHeal();
+    int getSPHeal();
+
 protected:
+    string itemName;
+    itemType type;
+    int yPos, xPos;
+    //Stat bonuses from equipment
     int hpBonus;
     int spBonus;
     int strBonus;
     int defBonus;
     int spdBonus;
+    //How much potions should heal
+    int hpHealAmount;
+    int spHealAmount;
 };
 
-class Weapon: public Gear
-{
-};
 
-inline Gear::Gear(string name)
-{
-    itemName = name;
-    hpBonus = 0;
-    spBonus = 0;
-    strBonus = 0;
-    defBonus = 0;
-    spdBonus = 0;
-}
-
-inline void Item::setName(string name)
-{
-    itemName = name;
-}
-
-inline string Item::getName()
-{
-    return itemName;
-}
-
-inline int Gear::getHPBuff()
-{
-    return hpBonus;
-}
-
-inline int Gear::getSPBuff()
-{
-    return spBonus;
-}
-
-inline int Gear::getStrBuff()
-{
-    return strBonus;
-}
-
-inline int Gear::getDefBuff()
-{
-    return defBonus;
-}
-
-inline int Gear::getSpdBuff()
-{
-    return spdBonus;
-}
-
-inline void Gear::setHPBuff(int newValue)
-{
-    hpBonus = newValue;
-}
-
-inline void Gear::setSPBuff(int newValue)
-{
-    spBonus = newValue;
-}
-
-inline void Gear::setStrBuff(int newValue)
-{
-    strBonus = newValue;
-}
-
-inline void Gear::setDefBuff(int newValue)
-{
-    defBonus = newValue;
-}
-
-inline void Gear::setSpdBuff(int newValue)
-{
-    spdBonus = newValue;
-}
-
-
-#endif
+#endif //ITEM_H

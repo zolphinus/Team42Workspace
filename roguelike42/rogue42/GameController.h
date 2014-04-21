@@ -2,7 +2,12 @@
 #define GAME_CONTROLLER_H
 
 #include "Character.h"
-#include "MapRead.h"
+#include "MapReader.h"
+#include <vector>
+#include "MessageWindow.h"
+#include <string>
+#include "StatsWindow.h"
+#include "GameConfig.h"
 
 class Character;
 
@@ -11,21 +16,43 @@ class GameController{
 public:
     GameController();
     ~GameController();
+    void runGame();
     void heroTurn();
     void enemyTurns();
-    void makeMoves();
     void fight();
-    //void updateGameState(character&);
-    void makeHero();
-    void randomHero(Character*&);
-    void selectHero(Character*&);
+    void updateGameState();
+    void randomEnemy(Enemy*&);
+    void assignRandomLocation(Character*&);
+    void screenTestDriver();
+    void message(std::string);
+    void move(Character*); //conceptual
     Character* getHero();
 
 private:
+    int itemNum=0, enemyNum=0;
+    bool isPlaying;
     Character* hero;
-    //spot for MapReader Object
-    //spot for status window
-    bool playingGame;
+    std::vector <Enemy*> enemy;
+    std::vector <Item*> item;
+    MapReader* mapReader;
+    MessageWindow* messageWindow;
+    StatsWindow* statusWindow;
+
+    void makeHero();
+    void makeEnemies();
+    void startCurseStuff();
+    void randomHero(Character*&);
+    void selectHero(Character*&);
+    void cleanUp();
+    void updateMap(int y, int x);
+    void heroDead();
+    void winGame();
+    void generateLocation(Character*);
+    void makeMoves(Character*, int);
+    Character* findCharacter(int y, int x);
+
+    void moveBoulder(int yPos, int xPos, int direction);
+
     int floorsCleared;
 
 };

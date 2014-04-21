@@ -1,4 +1,5 @@
 #include "MessageWindow.h"
+#include "curses.h"
 
 MessageWindow::MessageWindow()
 {
@@ -7,7 +8,13 @@ MessageWindow::MessageWindow()
         MessageArray[arrayInitializer] = "";
     }
 
+    messageWindow = newwin(MESSAGE_WINDOW_HEIGHT,MESSAGE_WINDOW_WIDTH,17,0);
 
+}
+
+MessageWindow::~MessageWindow()
+{
+    delwin(messageWindow);
 }
 
 void MessageWindow::AddMessage(string stringToAdd)
@@ -24,26 +31,26 @@ void MessageWindow::AddMessage(string stringToAdd)
 
 void MessageWindow::PrintMessageWindow()
 {
-
-    initscr();//-------------------------curses stuff
-    cbreak();//--------------------------disables the buffer
-    curs_set(0);//-----------------------makes cursor invisible
-    start_color();//---------------------must be run before using color
+    //Displays the window with all blank spaces so when we print messages, it cleans up the trash automatically
+    werase(messageWindow);
 
     init_pair(2,COLOR_WHITE,COLOR_BLUE);
 
-    WINDOW *MessageWindow = newwin(MESSAGE_WINDOW_HEIGHT,MESSAGE_WINDOW_WIDTH,17,0);
-    wbkgd(MessageWindow, COLOR_PAIR(2));
+
+    wbkgd(messageWindow, COLOR_PAIR(2));
 
 
 
     for(int rowCounter = 7, arrayPos = 0; rowCounter>0; rowCounter--,arrayPos++)//This dual variable for loop prints bottom to top
     {                                                                           //and reads the array top to bottom
-        wmove(MessageWindow, rowCounter,0);
-        waddstr(MessageWindow, MessageArray[arrayPos].c_str());
+        wmove(messageWindow, rowCounter,0);
+        waddstr(messageWindow, MessageArray[arrayPos].c_str());
     }
 
-    wgetch(MessageWindow);
-    wrefresh(MessageWindow);
-    endwin();
+    //wgetch(messageWindow);   //shouldn't need this if we control the flow of our window properly
+    wrefresh(messageWindow);
+}
+
+WINDOW* MessageWindow::getMessageWindow(){
+    return messageWindow;
 }

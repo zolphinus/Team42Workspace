@@ -6,19 +6,29 @@
 #include <fstream>
 #include <cstring>
 #include <curses.h>
+#include <vector>
+#include "Character.h"
+#include "GameConfig.h"
+
 using namespace std;
+
+
+
 
 class MapReader
 {
 public:
-    MapReader(string);
-    void PrintWindow(int,int);
-    char floorMap[500][500];
+    MapReader(string,int&,int&);
+    ~MapReader();
+    void PrintWindow(int,int, std::vector <Enemy*>, std::vector <Item*>);
+    void ReadMap(string,int&,int&);
+    char floorMap[FLOOR_MAP_HEIGHT][FLOOR_MAP_WIDTH];
     char atPosition(int,int);//(y,x) like all of curse
-    #define MAP_WINDOW_HEIGHT 17
-    #define MAP_WINDOW_WIDTH  35
-private:
+    void setPosition(int,int, char);
+    WINDOW* getMapReader();
 
+private:
+    WINDOW *mapWindow;
     ifstream mapFile;
 
 };

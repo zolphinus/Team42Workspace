@@ -15,7 +15,7 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\..\..\..\..\..\Program Files (x86)\CodeBlocks\MinGW\lib\pdcurses.lib" />
+					<Add library="..\..\..\..\..\..\..\Program Files\CodeBlocks\MinGW\lib\pdcurses.lib" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -35,13 +35,9 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="Character.cpp" />
 		<Unit filename="Character.h" />
 		<Unit filename="GameController.cpp" />
 		<Unit filename="GameController.h" />
-		<Unit filename="Item.cpp" />
-		<Unit filename="Item.h" />
-		<Unit filename="MapRead.h" />
 		<Unit filename="MapReader.cpp" />
 		<Unit filename="MapReader.h" />
 		<Unit filename="MessageWindow.cpp" />
