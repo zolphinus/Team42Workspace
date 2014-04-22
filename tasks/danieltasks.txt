@@ -63,3 +63,16 @@ If you find this is quickly accomplished and want another task after, I believe 
 
 
 I think for our useHealing item and equip item functions, we need those to be handled in the character class. Ideally, the item class should not include nor care about the character class, and this will help us avoid circular dependancy before it's an issue.
+
+
+*****************************************************************
+Date:  4/17/14
+
+Update on progress:
+
+Character and Item classes pretty much done.  Not much more to be done unless bugs pop up.
+
+Suggestion for next task:
+
+Add new features to make the game even better!
+*****************************************************************

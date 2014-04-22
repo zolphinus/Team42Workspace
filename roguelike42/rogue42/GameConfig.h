@@ -10,7 +10,7 @@
 #define FLOOR_MAP_HEIGHT 32
 #define FLOOR_MAP_WIDTH 139
 
-#define NUMBER_OF_MAPS 2
+#define NUMBER_OF_MAPS 5
 
 enum itemType{
     H,
