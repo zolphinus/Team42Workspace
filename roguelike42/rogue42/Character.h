@@ -118,6 +118,25 @@ public:
     Slime();
 };
 
+class Orc: public Enemy
+{
+public:
+    Orc();
+};
+
+class Wolf: public Enemy
+{
+public:
+    Wolf();
+};
+
+
+class Giant: public Enemy
+{
+public:
+    Giant();
+};
+
 
 inline Character::Character()
 {

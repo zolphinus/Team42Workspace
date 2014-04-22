@@ -14,6 +14,16 @@ using std::endl;
 GameController::GameController()
 {
     initGame();
+    if(isTesting == TRUE)
+    {
+        enemyNum = 150;
+        itemNum = 100;
+        enemy.resize(enemyNum);
+        item.resize(itemNum);
+        makeEnemies();
+        makeItems();
+        genLocations();
+    }
 }
 
 GameController::~GameController()
@@ -87,6 +97,7 @@ void GameController::selectHero(Character *&hero){
             jobSelected = true;
             break;
         default :
+            clearConsole();
             cout << "PLEASE SELECT A JOB!!!" << endl;
         }
     }
@@ -121,14 +132,31 @@ void GameController::makeItems(){
 
 void GameController::randomEnemy(Enemy*& newEnemy){
     //INCREASE THIS MOD VALUE AS YOU ADD ENEMY TYPES TO FUNCTION
-    int temp = rand() % 1;
+    int temp = rand() % 13;
 
     //BE SURE TO USE INT VALUES AND NOT CHAR
-    switch(temp){
-    case 0:
+
+    if(temp >=0 && temp <= 6)
+    {
         newEnemy = new Slime();
-        break;
     }
+
+    if(temp >=7 && temp <= 10)
+    {
+        newEnemy = new Wolf();
+    }
+
+    if(temp >=11 && temp <= 12)
+    {
+        newEnemy = new Orc();
+    }
+
+    if(temp == 13)
+    {
+        newEnemy = new Giant();
+    }
+
+
 
 }
 
@@ -244,7 +272,15 @@ void GameController::move(Character* activeChar){
         goDownstairs(activeChar->getYPos(), activeChar->getXPos());
         break;
     case '>' :
-        message("TRY TO GO UPSTAIRS");
+        if(mapReader->atPosition(activeChar->getYPos(), activeChar->getXPos()) == '>')
+        {
+            message("A mysterious force prevents you from going upstairs!");
+        }
+        else
+        {
+            message("There are no stairs!");
+        }
+
         break;
     case 'p':
     case 'P' :
@@ -261,7 +297,7 @@ void GameController::move(Character* activeChar){
         break;
     case 's' :
     case 'S' :
-        message("SPECIAL ATTACK");
+        message("SPECIAL ATTACK NOT IMPLEMENTED YET");
         break;
     case 'd' :
     case 'D' :
@@ -332,7 +368,7 @@ void GameController::updateGameState(Character* currentChar){
         hero->levelUp();
     }
 
-    int floorsToWin = rand() % 5 + 3;
+    int floorsToWin = rand() % 5 + 4;
     if(floorsCleared >= floorsToWin)
     {
         winGame();
@@ -612,11 +648,13 @@ void GameController::genLocations(){
 
 void GameController::initGame(){
     srand(time(NULL));
-    enemyNum = rand() % 10 + 3;
-    itemNum = rand() % 10 + 40;
+
+    enemyNum = rand() % 10 + 8;
+    itemNum = rand() % 10 + 3;
     makeHero();
     switchesOnFloor = -1;
     storyline();
+    isTesting = false;
 
     startCurseStuff();
     messageWindow = new MessageWindow();
@@ -628,7 +666,7 @@ void GameController::initGame(){
     makeItems();
     genLocations();
     //Prepares the message window for display
-    message("");
+    message("You wake up in a daze.");
 
     statusWindow = new StatsWindow();
     statusWindow->PrintStatsWindow(hero);
@@ -729,9 +767,48 @@ void GameController::storyline(){
 
     cout << "PRESS ENTER TO CONTINUE";
     consoleWait();
+
+    clearConsole();
+
+    cout << "THE FALL OF CHIVALRY" << endl << endl << endl;
+    cout << "CONTROLS" << endl;
+    cout << "P - Pick Up Item" << endl;
+    cout << "D - Drop Item" << endl;
+    cout << "E - Equip Item" << endl;
+    cout << "U - Unequip Item" << endl;
+    cout << "I - Use Item" << endl;
+    cout << "< - Go Downstairs" << endl;
+    cout << "> - Go Upstairs" << endl;
+    cout << "S - Special Actions (not yet implemented)" << endl << endl;
+
+    cout << "ICONS" << endl;
+    cout << "P - Player" << endl;
+    cout << "E - Enemy"  << endl;
+    cout << "I - Item" << endl;
+    cout << "@ - Boulder" << endl;
+    cout << "% - Boulder Hole" << endl;
+    cout << "& - Boulder in Hole"  << endl;
+    cout << "< - Downstairs" << endl;
+    cout << "> - Upstairs" << endl << endl;
+
+    cout << "PRESS ENTER TO CONTINUE";
+    consoleWait();
+
+    clearConsole();
+
+    cout << "OBJECTIVE" << endl;
+
+    cout << "The goal of the game is to progress down through the floors of Adrienne's Castle" << endl;
+    cout << "Will you survive the Fall of Chivalry?" << endl << endl << endl << endl;
+
+    //Formatting the lazy way
+    cout << "PRESS ENTER TO CONTINUE" << endl << endl << endl << endl << endl << endl;
+    consoleWait();
+
 }
 
 void GameController::consoleWait(){
+    //Waits for user to press enter
     cin.sync();
     cin.get();
 }
@@ -1032,7 +1109,7 @@ void GameController::unequipItem(Character* tempChar){
 
         //ch needs to convert to 0 through 5
         switch(ch){
-        case 0:
+        case '0':
             inventoryIndex = 0;
             break;
         case '1':
@@ -1119,4 +1196,8 @@ void GameController::generateBoulderAndSwitch(){
             }
         }
     }
+}
+
+void GameController::testMode(bool testing){
+    isTesting = testing;
 }

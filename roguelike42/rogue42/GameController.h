@@ -19,16 +19,7 @@ public:
     void runGame();
     void screenTestDriver();
     void message(std::string);
-    void storyline();
-    void clearConsole();
-    void consoleWait();
-    void pickUpItem(Character*);
-    void removeItem(Item*);
-    void equipItem(Character*);
-    void unequipItem(Character*);
-    void generateBoulderAndSwitch();
-    void dropItem(Character*);
-    void useItem(Character*);
+    void testMode(bool);
 
     Character* getHero();
 
@@ -42,6 +33,7 @@ private:
     MapReader* mapReader;
     MessageWindow* messageWindow;
     StatsWindow* statusWindow;
+    bool isTesting;
 
     void makeHero();
     void makeEnemies();
@@ -75,6 +67,17 @@ private:
     void goDownstairs(int, int);
     int floorsCleared;
     int switchesOnFloor;
+
+    void storyline();
+    void clearConsole();
+    void consoleWait();
+    void pickUpItem(Character*);
+    void removeItem(Item*);
+    void equipItem(Character*);
+    void unequipItem(Character*);
+    void generateBoulderAndSwitch();
+    void dropItem(Character*);
+    void useItem(Character*);
 
 };
 

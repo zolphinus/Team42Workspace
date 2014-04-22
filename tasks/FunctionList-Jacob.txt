@@ -1,0 +1,60 @@
+Character Class - Function List
+-------------------------------
+
+Constructor - sets all stats to a default value.
+
+Getters/Setters for all stats
+
+void specialMove()
+Has a different use depending on job class.  Heals HP for the Healer and raises strength for Warrior.
+
+void generateChar()
+Sets character's stats and name.  Just used for testing purposes.
+
+void levelUp()
+If character has over 100 expPoints, then his stats will raise
+
+int attack(Character* opponent)
+Deal damage to opponent based on strength and defense.  Returns damage dealt to opponent.
+
+bool equipGear(Item* newGear)
+Takes item pointer as parameter and tries to push it into Character's heldGear vector.
+If it does, it returns true.  Otherwise, it returns false.
+
+bool unequipGear(int location)
+Takes an integer location and looks at that spot in the heldGear vector.  Then, it
+tries to put that item into the inventory vector if it's not full.  If inventory is full,
+the item is simply discarded.  If location value is greater than heldGear size, it 
+returns false.
+
+bool pickUp(Item* newItem)
+Takes an item pointer as a parameter.  Tries to push pointer into inventory if it isn't full.
+Returns true if successful and returns false otherwise.
+
+Item* dropItem(int location)
+Takes an integer location as a parameter.  Looks at that location in inventory and sets a 
+temporary pointer equal to it.  Then, the spot in the inventory is deleted and the temp
+pointer is returned.
+
+void useItem(Item* potion)
+Takes an Item pointer as a parameter.  If the item is a potion, then the player's 
+current HP and current SP are adjusted according to potion's variables.  If the item
+is not a potion, then the function does nothing.
+
+string getEquippedItem(itemType)
+Takes an itemType as a parameter.  Looks for that type of item in heldGear.  If that 
+type is found, returns that item's name.  If not found, returns a string "".
+-------------------------------
+
+Item  Class - Function List
+-------------------------------
+The item class has an enumerated type that determines the item's type.
+H= Helm, W = weapon, R = armor, A = accessory, P = potion, D = default.
+
+Constructor - sets all variables to default value
+
+Setters/Getters for all private variables
+
+void generateItem()
+Gives the item stats and a randomized name based off of its type.  
+If its type is default, this function will assign it a type.
