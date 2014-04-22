@@ -23,9 +23,12 @@ int main()
 {
     //srand(time(NULL)); // random seed for randomization of stats, when it matters
     //characterTestDriver();
-    gameControllerDriver();
+    //gameControllerDriver();
     //screenTestDriver();
 
+    GameController FallOfChivalry;
+
+    FallOfChivalry.runGame();
 
     return 0;
 }
@@ -100,6 +103,9 @@ void gameControllerDriver(){
     ourGame.message("LET'S BEGIN!");
     ourGame.message("[DISPLAY STORY STUFFS HERE]");
 
+
+    //Spawns large amounts of enemies/items
+    ourGame.testMode(TRUE);
     ourGame.runGame();
 
 

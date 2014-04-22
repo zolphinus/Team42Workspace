@@ -14,6 +14,16 @@ using std::endl;
 GameController::GameController()
 {
     initGame();
+    if(isTesting == TRUE)
+    {
+        enemyNum = 150;
+        itemNum = 100;
+        enemy.resize(enemyNum);
+        item.resize(itemNum);
+        makeEnemies();
+        makeItems();
+        genLocations();
+    }
 }
 
 GameController::~GameController()
@@ -638,11 +648,13 @@ void GameController::genLocations(){
 
 void GameController::initGame(){
     srand(time(NULL));
-    enemyNum = rand() % 10 + 3;
-    itemNum = rand() % 10 + 40;
+
+    enemyNum = rand() % 10 + 8;
+    itemNum = rand() % 10 + 3;
     makeHero();
     switchesOnFloor = -1;
     storyline();
+    isTesting = false;
 
     startCurseStuff();
     messageWindow = new MessageWindow();
@@ -654,7 +666,7 @@ void GameController::initGame(){
     makeItems();
     genLocations();
     //Prepares the message window for display
-    message("");
+    message("You wake up in a daze.");
 
     statusWindow = new StatsWindow();
     statusWindow->PrintStatsWindow(hero);
@@ -1184,4 +1196,8 @@ void GameController::generateBoulderAndSwitch(){
             }
         }
     }
+}
+
+void GameController::testMode(bool testing){
+    isTesting = testing;
 }
