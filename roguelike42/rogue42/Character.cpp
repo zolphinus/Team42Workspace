@@ -340,7 +340,7 @@ bool Character::equipGear(Item* newGear)
 
 bool Character::unequipGear(int location)
 {
-    if (location < heldGear.size() && location > 0)
+    if (location < heldGear.size() && location > -1)
     {
         //If inventory isn't full, moves gear to bag. Else, cannot make action.
         if(inventory.size() < maxInventorySize){
@@ -472,14 +472,48 @@ void Enemy::generateChar()
 Slime::Slime()
 {
     name = "Slime";
-    maxHP = 10;
+    maxHP = rand() % 5 + 5;
     currentHP = maxHP;
     strength = strength - 3;
     defense = defense - 3;
     speed = speed - 1;
-    expPoints = 18;
+    expPoints = 15 + rand() % 4 - rand() % 4;
 
 }
+
+Wolf::Wolf()
+{
+    name = "Wolf";
+    maxHP = maxHP = rand() % 7 + 8;
+    currentHP = maxHP;
+    strength = strength + 1;
+    defense = defense - 1;
+    speed = speed + 2;
+    expPoints = 21 + rand() % 5 - rand() % 5;
+}
+
+Orc::Orc()
+{
+    name = "Orc";
+    maxHP = maxHP = rand() % 10 + 15;
+    currentHP = maxHP;
+    strength = strength + rand() % 3 + 3;
+    defense = defense - 1 +  rand() % 3;
+    speed = speed - 2;
+    expPoints = 28 + rand() % 6 - rand() % 5;
+}
+
+Giant::Giant()
+{
+    name = "Giant";
+    maxHP = maxHP = rand() % 20 + 30;
+    currentHP = maxHP;
+    strength = strength + rand() % 8 + 6;
+    defense = defense - 4 +  rand() % 8;
+    speed = speed + 2 - rand() % 7;
+    expPoints =  32 + rand() % 15 - rand() % 6;
+}
+
 
 
 void Character::specialMove()
