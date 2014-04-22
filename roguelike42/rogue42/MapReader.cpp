@@ -55,6 +55,41 @@ void MapReader::PrintWindow(int characterPosY, int characterPosX, std::vector <E
     init_pair(1,COLOR_CYAN,COLOR_BLACK);//----Initialize color pair
     wbkgd(mapWindow, COLOR_PAIR(1));
 
+    for(int column=0; column<MAP_WINDOW_WIDTH; column ++)
+    {
+        for(int row=0; row<MAP_WINDOW_HEIGHT; row++)
+        {
+            YHolder = startPrintY + row;
+            if (YHolder >= 31){
+                YHolder = 0;
+            }
+            if (YHolder < 0){
+                YHolder = 0;
+            }
+
+            XHolder = startPrintX + column;
+            if (XHolder >= 139){
+                XHolder = 0;
+            }
+
+            if (XHolder < 0){
+                XHolder = 0;
+            }
+
+            wmove(mapWindow, row,column);
+
+            if(floorMap[YHolder][XHolder] == '#')
+            {
+                waddch(mapWindow, '#');
+            }
+            else{
+
+                waddch(mapWindow, floorMap[YHolder][XHolder]);
+
+            }
+        }
+    }
+
     for(int column=20; column<31; column ++)
     {
         for(int row=4; row<13; row++)
